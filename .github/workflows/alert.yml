@@ -1,0 +1,36 @@
+name: Reservation Alert (Every 4h)
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'  # 每 4 小時（UTC）：01/05/09/13/17/21 台灣時間
+  workflow_dispatch:         # 允許手動觸發
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run alert check
+        env:
+          STUDIOA_TOKEN:    ${{ secrets.STUDIOA_TOKEN }}
+          DISCORD_WEBHOOK:  ${{ secrets.DISCORD_WEBHOOK }}
+        run: python alert.py
+
+      - name: Commit updated alert state
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state/
+          git diff --cached --quiet || git commit -m "chore: update alert state $(date -u +'%Y-%m-%d %H:%M')"
+          git push
