@@ -33,4 +33,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add state/
           git diff --cached --quiet || git commit -m "chore: update alert state $(date -u +'%Y-%m-%d %H:%M')"
+          git pull --rebase origin main
           git push
