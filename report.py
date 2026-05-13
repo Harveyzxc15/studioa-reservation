@@ -385,9 +385,9 @@ def send_discord(cfg, stats, today_str, yesterday):
         },
         {
             "title":       f"🆕 今日新增（共 {len(new_items)} 筆）",
-            "description": "\n".join(new_lines),
+            "description": "\n".join(new_lines) + f"\n\n[📊 查看完整報表]({cfg.get('pages_url','')})",
             "color":       0x1abc9c,
-            "footer":      {"text": f"自動報表 · 每日 09:00 更新　｜　📊 完整報表：{cfg.get('pages_url','')}"},
+            "footer":      {"text": "自動報表 · 每日 09:00 更新"},
             "timestamp":   datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         },
     ]
