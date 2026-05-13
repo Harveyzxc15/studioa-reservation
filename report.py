@@ -370,7 +370,7 @@ def send_discord(cfg, stats, today_str, yesterday):
             "title":       f"🆕 今日新增（共 {len(new_items)} 筆）",
             "description": "\n".join(new_lines),
             "color":       0x1abc9c,
-            "footer":      {"text": "自動報表 · 每日 09:00 更新"},
+            "footer":      {"text": "自動報表 · 每日 09:00 更新　｜　📊 完整報表：https://harveyzxc15.github.io/studioa-reservation/"},
             "timestamp":   datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         },
     ]
