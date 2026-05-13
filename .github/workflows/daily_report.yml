@@ -3,13 +3,15 @@ name: Daily Report (9 AM)
 on:
   schedule:
     - cron: '0 1 * * *'   # 每天 09:00 台灣時間（UTC+8 → UTC 01:00）
-  workflow_dispatch:        # 允許手動觸發
+  workflow_dispatch:
 
 jobs:
   report:
     runs-on: ubuntu-latest
     permissions:
-      contents: write       # 允許 commit state 回 repo
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
@@ -27,11 +29,11 @@ jobs:
           DISCORD_WEBHOOK:  ${{ secrets.DISCORD_WEBHOOK }}
         run: python report.py
 
-      - name: Commit updated history
+      - name: Commit updated state & HTML
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add state/
-          git diff --cached --quiet || git commit -m "chore: update history $(date -u +'%Y-%m-%d %H:%M')"
+          git add state/ docs/
+          git diff --cached --quiet || git commit -m "chore: daily report $(date -u +'%Y-%m-%d')"
           git pull --rebase origin main
           git push

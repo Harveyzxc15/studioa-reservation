@@ -74,6 +74,19 @@ def fetch_all_reservations(cfg):
 
     return all_items
 
+# ── 產品名稱精簡化 ────────────────────────────────────────────────────
+def short_spec(product):
+    """'MacBook Neo (13吋，A18 Pro) (8GB/512GB) / 四色/胭粉色' → '8GB/512GB｜胭粉色'"""
+    first  = product.find("(")
+    second = product.find("(", first + 1) if first != -1 else -1
+    if second == -1:
+        return product
+    rest = product[second + 1:].replace("四色/", "").replace("雙色/", "")
+    if ") / " in rest:
+        spec, color = rest.split(") / ", 1)
+        return f"{spec}｜{color.strip()}"
+    return rest.rstrip(")")
+
 # 型號縮寫（Discord 訊息用）
 MODEL_SHORT = {
     "MacBook Neo":    "Neo",
@@ -204,20 +217,6 @@ def send_discord(cfg, stats, today_str, yesterday):
         f"📦 **已配貨待取機：{total_allocated} 人**（較昨日 {diff_label(total_allocated, prev_allocated)}）",
         f"🆕 今日新進等待池：{today_new_count} 筆",
     ]
-
-    # ── 共用輔助：產品名稱精簡化 ─────────────────────────────────────
-    def short_spec(product):
-        """'MacBook Neo (13吋，A18 Pro) (8GB/512GB) / 四色/胭粉色'
-           → '8GB/512GB｜胭粉色'"""
-        first  = product.find("(")
-        second = product.find("(", first + 1) if first != -1 else -1
-        if second == -1:
-            return product
-        rest = product[second + 1:].replace("四色/", "").replace("雙色/", "")
-        if ") / " in rest:
-            spec, color = rest.split(") / ", 1)
-            return f"{spec}｜{color.strip()}"
-        return rest.rstrip(")")
 
     # ── Embed 2 & 3：各型號規格「已預約」明細 ────────────────────────
     model_embed_colors = {
@@ -380,6 +379,211 @@ def send_discord(cfg, stats, today_str, yesterday):
     resp.raise_for_status()
     print(f"  ✅ Discord 通知已發送（{resp.status_code}）")
 
+# ── HTML 報表 ─────────────────────────────────────────────────────────
+def generate_html(cfg, stats, today_str, history):
+    models      = list(cfg["activities"].keys())
+    shops       = cfg.get("shops", [])
+    MODEL_COLOR = {"MacBook Neo": "#9b59b6", "MacBook Air M5": "#3498db"}
+    MODEL_SHORT = {"MacBook Neo": "Neo", "MacBook Air M5": "Air M5"}
+    MODEL_DOT   = {"MacBook Neo": "🟣", "MacBook Air M5": "🔵"}
+
+    total_active    = sum(stats["by_model_active"].values())
+    total_allocated = sum(stats["by_model_allocated"].values())
+    today_new_count = len(stats["today_new"])
+
+    # ── 折線圖資料（歷史）──────────────────────────────────────────────
+    sorted_dates = sorted(history.keys())
+    chart_labels = json.dumps(sorted_dates, ensure_ascii=False)
+    chart_datasets = []
+    palette = {"MacBook Neo": "#9b59b6", "MacBook Air M5": "#3498db"}
+    for model in models:
+        vals = [history[d].get("by_model_active", {}).get(model, 0) for d in sorted_dates]
+        chart_datasets.append({
+            "label":           MODEL_DOT.get(model, "") + " " + model,
+            "data":            vals,
+            "borderColor":     palette.get(model, "#888"),
+            "backgroundColor": palette.get(model, "#888") + "22",
+            "tension":         0.4,
+            "fill":            True,
+            "pointRadius":     4,
+            "pointHoverRadius": 6,
+        })
+    chart_datasets_json = json.dumps(chart_datasets, ensure_ascii=False)
+
+    # ── 規格明細 HTML ──────────────────────────────────────────────────
+    spec_cards = ""
+    for model in models:
+        color        = MODEL_COLOR.get(model, "#888")
+        dot          = MODEL_DOT.get(model, "")
+        active_total = stats["by_model_active"].get(model, 0)
+        alloc_total  = stats["by_model_allocated"].get(model, 0)
+
+        active_rows = ""
+        for spec, cnt in sorted(stats["by_model_prod_active"].get(model, {}).items(), key=lambda x: -x[1]):
+            pct = round(cnt / active_total * 100) if active_total else 0
+            active_rows += f'<tr><td>{short_spec(spec)}</td><td class="num">{cnt}</td><td><div class="bar-wrap"><div class="bar" style="width:{pct}%;background:{color}"></div></div></td></tr>'
+
+        alloc_rows = ""
+        for spec, cnt in sorted(stats["by_model_prod_allocated"].get(model, {}).items(), key=lambda x: -x[1]):
+            alloc_rows += f'<tr><td>{short_spec(spec)}</td><td class="num">{cnt}</td><td></td></tr>'
+        alloc_section = f'<div class="alloc-label">📦 已配貨待取機：{alloc_total} 人</div><table class="spec-table"><thead><tr><th>規格</th><th>人數</th><th></th></tr></thead><tbody>{alloc_rows or "<tr><td colspan=3 class=muted>無</td></tr>"}</tbody></table>'
+
+        spec_cards += f'<div class="card" style="border-top:4px solid {color}"><div class="card-title">{dot} {model}</div><div class="stat-row"><div class="stat-box"><div class="stat-num">{active_total}</div><div class="stat-label">📌 等待到貨</div></div><div class="stat-box"><div class="stat-num">{alloc_total}</div><div class="stat-label">📦 已配貨</div></div></div><div class="section-label">等待到貨規格</div><table class="spec-table"><thead><tr><th>規格</th><th>人數</th><th></th></tr></thead><tbody>{active_rows or "<tr><td colspan=3 class=muted>無</td></tr>"}</tbody></table>{alloc_section}</div>'
+
+    # ── 門市 HTML ──────────────────────────────────────────────────────
+    store_rows = ""
+    for store in shops:
+        active = stats["by_store_model_active"].get(store, {})
+        alloc  = stats["by_store_model_allocated"].get(store, {})
+        total  = sum(active.get(m, 0) for m in models)
+        neo    = active.get("MacBook Neo", 0)
+        air    = active.get("MacBook Air M5", 0)
+        a_parts = []
+        if alloc.get("MacBook Neo"): a_parts.append(f'🟣{alloc["MacBook Neo"]}')
+        if alloc.get("MacBook Air M5"): a_parts.append(f'🔵{alloc["MacBook Air M5"]}')
+        alloc_str = " ".join(a_parts) if a_parts else "—"
+        store_rows += f'<tr><td class="store-name">{store}</td><td class="num">{total}</td><td><span class="neo-badge">🟣 {neo}</span></td><td><span class="air-badge">🔵 {air}</span></td><td class="alloc-cell">{alloc_str}</td></tr>'
+
+    # ── 今日新增 HTML ──────────────────────────────────────────────────
+    new_by_store = defaultdict(lambda: defaultdict(list))
+    for it in stats["today_new"]:
+        new_by_store[it["store"]][it["model"]].append(it["product"])
+
+    new_rows = ""
+    for store in sorted(new_by_store):
+        for model in models:
+            prods = new_by_store[store].get(model, [])
+            if not prods: continue
+            specs = defaultdict(int)
+            for p in prods: specs[p] += 1
+            for spec, cnt in specs.items():
+                badge_color = "#9b59b6" if model == "MacBook Neo" else "#3498db"
+                label = MODEL_SHORT.get(model, model)
+                cnt_str = f" ×{cnt}" if cnt > 1 else ""
+                new_rows += f'<tr><td><span class="badge" style="background:{badge_color}">{label}</span></td><td>{store}</td><td>{short_spec(spec)}{cnt_str}</td></tr>'
+
+    new_section = (
+        f"<table class='data-table'><thead><tr><th>型號</th><th>門市</th><th>規格</th></tr></thead><tbody>{new_rows}</tbody></table>"
+        if new_rows else "<div class='empty'>今日尚無新增預約</div>"
+    )
+
+    html = f"""<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Studio A 預約日報 {today_str}</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{{box-sizing:border-box;margin:0;padding:0}}
+body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f4f6f9;color:#2c3e50;padding:24px}}
+h1{{font-size:22px;font-weight:700;margin-bottom:4px}}
+.subtitle{{color:#7f8c8d;font-size:13px;margin-bottom:24px}}
+.overview{{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}}
+.ov-box{{background:#fff;border-radius:12px;padding:20px 28px;flex:1;min-width:130px;box-shadow:0 1px 4px rgba(0,0,0,.08)}}
+.ov-num{{font-size:36px;font-weight:800}}
+.ov-label{{font-size:12px;color:#7f8c8d;margin-top:4px}}
+.green .ov-num{{color:#27ae60}}.purple .ov-num{{color:#9b59b6}}
+.blue .ov-num{{color:#3498db}}.orange .ov-num{{color:#e67e22}}
+.chart-card{{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:24px}}
+.chart-card h2{{font-size:15px;font-weight:700;margin-bottom:16px;color:#34495e}}
+.section-title{{font-size:15px;font-weight:700;margin:24px 0 12px;color:#34495e}}
+.cards{{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}}
+@media(max-width:700px){{.cards{{grid-template-columns:1fr}}}}
+.card{{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}}
+.card-title{{font-size:16px;font-weight:700;margin-bottom:14px}}
+.stat-row{{display:flex;gap:12px;margin-bottom:16px}}
+.stat-box{{background:#f8f9fa;border-radius:8px;padding:10px 16px;flex:1;text-align:center}}
+.stat-num{{font-size:26px;font-weight:800}}
+.stat-label{{font-size:11px;color:#7f8c8d;margin-top:2px}}
+.section-label{{font-size:11px;font-weight:600;color:#7f8c8d;margin:12px 0 6px;text-transform:uppercase;letter-spacing:.5px}}
+.alloc-label{{font-size:12px;font-weight:600;color:#e67e22;margin:14px 0 6px}}
+.spec-table{{width:100%;border-collapse:collapse;font-size:13px}}
+.spec-table th{{text-align:left;padding:6px 8px;border-bottom:2px solid #eee;color:#7f8c8d;font-size:11px;font-weight:600}}
+.spec-table td{{padding:7px 8px;border-bottom:1px solid #f0f0f0}}
+.bar-wrap{{background:#f0f0f0;border-radius:4px;height:6px;width:100px}}
+.bar{{height:6px;border-radius:4px}}
+.data-table{{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);font-size:14px}}
+.data-table th{{padding:10px 14px;background:#f8f9fa;text-align:left;font-size:12px;color:#7f8c8d;font-weight:600}}
+.data-table td{{padding:12px 14px;border-bottom:1px solid #f0f0f0}}
+.store-name{{font-weight:700}}.num{{text-align:right;font-weight:700}}
+.neo-badge{{background:#f3e8ff;color:#7c3aed;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600}}
+.air-badge{{background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600}}
+.alloc-cell{{font-size:13px;color:#e67e22;font-weight:600}}
+.badge{{color:#fff;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600}}
+.muted{{color:#aaa}}.empty{{background:#fff;border-radius:12px;padding:20px;text-align:center;color:#aaa;box-shadow:0 1px 4px rgba(0,0,0,.08)}}
+.footer{{margin-top:32px;text-align:center;font-size:12px;color:#bdc3c7}}
+</style>
+</head>
+<body>
+<h1>📱 Studio A 新機預約日報</h1>
+<div class="subtitle">{today_str} · 北一區六門市</div>
+
+<div class="overview">
+  <div class="ov-box green"><div class="ov-num">{total_active}</div><div class="ov-label">📌 等待到貨總人數</div></div>
+  <div class="ov-box orange"><div class="ov-num">{total_allocated}</div><div class="ov-label">📦 已配貨待取機</div></div>
+  <div class="ov-box purple"><div class="ov-num">{stats["by_model_active"].get("MacBook Neo",0)}</div><div class="ov-label">🟣 MacBook Neo 等待</div></div>
+  <div class="ov-box blue"><div class="ov-num">{stats["by_model_active"].get("MacBook Air M5",0)}</div><div class="ov-label">🔵 MacBook Air M5 等待</div></div>
+  <div class="ov-box"><div class="ov-num">{today_new_count}</div><div class="ov-label">🆕 今日新增預約</div></div>
+</div>
+
+<div class="chart-card">
+  <h2>📈 等待到貨人數走勢</h2>
+  <canvas id="trendChart" height="90"></canvas>
+</div>
+
+<div class="section-title">各型號規格明細</div>
+<div class="cards">{spec_cards}</div>
+
+<div class="section-title">各門市明細</div>
+<table class="data-table">
+  <thead><tr><th>門市</th><th style="text-align:right">等待</th><th>Neo</th><th>Air M5</th><th>已配貨</th></tr></thead>
+  <tbody>{store_rows}</tbody>
+</table>
+
+<div class="section-title">今日新增（共 {today_new_count} 筆）</div>
+{new_section}
+
+<div class="footer">自動報表 · Studio A 北一區 · {today_str}</div>
+
+<script>
+const ctx = document.getElementById('trendChart').getContext('2d');
+new Chart(ctx, {{
+  type: 'line',
+  data: {{
+    labels: {chart_labels},
+    datasets: {chart_datasets_json}
+  }},
+  options: {{
+    responsive: true,
+    interaction: {{ mode: 'index', intersect: false }},
+    plugins: {{
+      legend: {{ position: 'top' }},
+      tooltip: {{
+        callbacks: {{
+          label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + ' 人'
+        }}
+      }}
+    }},
+    scales: {{
+      y: {{
+        beginAtZero: false,
+        ticks: {{ callback: v => v + ' 人' }}
+      }}
+    }}
+  }}
+}});
+</script>
+</body>
+</html>"""
+
+    out_path = REPO_DIR / "docs" / "index.html"
+    out_path.parent.mkdir(exist_ok=True)
+    out_path.write_text(html, encoding="utf-8")
+    print(f"  ✅ HTML 報表已產生：{out_path}")
+    return out_path
+
+
 # ── 主程式 ────────────────────────────────────────────────────────────
 def main():
     cfg       = load_config()
@@ -398,6 +602,13 @@ def main():
     history   = load_history(cfg)
     yesterday = get_yesterday(history, today_str)
     save_history(cfg, today_str, stats)
+    history   = load_history(cfg)   # reload with today included for chart
+
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] 產生 HTML 報表...")
+    try:
+        generate_html(cfg, stats, today_str, history)
+    except Exception as e:
+        print(f"⚠️  HTML 產生失敗（不影響 Discord）：{e}")
 
     print(f"[{datetime.now().strftime('%H:%M:%S')}] 發送 Discord 通知...")
     try:
