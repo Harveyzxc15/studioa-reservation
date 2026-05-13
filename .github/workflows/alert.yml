@@ -25,7 +25,7 @@ jobs:
         env:
           STUDIOA_TOKEN:    ${{ secrets.STUDIOA_TOKEN }}
           DISCORD_WEBHOOK:  ${{ secrets.DISCORD_WEBHOOK }}
-        run: python alert.py
+        run: python alert.py --region n1
 
       - name: Commit updated alert state
         run: |

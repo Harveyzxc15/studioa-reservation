@@ -1,17 +1,15 @@
-name: Daily Report (9 AM)
+name: Alert N2 (Every 4h)
 
 on:
   schedule:
-    - cron: '0 1 * * *'   # 每天 09:00 台灣時間（UTC+8 → UTC 01:00）
+    - cron: '10 */4 * * *'  # 每 4 小時，與北一區錯開10分鐘
   workflow_dispatch:
 
 jobs:
-  report:
+  alert:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pages: write
-      id-token: write
 
     steps:
       - uses: actions/checkout@v4
@@ -23,17 +21,17 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run daily report
+      - name: Run alert check (北二區)
         env:
-          STUDIOA_TOKEN:    ${{ secrets.STUDIOA_TOKEN }}
-          DISCORD_WEBHOOK:  ${{ secrets.DISCORD_WEBHOOK }}
-        run: python report.py --region n1
+          STUDIOA_TOKEN:       ${{ secrets.STUDIOA_TOKEN }}
+          DISCORD_WEBHOOK_N2:  ${{ secrets.DISCORD_WEBHOOK_N2 }}
+        run: python alert.py --region n2
 
-      - name: Commit updated state & HTML
+      - name: Commit updated alert state
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add state/ docs/
-          git diff --cached --quiet || git commit -m "chore: daily report $(date -u +'%Y-%m-%d')"
+          git add state/
+          git diff --cached --quiet || git commit -m "chore: n2 alert state $(date -u +'%Y-%m-%d %H:%M')"
           git pull --rebase origin main
           git push

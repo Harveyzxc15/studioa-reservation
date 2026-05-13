@@ -4,6 +4,7 @@ Studio A 新機預約自動通知
 每天早上9點自動執行，透過 Discord 傳送 MacBook Neo / MacBook Air M5 預約摘要
 """
 
+import argparse
 import json
 import os
 import sys
@@ -17,28 +18,40 @@ warnings.filterwarnings("ignore")
 import requests
 
 CONFIG_PATH = Path.home() / "studioa_reservation_config.json"
+REPO_DIR    = Path(__file__).parent
 
-# GitHub Actions 執行時從環境變數注入敏感資訊
-REPO_DIR = Path(__file__).parent
+def load_config(region: str = "n1"):
+    """載入設定：本機用 JSON 檔，GitHub Actions 用環境變數 + region 設定檔"""
+    region_cfg = json.loads((REPO_DIR / "regions" / f"{region}.json").read_text())
 
-def load_config():
     if CONFIG_PATH.exists():
         with open(CONFIG_PATH) as f:
-            cfg = json.load(f)
+            base = json.load(f)
+        # 本機模式：用 region 設定覆蓋 shops / history_file
+        base["shops"]           = region_cfg["shops"]
+        base["history_file"]    = str(REPO_DIR / region_cfg["history_file"])
+        base["html_output"]     = str(REPO_DIR / region_cfg["html_output"])
+        base["pages_url"]       = region_cfg["pages_url"]
+        base["region_name"]     = region_cfg["name"]
+        # 本機以 discord_webhook 欄位為主（不分區）
+        return base
     else:
-        # GitHub Actions 模式：從環境變數讀取
-        cfg = {
+        # GitHub Actions 模式
+        webhook_key = region_cfg["webhook_env"]
+        return {
             "token":           os.environ["STUDIOA_TOKEN"],
             "base_url":        "https://www.studioa.com.tw/backend/api/shopcms",
             "activities": {
                 "MacBook Neo":    "3a1ff33e-40e5-9fc9-349b-9ac47b354fb0",
                 "MacBook Air M5": "3a1ff280-2379-5b06-7c11-319979aa2c59",
             },
-            "shops":           ["士林", "大葉高島屋", "微風", "羅東", "美麗華", "阿波羅"],
-            "history_file":    str(REPO_DIR / "state" / "history.json"),
-            "discord_webhook": os.environ["DISCORD_WEBHOOK"],
+            "shops":           region_cfg["shops"],
+            "history_file":    str(REPO_DIR / region_cfg["history_file"]),
+            "html_output":     str(REPO_DIR / region_cfg["html_output"]),
+            "pages_url":       region_cfg["pages_url"],
+            "region_name":     region_cfg["name"],
+            "discord_webhook": os.environ[webhook_key],
         }
-    return cfg
 
 # ── API ───────────────────────────────────────────────────────────────
 def fetch_all_reservations(cfg):
@@ -62,6 +75,10 @@ def fetch_all_reservations(cfg):
         data = resp.json()["data"]
 
         items = data["userReservationListOutDtos"]["items"]
+        # 正規化門市名稱（去除前後空白）
+        for it in items:
+            if it.get("shopName"):
+                it["shopName"] = it["shopName"].strip()
         # 只保留屬於我方門市的資料
         if my_shops:
             items = [it for it in items if it.get("shopName") in my_shops]
@@ -370,7 +387,7 @@ def send_discord(cfg, stats, today_str, yesterday):
             "title":       f"🆕 今日新增（共 {len(new_items)} 筆）",
             "description": "\n".join(new_lines),
             "color":       0x1abc9c,
-            "footer":      {"text": "自動報表 · 每日 09:00 更新　｜　📊 完整報表：https://harveyzxc15.github.io/studioa-reservation/"},
+            "footer":      {"text": f"自動報表 · 每日 09:00 更新　｜　📊 完整報表：{cfg.get('pages_url','')}"},
             "timestamp":   datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         },
     ]
@@ -517,7 +534,7 @@ h1{{font-size:22px;font-weight:700;margin-bottom:4px}}
 </head>
 <body>
 <h1>📱 Studio A 新機預約日報</h1>
-<div class="subtitle">{today_str} · 北一區六門市</div>
+<div class="subtitle">{today_str} · {cfg.get("region_name","")}{len(shops)} 門市</div>
 
 <div class="overview">
   <div class="ov-box green"><div class="ov-num">{total_active}</div><div class="ov-label">📌 等待到貨總人數</div></div>
@@ -544,7 +561,7 @@ h1{{font-size:22px;font-weight:700;margin-bottom:4px}}
 <div class="section-title">今日新增（共 {today_new_count} 筆）</div>
 {new_section}
 
-<div class="footer">自動報表 · Studio A 北一區 · {today_str}</div>
+<div class="footer">自動報表 · Studio A {cfg.get("region_name","")} · {today_str}</div>
 
 <script>
 const ctx = document.getElementById('trendChart').getContext('2d');
@@ -577,8 +594,8 @@ new Chart(ctx, {{
 </body>
 </html>"""
 
-    out_path = REPO_DIR / "docs" / "index.html"
-    out_path.parent.mkdir(exist_ok=True)
+    out_path = Path(cfg.get("html_output", str(REPO_DIR / "docs" / "index.html")))
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(html, encoding="utf-8")
     print(f"  ✅ HTML 報表已產生：{out_path}")
     return out_path
@@ -586,7 +603,12 @@ new Chart(ctx, {{
 
 # ── 主程式 ────────────────────────────────────────────────────────────
 def main():
-    cfg       = load_config()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--region", default="n1", choices=["n1", "n2"],
+                        help="執行區域：n1=北一區, n2=北二區")
+    args = parser.parse_args()
+
+    cfg       = load_config(args.region)
     today_str = datetime.now().strftime("%Y/%m/%d")
 
     print(f"[{datetime.now().strftime('%H:%M:%S')}] 開始抓取預約資料...")

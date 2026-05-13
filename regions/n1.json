@@ -1,0 +1,9 @@
+{
+  "name": "北一區",
+  "shops": ["士林", "大葉高島屋", "微風", "羅東", "美麗華", "阿波羅"],
+  "webhook_env": "DISCORD_WEBHOOK",
+  "history_file": "state/history_n1.json",
+  "alert_state_file": "state/alert_state_n1.json",
+  "html_output": "docs/index.html",
+  "pages_url": "https://harveyzxc15.github.io/studioa-reservation/"
+}

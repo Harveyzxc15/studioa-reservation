@@ -4,6 +4,7 @@ Studio A 預約即時異動通知
 每 4 小時執行，有異動才推送 Discord（新增預約 / 取消 / 放棄）
 """
 
+import argparse
 import json
 import os
 import sys
@@ -15,15 +16,21 @@ from pathlib import Path
 warnings.filterwarnings("ignore")
 import requests
 
-CONFIG_PATH  = Path.home() / "studioa_reservation_config.json"
-REPO_DIR     = Path(__file__).parent
-STATE_PATH   = REPO_DIR / "state" / "alert_state.json"
+CONFIG_PATH = Path.home() / "studioa_reservation_config.json"
+REPO_DIR    = Path(__file__).parent
 
-def load_config():
+def load_config(region: str = "n1"):
+    region_cfg = json.loads((REPO_DIR / "regions" / f"{region}.json").read_text())
+
     if CONFIG_PATH.exists():
         with open(CONFIG_PATH) as f:
-            return json.load(f)
+            base = json.load(f)
+        base["shops"]            = region_cfg["shops"]
+        base["alert_state_file"] = str(REPO_DIR / region_cfg["alert_state_file"])
+        base["region_name"]      = region_cfg["name"]
+        return base
     # GitHub Actions 模式
+    webhook_key = region_cfg["webhook_env"]
     return {
         "token":           os.environ["STUDIOA_TOKEN"],
         "base_url":        "https://www.studioa.com.tw/backend/api/shopcms",
@@ -31,8 +38,10 @@ def load_config():
             "MacBook Neo":    "3a1ff33e-40e5-9fc9-349b-9ac47b354fb0",
             "MacBook Air M5": "3a1ff280-2379-5b06-7c11-319979aa2c59",
         },
-        "shops":           ["士林", "大葉高島屋", "微風", "羅東", "美麗華", "阿波羅"],
-        "discord_webhook": os.environ["DISCORD_WEBHOOK"],
+        "shops":           region_cfg["shops"],
+        "alert_state_file": str(REPO_DIR / region_cfg["alert_state_file"]),
+        "region_name":     region_cfg["name"],
+        "discord_webhook": os.environ[webhook_key],
     }
 
 # ── API ───────────────────────────────────────────────────────────────
@@ -54,6 +63,9 @@ def fetch_items(cfg):
         resp = requests.get(url, headers=headers, timeout=30)
         resp.raise_for_status()
         dto = resp.json()["data"]["userReservationListOutDtos"]
+        for it in dto["items"]:
+            if it.get("shopName"):
+                it["shopName"] = it["shopName"].strip()
         items = [it for it in dto["items"] if it.get("shopName") in my_shops]
         all_items.extend(items)
         if skip + ps >= dto["totalCount"]:
@@ -88,11 +100,14 @@ def summarise(items, cfg):
     }
 
 # ── 狀態存取 ──────────────────────────────────────────────────────────
-def load_state():
-    return json.loads(STATE_PATH.read_text()) if STATE_PATH.exists() else None
+def load_state(cfg):
+    p = Path(cfg.get("alert_state_file", str(REPO_DIR / "state" / "alert_state_n1.json")))
+    return json.loads(p.read_text()) if p.exists() else None
 
-def save_state(state):
-    STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2))
+def save_state(cfg, state):
+    p = Path(cfg.get("alert_state_file", str(REPO_DIR / "state" / "alert_state_n1.json")))
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(state, ensure_ascii=False, indent=2))
 
 # ── 差異計算 ──────────────────────────────────────────────────────────
 MODEL_DOT   = {"MacBook Neo": "🟣", "MacBook Air M5": "🔵"}
@@ -170,11 +185,12 @@ def send_alert(cfg, changes, curr, now_str):
     desc = "\n\n".join(changes)
     desc += f"\n\n> 目前等待到貨：**{total} 人**　{model_str}"
 
+    region_name = cfg.get("region_name", "")
     embed = {
-        "title":       f"⚡ 預約異動通知　{now_str}",
+        "title":       f"⚡ {region_name} 預約異動通知　{now_str}",
         "description": desc,
         "color":       0xf39c12,
-        "footer":      {"text": "每 4 小時偵測一次"},
+        "footer":      {"text": f"{region_name} · 每 4 小時偵測一次"},
         "timestamp":   datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
 
@@ -186,7 +202,11 @@ def send_alert(cfg, changes, curr, now_str):
 
 # ── 主程式 ────────────────────────────────────────────────────────────
 def main():
-    cfg     = load_config()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--region", default="n1", choices=["n1", "n2"],
+                        help="執行區域：n1=北一區, n2=北二區")
+    args   = parser.parse_args()
+    cfg    = load_config(args.region)
     now     = datetime.now()
     now_str = now.strftime("%Y/%m/%d %H:%M")
 
@@ -199,11 +219,11 @@ def main():
 
     print(f"  ✅ 取得 {len(items)} 筆資料")
     curr  = summarise(items, cfg)
-    prev  = load_state()
+    prev  = load_state(cfg)
 
     if prev is None:
         print("  📝 首次執行，儲存基準狀態（不發送通知）")
-        save_state(curr)
+        save_state(cfg, curr)
         return
 
     changes = detect_changes(curr, prev, cfg)
@@ -217,7 +237,7 @@ def main():
     else:
         print("  ✅ 無異動，靜音")
 
-    save_state(curr)
+    save_state(cfg, curr)
 
 if __name__ == "__main__":
     main()

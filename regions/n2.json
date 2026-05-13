@@ -1,0 +1,9 @@
+{
+  "name": "北二區",
+  "shops": ["新西門", "永和", "板橋誠品", "板橋遠百", "新莊宏匯", "新店裕隆城", "花蓮"],
+  "webhook_env": "DISCORD_WEBHOOK_N2",
+  "history_file": "state/history_n2.json",
+  "alert_state_file": "state/alert_state_n2.json",
+  "html_output": "docs/n2/index.html",
+  "pages_url": "https://harveyzxc15.github.io/studioa-reservation/n2/"
+}
