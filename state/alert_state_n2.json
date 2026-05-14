@@ -1,7 +1,7 @@
 {
   "by_store_model_active": {
     "新莊宏匯": {
-      "MacBook Neo": 33,
+      "MacBook Neo": 32,
       "MacBook Air M5": 6
     },
     "永和": {
@@ -30,8 +30,12 @@
     }
   },
   "by_store_cancel_abandon": {
+    "板橋遠百": {
+      "cancel": 45,
+      "abandon": 14
+    },
     "新莊宏匯": {
-      "cancel": 32,
+      "cancel": 33,
       "abandon": 17
     },
     "新店裕隆城": {
@@ -41,10 +45,6 @@
     "新西門": {
       "cancel": 29,
       "abandon": 15
-    },
-    "板橋遠百": {
-      "cancel": 44,
-      "abandon": 14
     },
     "花蓮": {
       "cancel": 14,
