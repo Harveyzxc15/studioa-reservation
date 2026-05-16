@@ -1,5 +1,9 @@
 {
   "by_store_model_active": {
+    "微風": {
+      "MacBook Neo": 8,
+      "MacBook Air M5": 4
+    },
     "士林": {
       "MacBook Neo": 15,
       "MacBook Air M5": 6
@@ -11,10 +15,6 @@
     "羅東": {
       "MacBook Air M5": 2,
       "MacBook Neo": 5
-    },
-    "微風": {
-      "MacBook Neo": 7,
-      "MacBook Air M5": 4
     },
     "阿波羅": {
       "MacBook Neo": 35,
