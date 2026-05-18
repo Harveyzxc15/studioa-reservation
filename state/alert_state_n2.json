@@ -40,7 +40,7 @@
     },
     "新莊宏匯": {
       "cancel": 33,
-      "abandon": 18
+      "abandon": 19
     },
     "新西門": {
       "cancel": 29,
@@ -55,7 +55,7 @@
       "abandon": 20
     },
     "板橋誠品": {
-      "abandon": 12,
+      "abandon": 13,
       "cancel": 19
     }
   }
