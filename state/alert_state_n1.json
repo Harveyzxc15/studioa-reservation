@@ -14,7 +14,7 @@
     },
     "阿波羅": {
       "MacBook Air M5": 13,
-      "MacBook Neo": 25
+      "MacBook Neo": 23
     },
     "微風": {
       "MacBook Neo": 6,
@@ -28,7 +28,7 @@
   "by_store_cancel_abandon": {
     "阿波羅": {
       "cancel": 32,
-      "abandon": 48
+      "abandon": 52
     },
     "大葉高島屋": {
       "cancel": 13,
