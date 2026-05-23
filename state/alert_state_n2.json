@@ -1,5 +1,9 @@
 {
   "by_store_model_active": {
+    "板橋遠百": {
+      "MacBook Neo": 21,
+      "MacBook Air M5": 12
+    },
     "新西門": {
       "MacBook Air M5": 10,
       "MacBook Neo": 33
@@ -19,10 +23,6 @@
     "新莊宏匯": {
       "MacBook Neo": 33,
       "MacBook Air M5": 3
-    },
-    "板橋遠百": {
-      "MacBook Neo": 20,
-      "MacBook Air M5": 12
     },
     "花蓮": {
       "MacBook Air M5": 9,
