@@ -32,15 +32,15 @@
   "by_store_cancel_abandon": {
     "新店裕隆城": {
       "cancel": 45,
-      "abandon": 21
+      "abandon": 22
     },
     "板橋遠百": {
       "cancel": 47,
-      "abandon": 16
+      "abandon": 17
     },
     "新莊宏匯": {
-      "cancel": 34,
-      "abandon": 19
+      "abandon": 20,
+      "cancel": 34
     },
     "新西門": {
       "cancel": 30,
@@ -48,7 +48,7 @@
     },
     "花蓮": {
       "cancel": 15,
-      "abandon": 3
+      "abandon": 4
     },
     "永和": {
       "cancel": 9,
