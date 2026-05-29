@@ -17,7 +17,7 @@
       "MacBook Neo": 14
     },
     "新西門": {
-      "MacBook Neo": 34,
+      "MacBook Neo": 33,
       "MacBook Air M5": 12
     },
     "新莊宏匯": {
@@ -31,7 +31,7 @@
   },
   "by_store_cancel_abandon": {
     "新西門": {
-      "cancel": 35,
+      "cancel": 36,
       "abandon": 16
     },
     "永和": {
