@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Studio A 預約日報 2026/05/29</title>
+<title>Studio A 預約日報 2026/05/30</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -48,14 +48,14 @@ h1{font-size:22px;font-weight:700;margin-bottom:4px}
 </head>
 <body>
 <h1>📱 Studio A 新機預約日報</h1>
-<div class="subtitle">2026/05/29 · 北一區6 門市</div>
+<div class="subtitle">2026/05/30 · 北一區6 門市</div>
 
 <div class="overview">
   <div class="ov-box green"><div class="ov-num">156</div><div class="ov-label">📌 等待到貨總人數</div></div>
   <div class="ov-box orange"><div class="ov-num">2</div><div class="ov-label">📦 已配貨待取機</div></div>
   <div class="ov-box purple"><div class="ov-num">122</div><div class="ov-label">🟣 MacBook Neo 等待</div></div>
   <div class="ov-box blue"><div class="ov-num">34</div><div class="ov-label">🔵 MacBook Air M5 等待</div></div>
-  <div class="ov-box"><div class="ov-num">2</div><div class="ov-label">🆕 今日新增預約</div></div>
+  <div class="ov-box"><div class="ov-num">0</div><div class="ov-label">🆕 今日新增預約</div></div>
 </div>
 
 <div class="chart-card">
@@ -72,18 +72,18 @@ h1{font-size:22px;font-weight:700;margin-bottom:4px}
   <tbody><tr><td class="store-name">士林</td><td class="num">15</td><td><span class="neo-badge">🟣 12</span></td><td><span class="air-badge">🔵 3</span></td><td class="alloc-cell">🔵1</td></tr><tr><td class="store-name">大葉高島屋</td><td class="num">33</td><td><span class="neo-badge">🟣 27</span></td><td><span class="air-badge">🔵 6</span></td><td class="alloc-cell">🔵1</td></tr><tr><td class="store-name">微風</td><td class="num">15</td><td><span class="neo-badge">🟣 8</span></td><td><span class="air-badge">🔵 7</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">羅東</td><td class="num">7</td><td><span class="neo-badge">🟣 6</span></td><td><span class="air-badge">🔵 1</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">美麗華</td><td class="num">48</td><td><span class="neo-badge">🟣 44</span></td><td><span class="air-badge">🔵 4</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">阿波羅</td><td class="num">38</td><td><span class="neo-badge">🟣 25</span></td><td><span class="air-badge">🔵 13</span></td><td class="alloc-cell">—</td></tr></tbody>
 </table>
 
-<div class="section-title">今日新增（共 2 筆）</div>
-<table class='data-table'><thead><tr><th>型號</th><th>門市</th><th>規格</th></tr></thead><tbody><tr><td><span class="badge" style="background:#9b59b6">Neo</span></td><td>阿波羅</td><td>8GB/512GB｜銀色</td></tr><tr><td><span class="badge" style="background:#9b59b6">Neo</span></td><td>阿波羅</td><td>8GB/256GB｜靛青色</td></tr></tbody></table>
+<div class="section-title">今日新增（共 0 筆）</div>
+<div class='empty'>今日尚無新增預約</div>
 
-<div class="footer">自動報表 · Studio A 北一區 · 2026/05/29</div>
+<div class="footer">自動報表 · Studio A 北一區 · 2026/05/30</div>
 
 <script>
 const ctx = document.getElementById('trendChart').getContext('2d');
 new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29"],
-    datasets: [{"label": "🟣 MacBook Neo", "data": [131, 133, 135, 137, 139, 142, 127, 127, 120, 121, 120, 120, 120, 122, 124, 117, 122], "borderColor": "#9b59b6", "backgroundColor": "#9b59b622", "tension": 0.4, "fill": true, "pointRadius": 4, "pointHoverRadius": 6}, {"label": "🔵 MacBook Air M5", "data": [49, 38, 38, 39, 42, 42, 31, 29, 26, 26, 28, 30, 41, 42, 43, 34, 34], "borderColor": "#3498db", "backgroundColor": "#3498db22", "tension": 0.4, "fill": true, "pointRadius": 4, "pointHoverRadius": 6}]
+    labels: ["2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30"],
+    datasets: [{"label": "🟣 MacBook Neo", "data": [131, 133, 135, 137, 139, 142, 127, 127, 120, 121, 120, 120, 120, 122, 124, 117, 122, 122], "borderColor": "#9b59b6", "backgroundColor": "#9b59b622", "tension": 0.4, "fill": true, "pointRadius": 4, "pointHoverRadius": 6}, {"label": "🔵 MacBook Air M5", "data": [49, 38, 38, 39, 42, 42, 31, 29, 26, 26, 28, 30, 41, 42, 43, 34, 34, 34], "borderColor": "#3498db", "backgroundColor": "#3498db22", "tension": 0.4, "fill": true, "pointRadius": 4, "pointHoverRadius": 6}]
   },
   options: {
     responsive: true,
