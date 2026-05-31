@@ -31,16 +31,16 @@
       "abandon": 55
     },
     "士林": {
-      "abandon": 25,
+      "abandon": 26,
+      "cancel": 40
+    },
+    "美麗華": {
+      "abandon": 40,
       "cancel": 40
     },
     "微風": {
-      "cancel": 17,
-      "abandon": 21
-    },
-    "美麗華": {
-      "cancel": 40,
-      "abandon": 38
+      "abandon": 26,
+      "cancel": 17
     },
     "大葉高島屋": {
       "cancel": 13,
