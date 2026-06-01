@@ -47,7 +47,7 @@
       "abandon": 25
     },
     "板橋誠品": {
-      "abandon": 17,
+      "abandon": 18,
       "cancel": 20
     },
     "板橋遠百": {
@@ -56,7 +56,7 @@
     },
     "新莊宏匯": {
       "cancel": 35,
-      "abandon": 23
+      "abandon": 24
     }
   }
 }
