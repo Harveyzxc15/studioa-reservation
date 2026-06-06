@@ -1,12 +1,12 @@
 {
   "by_store_model_active": {
+    "新店裕隆城": {
+      "MacBook Neo": 45,
+      "MacBook Air M5": 13
+    },
     "新西門": {
       "MacBook Neo": 36,
       "MacBook Air M5": 11
-    },
-    "新店裕隆城": {
-      "MacBook Neo": 44,
-      "MacBook Air M5": 13
     },
     "板橋遠百": {
       "MacBook Neo": 17,
@@ -32,7 +32,7 @@
   "by_store_cancel_abandon": {
     "新西門": {
       "cancel": 38,
-      "abandon": 21
+      "abandon": 22
     },
     "花蓮": {
       "cancel": 18,
@@ -40,7 +40,7 @@
     },
     "新店裕隆城": {
       "cancel": 54,
-      "abandon": 25
+      "abandon": 27
     },
     "永和": {
       "cancel": 12,
