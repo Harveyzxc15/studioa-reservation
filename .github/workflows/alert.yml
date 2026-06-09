@@ -2,7 +2,7 @@ name: Reservation Alert (Every 4h)
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # 每 4 小時（UTC）：01/05/09/13/17/21 台灣時間
+    - cron: '0 */8 * * *'  # 每 8 小時（UTC）：08/16/00 台灣時間
   workflow_dispatch:         # 允許手動觸發
 
 jobs:
