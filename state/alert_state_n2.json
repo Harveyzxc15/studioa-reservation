@@ -1,16 +1,16 @@
 {
   "by_store_model_active": {
+    "花蓮": {
+      "MacBook Neo": 11,
+      "MacBook Air M5": 2
+    },
     "新店裕隆城": {
       "MacBook Neo": 44,
-      "MacBook Air M5": 5
+      "MacBook Air M5": 4
     },
     "板橋遠百": {
       "MacBook Neo": 18,
       "MacBook Air M5": 1
-    },
-    "花蓮": {
-      "MacBook Neo": 11,
-      "MacBook Air M5": 2
     },
     "新西門": {
       "MacBook Neo": 30,
@@ -21,11 +21,11 @@
       "MacBook Neo": 16
     },
     "板橋誠品": {
-      "MacBook Neo": 10,
+      "MacBook Neo": 9,
       "MacBook Air M5": 1
     },
     "新莊宏匯": {
-      "MacBook Neo": 26,
+      "MacBook Neo": 25,
       "MacBook Air M5": 2
     }
   },
@@ -39,24 +39,24 @@
       "abandon": 30
     },
     "板橋誠品": {
-      "cancel": 21,
-      "abandon": 19
+      "abandon": 21,
+      "cancel": 21
     },
     "花蓮": {
       "cancel": 18,
-      "abandon": 8
+      "abandon": 9
     },
     "新莊宏匯": {
-      "cancel": 39,
-      "abandon": 24
+      "cancel": 40,
+      "abandon": 25
     },
     "永和": {
-      "abandon": 28,
+      "abandon": 29,
       "cancel": 12
     },
     "板橋遠百": {
       "cancel": 48,
-      "abandon": 25
+      "abandon": 26
     }
   }
 }
