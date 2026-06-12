@@ -1,4 +1,4 @@
-name: Alert N2 (Every 4h)
+name: Alert N2 (Every 8h)
 
 on:
   schedule:

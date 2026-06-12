@@ -1,4 +1,4 @@
-name: Reservation Alert (Every 4h)
+name: Reservation Alert (Every 8h)
 
 on:
   schedule:

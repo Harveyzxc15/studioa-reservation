@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Studio A 預約即時異動通知
-每 4 小時執行，有異動才推送 Discord（新增預約 / 取消 / 放棄）
+每 8 小時執行，有異動才推送 Discord（新增預約 / 取消 / 放棄）
 """
 
 import argparse
@@ -190,7 +190,7 @@ def send_alert(cfg, changes, curr, now_str):
         "title":       f"⚡ {region_name} 預約異動通知　{now_str}",
         "description": desc,
         "color":       0xf39c12,
-        "footer":      {"text": f"{region_name} · 每 4 小時偵測一次"},
+        "footer":      {"text": f"{region_name} · 每 8 小時偵測一次"},
         "timestamp":   datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
 
