@@ -6,7 +6,7 @@
     },
     "大葉高島屋": {
       "MacBook Air M5": 3,
-      "MacBook Neo": 17
+      "MacBook Neo": 16
     },
     "羅東": {
       "MacBook Neo": 3
@@ -35,15 +35,15 @@
     },
     "美麗華": {
       "cancel": 43,
-      "abandon": 50
+      "abandon": 52
     },
     "阿波羅": {
       "cancel": 37,
-      "abandon": 70
+      "abandon": 71
     },
     "大葉高島屋": {
       "abandon": 26,
-      "cancel": 14
+      "cancel": 15
     },
     "羅東": {
       "abandon": 4,
