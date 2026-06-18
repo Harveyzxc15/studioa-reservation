@@ -1,5 +1,9 @@
 {
   "by_store_model_active": {
+    "永和": {
+      "MacBook Neo": 8,
+      "MacBook Air M5": 3
+    },
     "新西門": {
       "MacBook Neo": 18,
       "MacBook Air M5": 5
@@ -19,10 +23,6 @@
     "板橋誠品": {
       "MacBook Air M5": 2,
       "MacBook Neo": 8
-    },
-    "永和": {
-      "MacBook Air M5": 3,
-      "MacBook Neo": 7
     },
     "新莊宏匯": {
       "MacBook Neo": 11
