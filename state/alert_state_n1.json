@@ -28,15 +28,15 @@
   "by_store_cancel_abandon": {
     "士林": {
       "cancel": 46,
-      "abandon": 31
+      "abandon": 32
     },
     "微風": {
       "cancel": 24,
       "abandon": 31
     },
     "美麗華": {
-      "cancel": 43,
-      "abandon": 55
+      "abandon": 57,
+      "cancel": 43
     },
     "阿波羅": {
       "abandon": 77,
