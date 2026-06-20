@@ -26,28 +26,28 @@
     }
   },
   "by_store_cancel_abandon": {
+    "阿波羅": {
+      "cancel": 39,
+      "abandon": 81
+    },
     "士林": {
-      "cancel": 46,
-      "abandon": 32
+      "cancel": 47,
+      "abandon": 34
     },
     "微風": {
       "cancel": 24,
       "abandon": 31
     },
     "美麗華": {
-      "abandon": 57,
+      "abandon": 67,
       "cancel": 43
     },
-    "阿波羅": {
-      "abandon": 77,
-      "cancel": 38
-    },
     "大葉高島屋": {
-      "abandon": 33,
+      "abandon": 36,
       "cancel": 17
     },
     "羅東": {
-      "abandon": 6,
+      "abandon": 7,
       "cancel": 5
     }
   }
