@@ -10,7 +10,7 @@
     },
     "美麗華": {
       "MacBook Neo": 15,
-      "MacBook Air M5": 4
+      "MacBook Air M5": 3
     },
     "士林": {
       "MacBook Neo": 8,
@@ -26,8 +26,12 @@
     }
   },
   "by_store_cancel_abandon": {
+    "美麗華": {
+      "cancel": 44,
+      "abandon": 63
+    },
     "阿波羅": {
-      "cancel": 39,
+      "cancel": 40,
       "abandon": 83
     },
     "士林": {
@@ -41,10 +45,6 @@
     "微風": {
       "cancel": 24,
       "abandon": 31
-    },
-    "美麗華": {
-      "cancel": 43,
-      "abandon": 63
     },
     "羅東": {
       "abandon": 7,
