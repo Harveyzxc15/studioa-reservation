@@ -26,13 +26,13 @@
     }
   },
   "by_store_cancel_abandon": {
+    "士林": {
+      "cancel": 51,
+      "abandon": 35
+    },
     "羅東": {
       "cancel": 6,
       "abandon": 7
-    },
-    "士林": {
-      "cancel": 50,
-      "abandon": 35
     },
     "阿波羅": {
       "abandon": 89,
