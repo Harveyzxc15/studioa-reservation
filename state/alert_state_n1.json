@@ -38,6 +38,10 @@
       "cancel": 6,
       "abandon": 7
     },
+    "大葉高島屋": {
+      "abandon": 40,
+      "cancel": 18
+    },
     "微風": {
       "abandon": 32,
       "cancel": 24
@@ -45,10 +49,6 @@
     "美麗華": {
       "cancel": 44,
       "abandon": 67
-    },
-    "大葉高島屋": {
-      "abandon": 39,
-      "cancel": 18
     }
   }
 }
