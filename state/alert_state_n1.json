@@ -34,6 +34,10 @@
       "cancel": 19,
       "abandon": 42
     },
+    "羅東": {
+      "abandon": 10,
+      "cancel": 6
+    },
     "阿波羅": {
       "cancel": 42,
       "abandon": 93
@@ -45,10 +49,6 @@
     "美麗華": {
       "abandon": 70,
       "cancel": 44
-    },
-    "羅東": {
-      "cancel": 6,
-      "abandon": 8
     }
   }
 }
