@@ -27,6 +27,10 @@
     }
   },
   "by_store_cancel_abandon": {
+    "板橋遠百": {
+      "cancel": 56,
+      "abandon": 35
+    },
     "新西門": {
       "cancel": 50,
       "abandon": 43
@@ -42,10 +46,6 @@
     "永和": {
       "abandon": 40,
       "cancel": 14
-    },
-    "板橋遠百": {
-      "cancel": 55,
-      "abandon": 35
     },
     "花蓮": {
       "cancel": 21,
