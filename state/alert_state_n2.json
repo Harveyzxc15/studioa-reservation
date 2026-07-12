@@ -29,7 +29,7 @@
   "by_store_cancel_abandon": {
     "板橋遠百": {
       "cancel": 56,
-      "abandon": 36
+      "abandon": 37
     },
     "新西門": {
       "cancel": 50,
@@ -41,19 +41,19 @@
     },
     "新莊宏匯": {
       "cancel": 49,
-      "abandon": 39
+      "abandon": 40
     },
     "永和": {
       "abandon": 40,
       "cancel": 14
     },
+    "板橋誠品": {
+      "abandon": 27,
+      "cancel": 22
+    },
     "花蓮": {
       "abandon": 15,
       "cancel": 21
-    },
-    "板橋誠品": {
-      "cancel": 22,
-      "abandon": 25
     }
   }
 }
