@@ -1,7 +1,7 @@
 {
   "by_store_model_active": {
     "美麗華": {
-      "MacBook Neo": 13,
+      "MacBook Neo": 12,
       "MacBook Air M5": 2
     },
     "微風": {
@@ -47,7 +47,7 @@
       "abandon": 37
     },
     "美麗華": {
-      "abandon": 76,
+      "abandon": 75,
       "cancel": 44
     }
   }
