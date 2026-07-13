@@ -2573,5 +2573,45 @@
         "MacBook Neo": 1
       }
     }
+  },
+  "2026/07/13": {
+    "by_model_active": {
+      "MacBook Neo": 34,
+      "MacBook Air M5": 22
+    },
+    "by_store_model_active": {
+      "美麗華": {
+        "MacBook Neo": 13,
+        "MacBook Air M5": 2
+      },
+      "微風": {
+        "MacBook Neo": 4,
+        "MacBook Air M5": 4
+      },
+      "阿波羅": {
+        "MacBook Air M5": 6,
+        "MacBook Neo": 1
+      },
+      "大葉高島屋": {
+        "MacBook Neo": 9,
+        "MacBook Air M5": 5
+      },
+      "羅東": {
+        "MacBook Air M5": 3,
+        "MacBook Neo": 3
+      },
+      "士林": {
+        "MacBook Neo": 4,
+        "MacBook Air M5": 2
+      }
+    },
+    "by_model_allocated": {
+      "MacBook Neo": 1
+    },
+    "by_store_model_allocated": {
+      "美麗華": {
+        "MacBook Neo": 1
+      }
+    }
   }
 }
