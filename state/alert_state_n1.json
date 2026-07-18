@@ -5,18 +5,18 @@
       "MacBook Air M5": 1
     },
     "大葉高島屋": {
-      "MacBook Neo": 10,
+      "MacBook Neo": 9,
       "MacBook Air M5": 2
     },
     "阿波羅": {
       "MacBook Air M5": 6,
       "MacBook Neo": 3
     },
-    "微風": {
-      "MacBook Neo": 5,
-      "MacBook Air M5": 3
-    },
     "羅東": {
+      "MacBook Neo": 4,
+      "MacBook Air M5": 2
+    },
+    "微風": {
       "MacBook Neo": 4,
       "MacBook Air M5": 2
     },
@@ -35,11 +35,11 @@
       "abandon": 77
     },
     "微風": {
-      "cancel": 26,
+      "cancel": 27,
       "abandon": 40
     },
     "大葉高島屋": {
-      "cancel": 20,
+      "cancel": 21,
       "abandon": 44
     },
     "羅東": {
