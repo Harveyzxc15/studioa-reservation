@@ -1,5 +1,9 @@
 {
   "by_store_model_active": {
+    "板橋遠百": {
+      "MacBook Neo": 2,
+      "MacBook Air M5": 1
+    },
     "新店裕隆城": {
       "MacBook Neo": 1,
       "MacBook Air M5": 8
@@ -9,11 +13,7 @@
       "MacBook Air M5": 2
     },
     "板橋誠品": {
-      "MacBook Neo": 2
-    },
-    "板橋遠百": {
-      "MacBook Neo": 1,
-      "MacBook Air M5": 1
+      "MacBook Neo": 1
     },
     "新西門": {
       "MacBook Neo": 1,
@@ -24,17 +24,17 @@
     }
   },
   "by_store_cancel_abandon": {
+    "板橋誠品": {
+      "cancel": 26,
+      "abandon": 31
+    },
     "板橋遠百": {
-      "cancel": 61,
+      "cancel": 62,
       "abandon": 40
     },
     "新西門": {
       "cancel": 58,
       "abandon": 44
-    },
-    "板橋誠品": {
-      "cancel": 25,
-      "abandon": 30
     },
     "永和": {
       "cancel": 16,
