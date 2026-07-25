@@ -1,22 +1,19 @@
 {
   "by_store_model_active": {
-    "士林": {
-      "MacBook Neo": 2,
-      "MacBook Air M5": 2
-    },
-    "羅東": {
-      "MacBook Neo": 2
-    },
     "阿波羅": {
       "MacBook Air M5": 5,
       "MacBook Neo": 5
     },
     "美麗華": {
-      "MacBook Air M5": 1,
+      "MacBook Air M5": 1
+    },
+    "士林": {
+      "MacBook Air M5": 2
+    },
+    "羅東": {
       "MacBook Neo": 1
     },
     "微風": {
-      "MacBook Neo": 1,
       "MacBook Air M5": 1
     },
     "大葉高島屋": {
@@ -29,11 +26,11 @@
       "abandon": 53
     },
     "士林": {
-      "abandon": 43,
+      "abandon": 42,
       "cancel": 53
     },
     "微風": {
-      "cancel": 28,
+      "cancel": 29,
       "abandon": 44
     },
     "羅東": {
