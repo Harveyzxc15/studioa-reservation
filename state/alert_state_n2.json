@@ -27,11 +27,11 @@
   "by_store_cancel_abandon": {
     "新店裕隆城": {
       "cancel": 67,
-      "abandon": 70
+      "abandon": 74
     },
     "板橋遠百": {
       "cancel": 64,
-      "abandon": 48
+      "abandon": 52
     },
     "板橋誠品": {
       "cancel": 26,
@@ -51,7 +51,7 @@
     },
     "花蓮": {
       "cancel": 22,
-      "abandon": 19
+      "abandon": 20
     }
   }
 }
