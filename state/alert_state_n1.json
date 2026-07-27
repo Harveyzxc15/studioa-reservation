@@ -24,7 +24,11 @@
   "by_store_cancel_abandon": {
     "士林": {
       "cancel": 54,
-      "abandon": 42
+      "abandon": 43
+    },
+    "羅東": {
+      "abandon": 18,
+      "cancel": 6
     },
     "大葉高島屋": {
       "cancel": 23,
@@ -33,10 +37,6 @@
     "微風": {
       "cancel": 29,
       "abandon": 44
-    },
-    "羅東": {
-      "abandon": 17,
-      "cancel": 6
     },
     "美麗華": {
       "abandon": 84,
