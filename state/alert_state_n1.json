@@ -9,7 +9,7 @@
     },
     "阿波羅": {
       "MacBook Air M5": 5,
-      "MacBook Neo": 6
+      "MacBook Neo": 2
     },
     "士林": {
       "MacBook Air M5": 2
@@ -34,6 +34,10 @@
       "cancel": 23,
       "abandon": 56
     },
+    "阿波羅": {
+      "cancel": 45,
+      "abandon": 97
+    },
     "微風": {
       "cancel": 29,
       "abandon": 44
@@ -41,10 +45,6 @@
     "美麗華": {
       "abandon": 84,
       "cancel": 45
-    },
-    "阿波羅": {
-      "abandon": 98,
-      "cancel": 42
     }
   }
 }
