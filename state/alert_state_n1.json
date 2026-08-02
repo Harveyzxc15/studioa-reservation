@@ -12,12 +12,12 @@
       "MacBook Neo": 2
     },
     "士林": {
-      "MacBook Air M5": 4
+      "MacBook Air M5": 3
     }
   },
   "by_store_cancel_abandon": {
     "士林": {
-      "cancel": 55,
+      "cancel": 56,
       "abandon": 44
     },
     "羅東": {
