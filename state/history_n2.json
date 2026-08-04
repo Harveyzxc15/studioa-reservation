@@ -3856,5 +3856,44 @@
     },
     "by_model_allocated": {},
     "by_store_model_allocated": {}
+  },
+  "2026/08/04": {
+    "by_model_active": {
+      "MacBook Air M5": 14
+    },
+    "by_store_model_active": {
+      "板橋遠百": {
+        "MacBook Air M5": 4
+      },
+      "新莊宏匯": {
+        "MacBook Air M5": 2
+      },
+      "新店裕隆城": {
+        "MacBook Air M5": 4
+      },
+      "花蓮": {
+        "MacBook Air M5": 1
+      },
+      "永和": {
+        "MacBook Air M5": 2
+      },
+      "板橋誠品": {
+        "MacBook Air M5": 1
+      }
+    },
+    "by_model_allocated": {
+      "MacBook Neo": 4
+    },
+    "by_store_model_allocated": {
+      "新店裕隆城": {
+        "MacBook Neo": 1
+      },
+      "新莊宏匯": {
+        "MacBook Neo": 2
+      },
+      "新西門": {
+        "MacBook Neo": 1
+      }
+    }
   }
 }
