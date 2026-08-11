@@ -11,10 +11,10 @@
       "MacBook Air M5": 8
     },
     "微風": {
-      "MacBook Air M5": 5
+      "MacBook Air M5": 4
     },
     "士林": {
-      "MacBook Air M5": 3
+      "MacBook Air M5": 1
     }
   },
   "by_store_cancel_abandon": {
@@ -22,8 +22,12 @@
       "cancel": 47,
       "abandon": 100
     },
+    "微風": {
+      "cancel": 30,
+      "abandon": 44
+    },
     "士林": {
-      "cancel": 56,
+      "cancel": 58,
       "abandon": 44
     },
     "美麗華": {
@@ -37,10 +41,6 @@
     "大葉高島屋": {
       "cancel": 24,
       "abandon": 57
-    },
-    "微風": {
-      "cancel": 29,
-      "abandon": 44
     }
   }
 }
