@@ -3739,5 +3739,46 @@
     },
     "by_model_allocated": {},
     "by_store_model_allocated": {}
+  },
+  "2026/08/18": {
+    "by_model_active": {
+      "MacBook Air M5": 19,
+      "MacBook Neo": 1
+    },
+    "by_store_model_active": {
+      "美麗華": {
+        "MacBook Air M5": 6
+      },
+      "大葉高島屋": {
+        "MacBook Air M5": 1
+      },
+      "微風": {
+        "MacBook Air M5": 2
+      },
+      "阿波羅": {
+        "MacBook Air M5": 9,
+        "MacBook Neo": 1
+      },
+      "士林": {
+        "MacBook Air M5": 1
+      }
+    },
+    "by_model_allocated": {
+      "MacBook Air M5": 19
+    },
+    "by_store_model_allocated": {
+      "阿波羅": {
+        "MacBook Air M5": 10
+      },
+      "微風": {
+        "MacBook Air M5": 5
+      },
+      "大葉高島屋": {
+        "MacBook Air M5": 1
+      },
+      "美麗華": {
+        "MacBook Air M5": 3
+      }
+    }
   }
 }
