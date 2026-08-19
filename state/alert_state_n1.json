@@ -1,5 +1,8 @@
 {
   "by_store_model_active": {
+    "微風": {
+      "MacBook Air M5": 3
+    },
     "羅東": {
       "MacBook Air M5": 1
     },
@@ -8,9 +11,6 @@
     },
     "大葉高島屋": {
       "MacBook Air M5": 1
-    },
-    "微風": {
-      "MacBook Air M5": 2
     },
     "阿波羅": {
       "MacBook Air M5": 6
@@ -25,8 +25,8 @@
       "abandon": 44
     },
     "微風": {
-      "cancel": 31,
-      "abandon": 44
+      "abandon": 46,
+      "cancel": 31
     },
     "阿波羅": {
       "abandon": 107,
