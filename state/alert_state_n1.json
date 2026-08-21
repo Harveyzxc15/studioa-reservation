@@ -22,12 +22,16 @@
       "abandon": 44
     },
     "微風": {
-      "abandon": 46,
+      "abandon": 50,
       "cancel": 31
     },
     "阿波羅": {
-      "abandon": 107,
+      "abandon": 111,
       "cancel": 47
+    },
+    "大葉高島屋": {
+      "abandon": 58,
+      "cancel": 24
     },
     "美麗華": {
       "abandon": 87,
@@ -36,10 +40,6 @@
     "羅東": {
       "abandon": 17,
       "cancel": 6
-    },
-    "大葉高島屋": {
-      "cancel": 24,
-      "abandon": 57
     }
   }
 }
