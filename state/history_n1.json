@@ -3899,5 +3899,35 @@
         "MacBook Air M5": 1
       }
     }
+  },
+  "2026/08/22": {
+    "by_model_active": {
+      "MacBook Air M5": 12
+    },
+    "by_store_model_active": {
+      "微風": {
+        "MacBook Air M5": 3
+      },
+      "阿波羅": {
+        "MacBook Air M5": 5
+      },
+      "羅東": {
+        "MacBook Air M5": 1
+      },
+      "大葉高島屋": {
+        "MacBook Air M5": 1
+      },
+      "美麗華": {
+        "MacBook Air M5": 2
+      }
+    },
+    "by_model_allocated": {
+      "MacBook Air M5": 4
+    },
+    "by_store_model_allocated": {
+      "美麗華": {
+        "MacBook Air M5": 4
+      }
+    }
   }
 }
