@@ -3,10 +3,10 @@
     "新店裕隆城": {
       "MacBook Air M5": 2
     },
-    "板橋遠百": {
-      "MacBook Air M5": 3
-    },
     "新西門": {
+      "MacBook Air M5": 2
+    },
+    "板橋遠百": {
       "MacBook Air M5": 2
     },
     "永和": {
@@ -18,13 +18,17 @@
       "abandon": 21,
       "cancel": 23
     },
+    "永和": {
+      "abandon": 45,
+      "cancel": 20
+    },
     "新西門": {
       "abandon": 54,
       "cancel": 58
     },
-    "永和": {
-      "cancel": 20,
-      "abandon": 43
+    "板橋遠百": {
+      "abandon": 55,
+      "cancel": 64
     },
     "新店裕隆城": {
       "cancel": 69,
@@ -35,12 +39,8 @@
       "abandon": 54
     },
     "板橋誠品": {
-      "abandon": 34,
+      "abandon": 35,
       "cancel": 26
-    },
-    "板橋遠百": {
-      "cancel": 64,
-      "abandon": 53
     }
   }
 }
