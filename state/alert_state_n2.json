@@ -1,13 +1,13 @@
 {
   "by_store_model_active": {
+    "新店裕隆城": {
+      "MacBook Air M5": 4
+    },
     "板橋遠百": {
       "MacBook Air M5": 4
     },
     "花蓮": {
       "MacBook Air M5": 2
-    },
-    "新店裕隆城": {
-      "MacBook Air M5": 3
     },
     "新西門": {
       "MacBook Air M5": 2
@@ -18,11 +18,11 @@
   },
   "by_store_cancel_abandon": {
     "花蓮": {
-      "abandon": 21,
-      "cancel": 23
+      "cancel": 24,
+      "abandon": 23
     },
     "永和": {
-      "abandon": 45,
+      "abandon": 46,
       "cancel": 20
     },
     "新西門": {
