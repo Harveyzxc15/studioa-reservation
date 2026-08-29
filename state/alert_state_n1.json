@@ -1,8 +1,5 @@
 {
   "by_store_model_active": {
-    "美麗華": {
-      "MacBook Air M5": 2
-    },
     "阿波羅": {
       "MacBook Air M5": 1
     },
@@ -19,6 +16,10 @@
       "cancel": 51,
       "abandon": 111
     },
+    "美麗華": {
+      "cancel": 48,
+      "abandon": 92
+    },
     "士林": {
       "cancel": 61,
       "abandon": 44
@@ -30,10 +31,6 @@
     "大葉高島屋": {
       "abandon": 58,
       "cancel": 24
-    },
-    "美麗華": {
-      "abandon": 91,
-      "cancel": 46
     }
   }
 }
