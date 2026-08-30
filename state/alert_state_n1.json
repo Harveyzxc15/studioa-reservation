@@ -1,13 +1,17 @@
 {
   "by_store_model_active": {
     "阿波羅": {
-      "MacBook Air M5": 3
+      "MacBook Air M5": 4
     },
     "微風": {
       "MacBook Air M5": 1
     }
   },
   "by_store_cancel_abandon": {
+    "美麗華": {
+      "abandon": 93,
+      "cancel": 48
+    },
     "微風": {
       "abandon": 54,
       "cancel": 31
@@ -15,10 +19,6 @@
     "阿波羅": {
       "cancel": 51,
       "abandon": 111
-    },
-    "美麗華": {
-      "cancel": 48,
-      "abandon": 92
     },
     "士林": {
       "cancel": 61,
