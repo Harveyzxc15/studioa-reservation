@@ -18,6 +18,10 @@
       "cancel": 24,
       "abandon": 23
     },
+    "板橋遠百": {
+      "abandon": 57,
+      "cancel": 64
+    },
     "永和": {
       "abandon": 46,
       "cancel": 20
@@ -26,13 +30,9 @@
       "abandon": 55,
       "cancel": 58
     },
-    "板橋遠百": {
-      "abandon": 55,
-      "cancel": 64
-    },
     "新店裕隆城": {
-      "cancel": 70,
-      "abandon": 75
+      "abandon": 76,
+      "cancel": 70
     },
     "新莊宏匯": {
       "cancel": 55,
