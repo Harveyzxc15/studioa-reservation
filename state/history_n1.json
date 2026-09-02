@@ -4148,5 +4148,26 @@
     },
     "by_model_allocated": {},
     "by_store_model_allocated": {}
+  },
+  "2026/09/02": {
+    "by_model_active": {
+      "MacBook Air M5": 4
+    },
+    "by_store_model_active": {
+      "阿波羅": {
+        "MacBook Air M5": 3
+      },
+      "微風": {
+        "MacBook Air M5": 1
+      }
+    },
+    "by_model_allocated": {
+      "MacBook Air M5": 1
+    },
+    "by_store_model_allocated": {
+      "阿波羅": {
+        "MacBook Air M5": 1
+      }
+    }
   }
 }
