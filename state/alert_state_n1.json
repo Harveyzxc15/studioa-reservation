@@ -8,13 +8,13 @@
     }
   },
   "by_store_cancel_abandon": {
-    "美麗華": {
-      "abandon": 96,
-      "cancel": 48
-    },
     "阿波羅": {
-      "abandon": 115,
-      "cancel": 51
+      "cancel": 52,
+      "abandon": 115
+    },
+    "美麗華": {
+      "abandon": 97,
+      "cancel": 48
     },
     "微風": {
       "abandon": 55,
