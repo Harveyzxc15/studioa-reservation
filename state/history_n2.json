@@ -4744,5 +4744,20 @@
         "MacBook Air M5": 1
       }
     }
+  },
+  "2026/09/04": {
+    "by_model_active": {
+      "MacBook Air M5": 4
+    },
+    "by_store_model_active": {
+      "永和": {
+        "MacBook Air M5": 2
+      },
+      "新店裕隆城": {
+        "MacBook Air M5": 2
+      }
+    },
+    "by_model_allocated": {},
+    "by_store_model_allocated": {}
   }
 }
