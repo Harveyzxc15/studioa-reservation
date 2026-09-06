@@ -15,17 +15,17 @@
       "abandon": 61,
       "cancel": 64
     },
+    "永和": {
+      "abandon": 48,
+      "cancel": 20
+    },
     "新店裕隆城": {
       "abandon": 77,
       "cancel": 70
     },
     "花蓮": {
       "cancel": 24,
-      "abandon": 23
-    },
-    "永和": {
-      "abandon": 47,
-      "cancel": 20
+      "abandon": 24
     },
     "新西門": {
       "abandon": 56,
