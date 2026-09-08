@@ -4807,5 +4807,32 @@
     },
     "by_model_allocated": {},
     "by_store_model_allocated": {}
+  },
+  "2026/09/08": {
+    "by_model_active": {
+      "MacBook Air M5": 6
+    },
+    "by_store_model_active": {
+      "新店裕隆城": {
+        "MacBook Air M5": 3
+      },
+      "永和": {
+        "MacBook Air M5": 3
+      }
+    },
+    "by_model_allocated": {
+      "MacBook Air M5": 3
+    },
+    "by_store_model_allocated": {
+      "花蓮": {
+        "MacBook Air M5": 1
+      },
+      "永和": {
+        "MacBook Air M5": 1
+      },
+      "新店裕隆城": {
+        "MacBook Air M5": 1
+      }
+    }
   }
 }
