@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Studio A 預約日報 2026/09/12</title>
+<title>STUDIO A 預約日報 2026/09/12</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,8 +14,7 @@ h1{font-size:22px;font-weight:700;margin-bottom:4px}
 .ov-box{background:#fff;border-radius:12px;padding:20px 28px;flex:1;min-width:130px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .ov-num{font-size:36px;font-weight:800}
 .ov-label{font-size:12px;color:#7f8c8d;margin-top:4px}
-.green .ov-num{color:#27ae60}.purple .ov-num{color:#9b59b6}
-.blue .ov-num{color:#3498db}.orange .ov-num{color:#e67e22}
+.green .ov-num{color:#27ae60}.orange .ov-num{color:#e67e22}.teal .ov-num{color:#1abc9c}
 .chart-card{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:24px}
 .chart-card h2{font-size:15px;font-weight:700;margin-bottom:16px;color:#34495e}
 .section-title{font-size:15px;font-weight:700;margin:24px 0 12px;color:#34495e}
@@ -24,22 +23,22 @@ h1{font-size:22px;font-weight:700;margin-bottom:4px}
 .card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .card-title{font-size:16px;font-weight:700;margin-bottom:14px}
 .stat-row{display:flex;gap:12px;margin-bottom:16px}
-.stat-box{background:#f8f9fa;border-radius:8px;padding:10px 16px;flex:1;text-align:center}
-.stat-num{font-size:26px;font-weight:800}
+.stat-box{background:#f8f9fa;border-radius:8px;padding:10px 12px;flex:1;text-align:center}
+.stat-num{font-size:24px;font-weight:800}
 .stat-label{font-size:11px;color:#7f8c8d;margin-top:2px}
-.section-label{font-size:11px;font-weight:600;color:#7f8c8d;margin:12px 0 6px;text-transform:uppercase;letter-spacing:.5px}
+.section-label{font-size:11px;font-weight:600;color:#7f8c8d;margin:12px 0 6px;letter-spacing:.5px}
 .alloc-label{font-size:12px;font-weight:600;color:#e67e22;margin:14px 0 6px}
 .spec-table{width:100%;border-collapse:collapse;font-size:13px}
 .spec-table th{text-align:left;padding:6px 8px;border-bottom:2px solid #eee;color:#7f8c8d;font-size:11px;font-weight:600}
 .spec-table td{padding:7px 8px;border-bottom:1px solid #f0f0f0}
 .bar-wrap{background:#f0f0f0;border-radius:4px;height:6px;width:100px}
 .bar{height:6px;border-radius:4px}
+.table-wrap{overflow-x:auto}
 .data-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);font-size:14px}
-.data-table th{padding:10px 14px;background:#f8f9fa;text-align:left;font-size:12px;color:#7f8c8d;font-weight:600}
+.data-table th{padding:10px 14px;background:#f8f9fa;text-align:left;font-size:12px;color:#7f8c8d;font-weight:600;white-space:nowrap}
 .data-table td{padding:12px 14px;border-bottom:1px solid #f0f0f0}
 .store-name{font-weight:700}.num{text-align:right;font-weight:700}
-.neo-badge{background:#f3e8ff;color:#7c3aed;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600}
-.air-badge{background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600}
+.pill{background:#eef2f7;color:#334155;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:600}
 .alloc-cell{font-size:13px;color:#e67e22;font-weight:600}
 .badge{color:#fff;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600}
 .muted{color:#aaa}.empty{background:#fff;border-radius:12px;padding:20px;text-align:center;color:#aaa;box-shadow:0 1px 4px rgba(0,0,0,.08)}
@@ -47,61 +46,40 @@ h1{font-size:22px;font-weight:700;margin-bottom:4px}
 </style>
 </head>
 <body>
-<h1>📱 Studio A 新機預約日報</h1>
+<h1>📱 STUDIO A 新機預約日報</h1>
 <div class="subtitle">2026/09/12 · 北一區6 門市</div>
 
-<div class="overview">
-  <div class="ov-box green"><div class="ov-num">0</div><div class="ov-label">📌 等待到貨總人數</div></div>
-  <div class="ov-box orange"><div class="ov-num">0</div><div class="ov-label">📦 已配貨待取機</div></div>
-  <div class="ov-box purple"><div class="ov-num">0</div><div class="ov-label">🟣 MacBook Neo 等待</div></div>
-  <div class="ov-box blue"><div class="ov-num">0</div><div class="ov-label">🔵 MacBook Air M5 等待</div></div>
-  <div class="ov-box"><div class="ov-num">0</div><div class="ov-label">🆕 今日新增預約</div></div>
-</div>
+<div class="overview"><div class="ov-box green"><div class="ov-num">327</div><div class="ov-label">📌 等待到貨總人數</div></div><div class="ov-box orange"><div class="ov-num">0</div><div class="ov-label">📦 已配貨待取機</div></div><div class="ov-box teal"><div class="ov-num">0</div><div class="ov-label">🚚 已到貨</div></div><div class="ov-box"><div class="ov-num">290</div><div class="ov-label">🆕 今日新增預約</div></div></div>
 
 <div class="chart-card">
   <h2>📈 等待到貨人數走勢</h2>
   <canvas id="trendChart" height="90"></canvas>
 </div>
 
-<div class="section-title">各型號規格明細</div>
-<div class="cards"><div class="card" style="border-top:4px solid #9b59b6"><div class="card-title">🟣 MacBook Neo</div><div class="stat-row"><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">📌 等待到貨</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">📦 已配貨</div></div></div><div class="section-label">等待到貨規格</div><table class="spec-table"><thead><tr><th>規格</th><th>人數</th><th></th></tr></thead><tbody><tr><td colspan=3 class=muted>無</td></tr></tbody></table><div class="alloc-label">📦 已配貨待取機：0 人</div><table class="spec-table"><thead><tr><th>規格</th><th>人數</th><th></th></tr></thead><tbody><tr><td colspan=3 class=muted>無</td></tr></tbody></table></div><div class="card" style="border-top:4px solid #3498db"><div class="card-title">🔵 MacBook Air M5</div><div class="stat-row"><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">📌 等待到貨</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">📦 已配貨</div></div></div><div class="section-label">等待到貨規格</div><table class="spec-table"><thead><tr><th>規格</th><th>人數</th><th></th></tr></thead><tbody><tr><td colspan=3 class=muted>無</td></tr></tbody></table><div class="alloc-label">📦 已配貨待取機：0 人</div><table class="spec-table"><thead><tr><th>規格</th><th>人數</th><th></th></tr></thead><tbody><tr><td colspan=3 class=muted>無</td></tr></tbody></table></div></div>
+<div class="section-title">各活動規格明細</div>
+<div class="cards"><div class="card" style="border-top:4px solid #e67e22"><div class="card-title">⌚ Apple Watch</div><div class="stat-row"><div class="stat-box"><div class="stat-num">49</div><div class="stat-label">📌 等待到貨</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">📦 已配貨</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">🚚 已到貨</div></div></div><div class="section-label">等待到貨規格</div><table class="spec-table"><thead><tr><th>規格</th><th>人數</th><th></th></tr></thead><tbody><tr><td>Series 12 46mm</td><td class="num">19</td><td><div class="bar-wrap"><div class="bar" style="width:39%;background:#e67e22"></div></div></td></tr><tr><td>Ultra 4 49mm</td><td class="num">18</td><td><div class="bar-wrap"><div class="bar" style="width:37%;background:#e67e22"></div></div></td></tr><tr><td>Series 12 42mm</td><td class="num">11</td><td><div class="bar-wrap"><div class="bar" style="width:22%;background:#e67e22"></div></div></td></tr><tr><td>SE 40mm</td><td class="num">1</td><td><div class="bar-wrap"><div class="bar" style="width:2%;background:#e67e22"></div></div></td></tr></tbody></table><div class="alloc-label">📦 已配貨待取機：0 人</div><table class="spec-table"><tbody><tr><td colspan=3 class=muted>無</td></tr></tbody></table></div><div class="card" style="border-top:4px solid #1abc9c"><div class="card-title">🎧 AirPods 5</div><div class="stat-row"><div class="stat-box"><div class="stat-num">20</div><div class="stat-label">📌 等待到貨</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">📦 已配貨</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">🚚 已到貨</div></div></div><div class="section-label">等待到貨規格</div><table class="spec-table"><thead><tr><th>規格</th><th>人數</th><th></th></tr></thead><tbody><tr><td>搭配無線充電盒</td><td class="num">15</td><td><div class="bar-wrap"><div class="bar" style="width:75%;background:#1abc9c"></div></div></td></tr><tr><td>AirPods 5</td><td class="num">5</td><td><div class="bar-wrap"><div class="bar" style="width:25%;background:#1abc9c"></div></div></td></tr></tbody></table><div class="alloc-label">📦 已配貨待取機：0 人</div><table class="spec-table"><tbody><tr><td colspan=3 class=muted>無</td></tr></tbody></table></div><div class="card" style="border-top:4px solid #e74c3c"><div class="card-title">📱 iPhone 18 Pro</div><div class="stat-row"><div class="stat-box"><div class="stat-num">258</div><div class="stat-label">📌 等待到貨</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">📦 已配貨</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">🚚 已到貨</div></div></div><div class="section-label">等待到貨規格</div><table class="spec-table"><thead><tr><th>規格</th><th>人數</th><th></th></tr></thead><tbody><tr><td>iPhone 18 Pro 256GB</td><td class="num">85</td><td><div class="bar-wrap"><div class="bar" style="width:33%;background:#e74c3c"></div></div></td></tr><tr><td>iPhone 18 Pro Max 256GB</td><td class="num">75</td><td><div class="bar-wrap"><div class="bar" style="width:29%;background:#e74c3c"></div></div></td></tr><tr><td>iPhone 18 Pro Max 512GB</td><td class="num">55</td><td><div class="bar-wrap"><div class="bar" style="width:21%;background:#e74c3c"></div></div></td></tr><tr><td>iPhone 18 Pro 512GB</td><td class="num">28</td><td><div class="bar-wrap"><div class="bar" style="width:11%;background:#e74c3c"></div></div></td></tr><tr><td>iPhone 18 Pro 1TB</td><td class="num">6</td><td><div class="bar-wrap"><div class="bar" style="width:2%;background:#e74c3c"></div></div></td></tr><tr><td>iPhone 18 Pro Max 2TB</td><td class="num">5</td><td><div class="bar-wrap"><div class="bar" style="width:2%;background:#e74c3c"></div></div></td></tr><tr><td>iPhone 18 Pro Max 1TB</td><td class="num">4</td><td><div class="bar-wrap"><div class="bar" style="width:2%;background:#e74c3c"></div></div></td></tr></tbody></table><div class="alloc-label">📦 已配貨待取機：0 人</div><table class="spec-table"><tbody><tr><td colspan=3 class=muted>無</td></tr></tbody></table></div></div>
 
 <div class="section-title">各門市明細</div>
-<table class="data-table">
-  <thead><tr><th>門市</th><th style="text-align:right">等待</th><th>Neo</th><th>Air M5</th><th>已配貨</th></tr></thead>
-  <tbody><tr><td class="store-name">士林</td><td class="num">0</td><td><span class="neo-badge">🟣 0</span></td><td><span class="air-badge">🔵 0</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">大葉高島屋</td><td class="num">0</td><td><span class="neo-badge">🟣 0</span></td><td><span class="air-badge">🔵 0</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">微風</td><td class="num">0</td><td><span class="neo-badge">🟣 0</span></td><td><span class="air-badge">🔵 0</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">羅東</td><td class="num">0</td><td><span class="neo-badge">🟣 0</span></td><td><span class="air-badge">🔵 0</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">美麗華</td><td class="num">0</td><td><span class="neo-badge">🟣 0</span></td><td><span class="air-badge">🔵 0</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">阿波羅</td><td class="num">0</td><td><span class="neo-badge">🟣 0</span></td><td><span class="air-badge">🔵 0</span></td><td class="alloc-cell">—</td></tr></tbody>
-</table>
+<div class="table-wrap"><table class="data-table">
+  <thead><tr><th>門市</th><th style="text-align:right">等待</th><th>⌚ Apple Watch</th><th>🎧 AirPods 5</th><th>📱 iPhone 18 Pro</th><th>已配貨</th></tr></thead>
+  <tbody><tr><td class="store-name">士林</td><td class="num">71</td><td><span class="pill">8</span></td><td><span class="pill">3</span></td><td><span class="pill">60</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">大葉高島屋</td><td class="num">22</td><td><span class="pill">4</span></td><td><span class="pill">1</span></td><td><span class="pill">17</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">微風</td><td class="num">50</td><td><span class="pill">3</span></td><td><span class="pill">2</span></td><td><span class="pill">45</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">羅東</td><td class="num">20</td><td><span class="pill">7</span></td><td><span class="pill">2</span></td><td><span class="pill">11</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">美麗華</td><td class="num">81</td><td><span class="pill">9</span></td><td><span class="pill">7</span></td><td><span class="pill">65</span></td><td class="alloc-cell">—</td></tr><tr><td class="store-name">阿波羅</td><td class="num">83</td><td><span class="pill">18</span></td><td><span class="pill">5</span></td><td><span class="pill">60</span></td><td class="alloc-cell">—</td></tr></tbody>
+</table></div>
 
-<div class="section-title">今日新增（共 0 筆）</div>
-<div class='empty'>今日尚無新增預約</div>
+<div class="section-title">今日新增（共 290 筆）</div>
+<table class='data-table'><thead><tr><th>活動</th><th>門市</th><th>規格</th></tr></thead><tbody><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>阿波羅</td><td>Ultra 4 49mm ×2</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>阿波羅</td><td>Series 12 46mm ×5</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>阿波羅</td><td>Series 12 42mm ×4</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>羅東</td><td>Ultra 4 49mm</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>羅東</td><td>Series 12 46mm</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>微風</td><td>Series 12 42mm</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>士林</td><td>Series 12 42mm</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>大葉高島屋</td><td>Ultra 4 49mm</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>大葉高島屋</td><td>Series 12 46mm</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>美麗華</td><td>Series 12 46mm</td></tr><tr><td><span class="badge" style="background:#e67e22">Apple Watch</span></td><td>美麗華</td><td>Ultra 4 49mm ×2</td></tr><tr><td><span class="badge" style="background:#1abc9c">AirPods 5</span></td><td>美麗華</td><td>AirPods 5 ×3</td></tr><tr><td><span class="badge" style="background:#1abc9c">AirPods 5</span></td><td>美麗華</td><td>搭配無線充電盒</td></tr><tr><td><span class="badge" style="background:#1abc9c">AirPods 5</span></td><td>士林</td><td>AirPods 5</td></tr><tr><td><span class="badge" style="background:#1abc9c">AirPods 5</span></td><td>士林</td><td>搭配無線充電盒</td></tr><tr><td><span class="badge" style="background:#1abc9c">AirPods 5</span></td><td>羅東</td><td>搭配無線充電盒 ×2</td></tr><tr><td><span class="badge" style="background:#1abc9c">AirPods 5</span></td><td>大葉高島屋</td><td>搭配無線充電盒</td></tr><tr><td><span class="badge" style="background:#1abc9c">AirPods 5</span></td><td>阿波羅</td><td>搭配無線充電盒 ×3</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>美麗華</td><td>iPhone 18 Pro 256GB ×23</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>美麗華</td><td>iPhone 18 Pro Max 256GB ×16</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>美麗華</td><td>iPhone 18 Pro Max 512GB ×16</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>美麗華</td><td>iPhone 18 Pro 512GB ×8</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>美麗華</td><td>iPhone 18 Pro 1TB ×2</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>阿波羅</td><td>iPhone 18 Pro 256GB ×19</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>阿波羅</td><td>iPhone 18 Pro Max 2TB ×5</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>阿波羅</td><td>iPhone 18 Pro Max 512GB ×14</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>阿波羅</td><td>iPhone 18 Pro Max 256GB ×11</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>阿波羅</td><td>iPhone 18 Pro 512GB ×9</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>阿波羅</td><td>iPhone 18 Pro Max 1TB ×2</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>士林</td><td>iPhone 18 Pro 256GB ×18</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>士林</td><td>iPhone 18 Pro 512GB ×8</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>士林</td><td>iPhone 18 Pro Max 512GB ×14</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>士林</td><td>iPhone 18 Pro Max 256GB ×20</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>微風</td><td>iPhone 18 Pro Max 512GB ×7</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>微風</td><td>iPhone 18 Pro Max 256GB ×18</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>微風</td><td>iPhone 18 Pro 256GB ×12</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>微風</td><td>iPhone 18 Pro 1TB ×3</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>微風</td><td>iPhone 18 Pro 512GB ×3</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>微風</td><td>iPhone 18 Pro Max 1TB ×2</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>羅東</td><td>iPhone 18 Pro 256GB ×4</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>羅東</td><td>iPhone 18 Pro Max 256GB ×5</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>羅東</td><td>iPhone 18 Pro Max 512GB ×2</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>大葉高島屋</td><td>iPhone 18 Pro 256GB ×9</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>大葉高島屋</td><td>iPhone 18 Pro Max 256GB ×5</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>大葉高島屋</td><td>iPhone 18 Pro Max 512GB ×2</td></tr><tr><td><span class="badge" style="background:#e74c3c">iPhone 18 Pro</span></td><td>大葉高島屋</td><td>iPhone 18 Pro 1TB</td></tr></tbody></table>
 
-<div class="footer">自動報表 · Studio A 北一區 · 2026/09/12</div>
+<div class="footer">自動報表 · STUDIO A 北一區 · 2026/09/12</div>
 
 <script>
-const ctx = document.getElementById('trendChart').getContext('2d');
-new Chart(ctx, {
+new Chart(document.getElementById('trendChart').getContext('2d'), {
   type: 'line',
-  data: {
-    labels: ["2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07", "2026/06/08", "2026/06/09", "2026/06/10", "2026/06/11", "2026/06/12", "2026/06/13", "2026/06/14", "2026/06/15", "2026/06/16", "2026/06/17", "2026/06/18", "2026/06/19", "2026/06/20", "2026/06/21", "2026/06/22", "2026/06/23", "2026/06/24", "2026/06/25", "2026/06/26", "2026/06/27", "2026/06/28", "2026/06/29", "2026/06/30", "2026/07/01", "2026/07/02", "2026/07/03", "2026/07/04", "2026/07/05", "2026/07/06", "2026/07/07", "2026/07/08", "2026/07/09", "2026/07/10", "2026/07/11", "2026/07/12", "2026/07/13", "2026/07/14", "2026/07/15", "2026/07/16", "2026/07/17", "2026/07/18", "2026/07/19", "2026/07/20", "2026/07/21", "2026/07/23", "2026/07/24", "2026/07/25", "2026/07/26", "2026/07/27", "2026/07/28", "2026/07/29", "2026/07/30", "2026/07/31", "2026/08/01", "2026/08/02", "2026/08/03", "2026/08/04", "2026/08/05", "2026/08/06", "2026/08/07", "2026/08/08", "2026/08/09", "2026/08/10", "2026/08/11", "2026/08/12", "2026/08/13", "2026/08/14", "2026/08/15", "2026/08/16", "2026/08/17", "2026/08/18", "2026/08/19", "2026/08/20", "2026/08/21", "2026/08/22", "2026/08/23", "2026/08/24", "2026/08/25", "2026/08/26", "2026/08/27", "2026/08/28", "2026/08/29", "2026/08/30", "2026/08/31", "2026/09/01", "2026/09/02", "2026/09/03", "2026/09/04", "2026/09/05", "2026/09/06", "2026/09/07", "2026/09/08", "2026/09/09", "2026/09/10", "2026/09/11", "2026/09/12"],
-    datasets: [{"label": "🟣 MacBook Neo", "data": [131, 133, 135, 137, 139, 142, 127, 127, 120, 121, 120, 120, 120, 122, 124, 117, 122, 122, 124, 128, 140, 141, 144, 144, 147, 149, 153, 142, 133, 136, 113, 114, 115, 95, 99, 63, 60, 54, 52, 49, 46, 44, 41, 41, 39, 38, 40, 39, 40, 41, 41, 43, 46, 46, 46, 31, 32, 32, 34, 35, 35, 34, 34, 33, 37, 37, 37, 38, 39, 8, 10, 10, 10, 7, 9, 9, 5, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "borderColor": "#9b59b6", "backgroundColor": "#9b59b622", "tension": 0.4, "fill": true, "pointRadius": 4, "pointHoverRadius": 6}, {"label": "🔵 MacBook Air M5", "data": [49, 38, 38, 39, 42, 42, 31, 29, 26, 26, 28, 30, 41, 42, 43, 34, 34, 34, 39, 39, 40, 44, 45, 46, 46, 49, 49, 28, 26, 26, 29, 28, 28, 24, 23, 22, 23, 20, 20, 21, 22, 22, 22, 23, 27, 29, 30, 30, 34, 34, 34, 33, 33, 36, 36, 19, 19, 20, 21, 23, 23, 22, 17, 17, 14, 15, 15, 14, 13, 10, 5, 10, 10, 12, 13, 16, 15, 14, 16, 20, 23, 23, 25, 28, 31, 31, 33, 33, 33, 35, 36, 38, 38, 39, 39, 38, 19, 20, 18, 9, 12, 16, 18, 17, 18, 4, 2, 2, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0], "borderColor": "#3498db", "backgroundColor": "#3498db22", "tension": 0.4, "fill": true, "pointRadius": 4, "pointHoverRadius": 6}]
-  },
+  data: { labels: ["2026/09/12"], datasets: [{"label": "⌚ Apple Watch", "data": [49], "borderColor": "#e67e22", "backgroundColor": "#e67e2222", "tension": 0.4, "fill": true, "pointRadius": 4, "pointHoverRadius": 6}, {"label": "🎧 AirPods 5", "data": [20], "borderColor": "#1abc9c", "backgroundColor": "#1abc9c22", "tension": 0.4, "fill": true, "pointRadius": 4, "pointHoverRadius": 6}, {"label": "📱 iPhone 18 Pro", "data": [258], "borderColor": "#e74c3c", "backgroundColor": "#e74c3c22", "tension": 0.4, "fill": true, "pointRadius": 4, "pointHoverRadius": 6}] },
   options: {
     responsive: true,
     interaction: { mode: 'index', intersect: false },
-    plugins: {
-      legend: { position: 'top' },
-      tooltip: {
-        callbacks: {
-          label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + ' 人'
-        }
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: false,
-        ticks: { callback: v => v + ' 人' }
-      }
-    }
+    plugins: { legend: { position: 'top' },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + ' 人' } } },
+    scales: { y: { beginAtZero: true, ticks: { callback: v => v + ' 人' } } }
   }
 });
 </script>
