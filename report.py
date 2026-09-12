@@ -204,6 +204,8 @@ def analyse(items, cfg, today_str):
     by_group_arrived       = defaultdict(int)
     by_store_group_arrived = defaultdict(lambda: defaultdict(int))
     by_group_color_active  = defaultdict(lambda: defaultdict(int))
+    by_store_spec_active   = defaultdict(lambda: defaultdict(int))
+    by_store_color_active  = defaultdict(lambda: defaultdict(int))
     today_new              = []
 
     for item in items:
@@ -229,6 +231,9 @@ def analyse(items, cfg, today_str):
             by_group_active[grp] += 1
             by_group_spec_active[grp][spec] += 1
             by_group_color_active[grp][color] += 1
+            if act.get("split_by_model"):
+                by_store_spec_active[store][spec] += 1
+                by_store_color_active[store][color] += 1
             if act.get("scene"):
                 by_scene_active[grp][act["scene"]] += 1
             if item.get("reservationTimeValue", "") == today_str:
@@ -256,6 +261,8 @@ def analyse(items, cfg, today_str):
         "by_scene_active":        {k: dict(v) for k, v in by_scene_active.items()},
         "by_group_arrived":       dict(by_group_arrived),
         "by_group_color_active":  {k: dict(v) for k, v in by_group_color_active.items()},
+        "by_store_spec_active":   {k: dict(v) for k, v in by_store_spec_active.items()},
+        "by_store_color_active":  {k: dict(v) for k, v in by_store_color_active.items()},
         "by_store_group_arrived": {k: dict(v) for k, v in by_store_group_arrived.items()},
         "today_new":              today_new,
     }
@@ -297,6 +304,27 @@ def spec_lines(spec_counts):
     if rest:
         lines.append(f"　⋯其他 {len(rest)} 種規格：**{sum(c for _, c in rest)} 人**")
     return lines
+
+def _w(text):
+    """顯示寬度：中文與全形字算 2"""
+    return sum(2 if ord(c) > 0x2E80 else 1 for c in str(text))
+
+
+def _pad(text, width, right=False):
+    pad = " " * max(0, width - _w(text))
+    return pad + str(text) if right else str(text) + pad
+
+
+def render_table(headers, rows):
+    """組成等寬表格字串，欄寬依內容自動調整"""
+    cols = len(headers)
+    widths = [max(_w(headers[i]), *(_w(r[i]) for r in rows)) for i in range(cols)] if rows \
+             else [_w(h) for h in headers]
+    out = [" ".join(_pad(headers[i], widths[i], right=(i > 0)) for i in range(cols))]
+    for r in rows:
+        out.append(" ".join(_pad(r[i], widths[i], right=(i > 0)) for i in range(cols)))
+    return "```\n" + "\n".join(out) + "\n```"
+
 
 def short_label(text):
     """把規格/顏色縮短成適合擠在一行的寫法"""
@@ -397,17 +425,68 @@ def build_embeds(cfg, stats, today_str, yesterday):
             "color": 0x8e44ad,
         })
 
-    # 門市：依人數排序擠成幾行
-    store_totals = {
-        s: sum(stats["by_store_group_active"].get(s, {}).values())
-        for s in cfg["shops"] if stats["by_store_group_active"].get(s)
-    }
+    # 手機活動（有 split_by_model 的）另外用表格呈現各門市狀況
+    phone_groups = [g for g in order if "|" in g]
+    stores_sorted = sorted(
+        [s for s in cfg["shops"] if stats["by_store_group_active"].get(s)],
+        key=lambda s: -sum(stats["by_store_group_active"][s].values()),
+    )
+
+    if phone_groups and stores_sorted:
+        # 表一：各門市 × 機型 × 容量
+        caps = defaultdict(int)
+        for g in phone_groups:
+            for spec, n in stats["by_group_spec_active"].get(g, {}).items():
+                caps[spec] += n
+        cap_order = [c for c, _ in sorted(caps.items(), key=lambda x: -x[1])][:4]
+
+        headers = ["門市"] + [short_label(groups[g]["name"].replace("iPhone 18 ", "").replace("Pro Max", "Max")) for g in phone_groups] \
+                  + [short_label(c) for c in cap_order] + ["合計"]
+        rows = []
+        for st in stores_sorted:
+            per_model = [stats["by_store_group_active"].get(st, {}).get(g, 0) for g in phone_groups]
+            if not sum(per_model):
+                continue
+            per_cap = [stats["by_store_spec_active"].get(st, {}).get(c, 0) for c in cap_order]
+            rows.append([st] + [str(v) for v in per_model] + [str(v) for v in per_cap] + [str(sum(per_model))])
+        if rows:
+            embeds.append({
+                "title": "📱 各門市手機預約",
+                "description": render_table(headers, rows),
+                "color": 0xe74c3c,
+            })
+
+        # 表二：各門市顏色佔比
+        color_tot = defaultdict(int)
+        for g in phone_groups:
+            for cname, n in stats["by_group_color_active"].get(g, {}).items():
+                color_tot[cname] += n
+        col_order = [c for c, _ in sorted(color_tot.items(), key=lambda x: -x[1])][:4]
+
+        headers2 = ["門市"] + [short_label(c) for c in col_order]
+        rows2 = []
+        for st in stores_sorted:
+            cmap  = stats["by_store_color_active"].get(st, {})
+            total = sum(cmap.values())
+            if not total:
+                continue
+            rows2.append([st] + [f"{round(cmap.get(c, 0) / total * 100)}%" for c in col_order])
+        if rows2:
+            total_all = sum(color_tot.values())
+            rows2.append(["全區"] + [f"{round(color_tot[c] / total_all * 100)}%" for c in col_order])
+            embeds.append({
+                "title": "🎨 各門市顏色佔比",
+                "description": render_table(headers2, rows2),
+                "color": 0x8e44ad,
+            })
+
+    # 各門市總計（含 Watch 等非手機活動）
     store_txt = "・".join(
-        f"{s} {n}" for s, n in sorted(store_totals.items(), key=lambda x: -x[1])
+        f"{st} {sum(stats['by_store_group_active'][st].values())}" for st in stores_sorted
     ) or "（尚無資料）"
 
     embeds.append({
-        "title": "🏪 各門市",
+        "title": "🏪 各門市合計",
         "description": store_txt + f"\n\n[📊 完整明細（規格／顏色／今日新增）]({cfg.get('pages_url','')})",
         "color": 0xe67e22,
         "footer": {"text": f"自動報表 · {cfg['region_name']}"},
