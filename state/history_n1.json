@@ -4307,40 +4307,40 @@
   },
   "2026/09/12": {
     "by_group_active": {
-      "watch": 49,
+      "watch": 50,
       "airpods": 20,
-      "iphone18pro": 258
+      "iphone18pro": 364
     },
     "by_store_group_active": {
+      "大葉高島屋": {
+        "watch": 5,
+        "airpods": 1,
+        "iphone18pro": 26
+      },
       "阿波羅": {
         "watch": 18,
         "airpods": 5,
-        "iphone18pro": 60
+        "iphone18pro": 100
       },
       "羅東": {
         "watch": 7,
         "airpods": 2,
-        "iphone18pro": 11
+        "iphone18pro": 15
       },
       "微風": {
         "watch": 3,
         "airpods": 2,
-        "iphone18pro": 45
+        "iphone18pro": 63
       },
       "士林": {
         "watch": 8,
         "airpods": 3,
-        "iphone18pro": 60
-      },
-      "大葉高島屋": {
-        "watch": 4,
-        "airpods": 1,
-        "iphone18pro": 17
+        "iphone18pro": 82
       },
       "美麗華": {
         "watch": 9,
         "airpods": 7,
-        "iphone18pro": 65
+        "iphone18pro": 78
       }
     },
     "by_group_alloc": {},
