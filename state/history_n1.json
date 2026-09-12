@@ -4308,14 +4308,14 @@
   "2026/09/12": {
     "by_group_active": {
       "watch": 50,
-      "iphone18pro|iPhone 18 Pro Max": 258,
-      "iphone18pro|iPhone 18 Pro": 228
+      "iphone18pro|iPhone 18 Pro Max": 257,
+      "iphone18pro|iPhone 18 Pro": 230
     },
     "by_store_group_active": {
       "微風": {
         "watch": 4,
-        "iphone18pro|iPhone 18 Pro Max": 44,
-        "iphone18pro|iPhone 18 Pro": 33
+        "iphone18pro|iPhone 18 Pro": 33,
+        "iphone18pro|iPhone 18 Pro Max": 43
       },
       "大葉高島屋": {
         "watch": 5,
@@ -4325,7 +4325,7 @@
       "阿波羅": {
         "watch": 18,
         "iphone18pro|iPhone 18 Pro Max": 77,
-        "iphone18pro|iPhone 18 Pro": 75
+        "iphone18pro|iPhone 18 Pro": 76
       },
       "羅東": {
         "watch": 7,
@@ -4339,8 +4339,8 @@
       },
       "美麗華": {
         "watch": 8,
-        "iphone18pro|iPhone 18 Pro Max": 50,
-        "iphone18pro|iPhone 18 Pro": 47
+        "iphone18pro|iPhone 18 Pro": 48,
+        "iphone18pro|iPhone 18 Pro Max": 50
       }
     },
     "by_group_alloc": {},
