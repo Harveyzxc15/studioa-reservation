@@ -298,17 +298,48 @@ def spec_lines(spec_counts):
         lines.append(f"　⋯其他 {len(rest)} 種規格：**{sum(c for _, c in rest)} 人**")
     return lines
 
+def short_label(text):
+    """把規格/顏色縮短成適合擠在一行的寫法"""
+    t = (text
+         .replace("Series ", "S").replace("Ultra ", "Ultra")
+         .replace("GB", "G").replace("TB", "T")
+         .replace("鋁金屬錶殼", "鋁").replace("鈦金屬錶殼", "鈦")
+         .replace("不鏽鋼錶殼", "鋼").replace("錶殼", ""))
+    return t.strip()
+
+
+def inline_counts(counts, limit=6):
+    """{'256GB': 129, ...} → '256G 129・512G 63'"""
+    ordered = sorted(counts.items(), key=lambda x: -x[1])
+    head, rest = ordered[:limit], ordered[limit:]
+    parts = [f"{short_label(k)} {v}" for k, v in head]
+    if rest:
+        parts.append(f"其他 {sum(v for _, v in rest)}")
+    return "・".join(parts)
+
+
+def inline_pcts(counts, limit=5):
+    """{'冰川藍': 175, ...} → '冰川藍 42%・勃根地紅 29%'"""
+    total = sum(counts.values())
+    if not total:
+        return ""
+    ordered = sorted(counts.items(), key=lambda x: -x[1])
+    head, rest = ordered[:limit], ordered[limit:]
+    parts = [f"{short_label(k)} {round(v / total * 100)}%" for k, v in head]
+    if rest:
+        parts.append(f"其他 {round(sum(v for _, v in rest) / total * 100)}%")
+    return "・".join(parts)
+
+
 def build_embeds(cfg, stats, today_str, yesterday):
+    """三區塊：總覽 / 各活動 / 各門市。逐項明細一律留給 HTML 報表"""
     order  = stats["group_order"]
     groups = stats["groups"]
-    stores = [s for s in cfg["shops"] if s in stats["by_store"]]
 
     total_active = sum(stats["by_group_active"].values())
     prev_active  = sum(yesterday.get("by_group_active", {}).values()) if yesterday else None
     total_alloc  = sum(stats["by_group_alloc"].values())
-    prev_alloc   = sum(yesterday.get("by_group_alloc", {}).values()) if yesterday else None
     total_arr    = sum(stats["by_group_arrived"].values())
-    prev_arr     = sum(yesterday.get("by_group_arrived", {}).values()) if yesterday else None
 
     if prev_active is None or total_active == prev_active:
         head_color = 0x3498db
@@ -317,139 +348,74 @@ def build_embeds(cfg, stats, today_str, yesterday):
     else:
         head_color = 0xe67e22
 
+    diff_txt = f"（{diff_label(total_active, prev_active)}）" if prev_active is not None else ""
+    head_lines = [f"**等待到貨 {total_active} 人**{diff_txt}・今日新增 {len(stats['today_new'])}"]
+    extra = []
+    if total_alloc:
+        extra.append(f"📦 已配貨待取機 {total_alloc}")
+    if total_arr:
+        extra.append(f"🚚 已到貨 {total_arr}")
+    if extra:
+        head_lines.append("・".join(extra))
+
     embeds = [{
-        "title": f"📱 STUDIO A 新機預約日報　{cfg['region_name']}　{today_str}",
-        "description": "\n".join([
-            f"📌 **等待到貨：{total_active} 人**（較昨日 {diff_label(total_active, prev_active)}）",
-            f"📦 **已配貨待取機：{total_alloc} 人**（較昨日 {diff_label(total_alloc, prev_alloc)}）",
-            f"🚚 **已到貨：{total_arr} 人**（較昨日 {diff_label(total_arr, prev_arr)}）",
-            f"🆕 今日新進等待池：{len(stats['today_new'])} 筆",
-        ]),
+        "title": f"📅 {cfg['region_name']}預約日報　{today_str}",
+        "description": "\n".join(head_lines),
         "color": head_color,
     }]
 
-    idle = [g for g in order
-            if not stats["by_group_active"].get(g)
-            and not stats["by_group_alloc"].get(g)
-            and not stats["by_group_arrived"].get(g)]
-    if idle:
-        embeds[0]["description"] += "\n\n💤 目前無等待中預約：" + "、".join(
-            f"{groups[g]['emoji']}{groups[g]['name']}" for g in idle
-        )
-
+    # 各活動：一則訊息，每個活動三行（標題／規格／顏色）
+    blocks = []
     for grp in order:
-        if grp in idle:
-            continue
-        act  = groups[grp]
-        cur  = stats["by_group_active"].get(grp, 0)
+        cur = stats["by_group_active"].get(grp, 0)
+        if not cur and not stats["by_group_alloc"].get(grp) and not stats["by_group_arrived"].get(grp):
+            continue   # 未開賣或已結束的活動不佔版面
+        g    = groups[grp]
         prev = yesterday.get("by_group_active", {}).get(grp) if yesterday else None
-        dtxt = f"　較昨日 {diff_label(cur, prev)}" if prev is not None else ""
+        dtxt = f"（{diff_label(cur, prev)}）" if prev is not None else ""
 
-        scenes    = stats["by_scene_active"].get(grp, {})
-        scene_txt = "（" + "／".join(f"{k} {v}" for k, v in scenes.items()) + "）" if scenes else ""
+        lines = [f"{g['emoji']} **{g['name']} {cur}**{dtxt}"]
+        specs = inline_counts(stats["by_group_spec_active"].get(grp, {}))
+        if specs:
+            lines.append(f"　{specs}")
+        colors = inline_pcts(stats["by_group_color_active"].get(grp, {}))
+        if colors:
+            lines.append(f"　{colors}")
+        tail = []
+        if stats["by_group_alloc"].get(grp):
+            tail.append(f"📦 {stats['by_group_alloc'][grp]}")
+        if stats["by_group_arrived"].get(grp):
+            tail.append(f"🚚 {stats['by_group_arrived'][grp]}")
+        if tail:
+            lines.append("　" + "・".join(tail))
+        blocks.append("\n".join(lines))
 
-        cur_alloc    = stats["by_group_alloc"].get(grp, 0)
-        prev_alloc_g = yesterday.get("by_group_alloc", {}).get(grp) if yesterday else None
-        alloc_dtxt   = f"　較昨日 {diff_label(cur_alloc, prev_alloc_g)}" if prev_alloc_g is not None else ""
-
-        desc = (
-            f"📌 等待到貨：**{cur} 人**{dtxt}{scene_txt}\n"
-            + "\n".join(spec_lines(stats["by_group_spec_active"].get(grp, {})))
-            + f"\n\n📦 已配貨待取機：**{cur_alloc} 人**{alloc_dtxt}\n"
-            + "\n".join(spec_lines(stats["by_group_spec_alloc"].get(grp, {})))
-        )
-
-        arrived = stats["by_group_arrived"].get(grp, 0)
-        if arrived:
-            prev_arr_g = yesterday.get("by_group_arrived", {}).get(grp) if yesterday else None
-            arr_dtxt = f"　較昨日 {diff_label(arrived, prev_arr_g)}" if prev_arr_g is not None else ""
-            desc += f"\n\n🚚 已到貨：**{arrived} 人**{arr_dtxt}"
-
+    if blocks:
         embeds.append({
-            "title": f"{act['emoji']} {act['name']}",
-            "description": desc,
-            "color": act["color"],
-        })
-
-    # 🎨 顏色分佈：各活動依顏色排序，附佔比
-    color_blocks = []
-    for grp in order:
-        colors = stats["by_group_color_active"].get(grp, {})
-        if not colors:
-            continue
-        total = sum(colors.values())
-        ordered = sorted(colors.items(), key=lambda x: -x[1])
-        head, rest = ordered[:TOP_SPEC_GROUPS], ordered[TOP_SPEC_GROUPS:]
-        lines = [f"　{c}：**{n} 人**（{round(n / total * 100)}%）" for c, n in head]
-        if rest:
-            r = sum(n for _, n in rest)
-            lines.append(f"　⋯其他 {len(rest)} 色：**{r} 人**（{round(r / total * 100)}%）")
-        color_blocks.append(f"{groups[grp]['emoji']} **{groups[grp]['name']}**\n" + "\n".join(lines))
-
-    if color_blocks:
-        embeds.append({
-            "title": "🎨 顏色分佈",
-            "description": "\n\n".join(color_blocks),
+            "title": "📊 各活動",
+            "description": "\n\n".join(blocks),
             "color": 0x8e44ad,
         })
 
-    store_lines = []
-    for store in stores:
-        cur_map  = stats["by_store_group_active"].get(store, {})
-        prev_map = yesterday.get("by_store_group_active", {}).get(store, {}) if yesterday else {}
-        total    = sum(cur_map.values())
-        prev_tot = sum(prev_map.values()) if yesterday else None
-        tot_txt  = f"**{total}**（{diff_label(total, prev_tot)}）" if prev_tot is not None else f"**{total}**"
+    # 門市：依人數排序擠成幾行
+    store_totals = {
+        s: sum(stats["by_store_group_active"].get(s, {}).values())
+        for s in cfg["shops"] if stats["by_store_group_active"].get(s)
+    }
+    store_txt = "・".join(
+        f"{s} {n}" for s, n in sorted(store_totals.items(), key=lambda x: -x[1])
+    ) or "（尚無資料）"
 
-        parts = []
-        for grp in order:
-            c = cur_map.get(grp, 0)
-            if not c:
-                continue
-            p   = prev_map.get(grp) if yesterday else None
-            emo = groups[grp]["emoji"]
-            parts.append(f"{emo}{c}（{diff_label(c, p)}）" if p is not None and c != p else f"{emo}{c}")
-
-        alloc_map = stats["by_store_group_alloc"].get(store, {})
-        alloc_txt = ""
-        if sum(alloc_map.values()):
-            alloc_txt = "\n　　📦配貨 " + "　".join(
-                f"{groups[g]['emoji']}{c}" for g, c in alloc_map.items() if c
-            )
-        store_lines.append(f"**{store}**　{tot_txt}人　{'　'.join(parts)}{alloc_txt}")
-
-    legend = "　".join(f"{groups[g]['emoji']}{groups[g]['name']}" for g in order)
     embeds.append({
-        "title": "🏪 各門市明細",
-        "description": ("\n".join(store_lines) or "（尚無資料）") + f"\n\n{legend}",
+        "title": "🏪 各門市",
+        "description": store_txt + f"\n\n[📊 完整明細（規格／顏色／今日新增）]({cfg.get('pages_url','')})",
         "color": 0xe67e22,
-    })
-
-    new_items = stats["today_new"]
-    if new_items:
-        nested = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
-        for it in new_items:
-            nested[it["store"]][it["group"]][it["spec"]] += 1
-        new_lines = []
-        for store in sorted(nested):
-            for grp in order:
-                specs = nested[store].get(grp)
-                if not specs:
-                    continue
-                txt = "、".join(f"{s}×{n}" if n > 1 else s for s, n in specs.items())
-                new_lines.append(f"{groups[grp]['emoji']} **{store}**｜{groups[grp]['name']}：{txt}")
-    else:
-        new_lines = ["今日尚無新增預約"]
-
-    embeds.append({
-        "title": f"🆕 今日新增（共 {len(new_items)} 筆）",
-        "description": "\n".join(new_lines) + f"\n\n[📊 查看完整報表]({cfg.get('pages_url','')})",
-        "color": 0x1abc9c,
         "footer": {"text": f"自動報表 · {cfg['region_name']}"},
         "timestamp": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
     })
 
     return embeds
+
 
 def batch_embeds(embeds):
     """截斷過長內容，並依字數/則數上限拆成多次 POST"""
