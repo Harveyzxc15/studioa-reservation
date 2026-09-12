@@ -1,37 +1,45 @@
 {
   "by_store_model_active": {
+    "板橋誠品": {
+      "watch": 3
+    },
+    "新西門": {
+      "watch": 8,
+      "airpods": 2
+    },
+    "板橋遠百": {
+      "watch": 10,
+      "airpods": 2
+    },
+    "新莊宏匯": {
+      "watch": 12,
+      "airpods": 1
+    },
     "永和": {
-      "MacBook Air M5": 1
+      "watch": 9,
+      "airpods": 2
+    },
+    "新店裕隆城": {
+      "watch": 11,
+      "airpods": 5
+    },
+    "花蓮": {
+      "watch": 2,
+      "airpods": 1
     }
   },
   "by_store_cancel_abandon": {
-    "板橋遠百": {
-      "abandon": 61,
-      "cancel": 64
-    },
-    "永和": {
-      "abandon": 49,
-      "cancel": 20
-    },
-    "新店裕隆城": {
-      "abandon": 77,
-      "cancel": 70
-    },
-    "花蓮": {
-      "cancel": 24,
-      "abandon": 24
-    },
     "新西門": {
-      "abandon": 56,
-      "cancel": 58
+      "cancel": 2
     },
     "新莊宏匯": {
-      "cancel": 55,
-      "abandon": 54
+      "cancel": 2
+    },
+    "板橋遠百": {
+      "cancel": 3
     },
     "板橋誠品": {
-      "abandon": 35,
-      "cancel": 26
+      "cancel": 2
     }
   }
 }

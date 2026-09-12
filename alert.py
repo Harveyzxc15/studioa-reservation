@@ -10,6 +10,7 @@ import os
 import sys
 import warnings
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 
@@ -21,61 +22,64 @@ REPO_DIR    = Path(__file__).parent
 
 def load_config(region: str = "n1"):
     region_cfg = json.loads((REPO_DIR / "regions" / f"{region}.json").read_text())
+    activities = json.loads((REPO_DIR / "activities.json").read_text())["activities"]
 
-    if CONFIG_PATH.exists():
-        with open(CONFIG_PATH) as f:
-            base = json.load(f)
-        base["shops"]            = region_cfg["shops"]
-        base["alert_state_file"] = str(REPO_DIR / region_cfg["alert_state_file"])
-        base["region_name"]      = region_cfg["name"]
-        return base
-    # GitHub Actions 模式
-    webhook_key = region_cfg["webhook_env"]
+    local = json.loads(CONFIG_PATH.read_text()) if CONFIG_PATH.exists() else {}
+
+    token = os.environ.get("STUDIOA_TOKEN") or local.get("token")
+    if not token:
+        sys.exit("❌ 找不到 token（環境變數 STUDIOA_TOKEN 或本機 config）")
+    webhook = os.environ.get(region_cfg["webhook_env"]) or local.get("discord_webhook")
+    if not webhook:
+        sys.exit(f"❌ 找不到 webhook（環境變數 {region_cfg['webhook_env']}）")
+
     return {
-        "token":           os.environ["STUDIOA_TOKEN"],
-        "base_url":        "https://www.studioa.com.tw/backend/api/shopcms",
-        "activities": {
-            "MacBook Neo":    "3a1ff33e-40e5-9fc9-349b-9ac47b354fb0",
-            "MacBook Air M5": "3a1ff280-2379-5b06-7c11-319979aa2c59",
-        },
-        "shops":           region_cfg["shops"],
+        "token":            token,
+        "base_url":         "https://www.studioa.com.tw/backend/api/shopcms",
+        "activities":       activities,
+        "shops":            region_cfg["shops"],
+        "shop_ids":         region_cfg["shop_ids"],
         "alert_state_file": str(REPO_DIR / region_cfg["alert_state_file"]),
-        "region_name":     region_cfg["name"],
-        "discord_webhook": os.environ[webhook_key],
+        "region_name":      region_cfg["name"],
+        "discord_webhook":  webhook,
     }
 
 # ── API ───────────────────────────────────────────────────────────────
-def fetch_items(cfg):
-    headers   = {"Authorization": cfg["token"]}
-    act_params = "&".join(
-        f"ReservationActivityIds={aid}" for aid in cfg["activities"].values()
-    )
-    base     = cfg["base_url"]
-    my_shops = set(cfg.get("shops", []))
-
+def fetch_activity(cfg, activity_id):
+    headers = {"Authorization": cfg["token"]}
+    shop_q  = "&".join(f"ShopIds={sid}" for sid in cfg["shop_ids"].values())
     skip, ps = 0, 500
-    all_items = []
+    items = []
     while True:
         url = (
-            f"{base}/reservation-activity/reservation-user-list"
-            f"?SkipCount={skip}&MaxResultCount={ps}&{act_params}"
+            f"{cfg['base_url']}/reservation-activity/reservation-user-list"
+            f"?SkipCount={skip}&MaxResultCount={ps}"
+            f"&ReservationActivityIds={activity_id}&{shop_q}"
         )
-        resp = requests.get(url, headers=headers, timeout=30)
+        resp = requests.get(url, headers=headers, timeout=120)
         resp.raise_for_status()
         dto = resp.json()["data"]["userReservationListOutDtos"]
         for it in dto["items"]:
             if it.get("shopName"):
                 it["shopName"] = it["shopName"].strip()
-        items = [it for it in dto["items"] if it.get("shopName") in my_shops]
-        all_items.extend(items)
-        if skip + ps >= dto["totalCount"]:
-            break
+        items.extend(dto["items"])
         skip += ps
-    return all_items
+        if skip >= dto["totalCount"] or not dto["items"]:
+            break
+    return items
+
+def fetch_items(cfg):
+    acts = cfg["activities"]
+    with ThreadPoolExecutor(max_workers=len(acts)) as pool:
+        results = pool.map(lambda a: fetch_activity(cfg, a["id"]), acts)
+    out = []
+    for r in results:
+        out.extend(r)
+    return out
 
 # ── 統計 ──────────────────────────────────────────────────────────────
 def summarise(items, cfg):
-    id_to_model = {v: k for k, v in cfg["activities"].items()}
+    id_to_group = {a["id"]: a["group"] for a in cfg["activities"]}
     cancel_statuses = {"已取消", "已取消(已遞補)"}
     abandon_statuses = {"放棄", "放棄(已遞補)"}
 
@@ -84,7 +88,7 @@ def summarise(items, cfg):
 
     for it in items:
         store  = it.get("shopName", "")
-        model  = id_to_model.get(it["reservationActivityId"], "其他")
+        model  = id_to_group.get(it["reservationActivityId"], "其他")
         status = it.get("statusName", "")
 
         if status == "已預約":
@@ -110,11 +114,19 @@ def save_state(cfg, state):
     p.write_text(json.dumps(state, ensure_ascii=False, indent=2))
 
 # ── 差異計算 ──────────────────────────────────────────────────────────
-MODEL_DOT   = {"MacBook Neo": "🟣", "MacBook Air M5": "🔵"}
-MODEL_SHORT = {"MacBook Neo": "Neo", "MacBook Air M5": "Air M5"}
+def group_maps(cfg):
+    """回傳 (順序, emoji 對照, 名稱對照)，同 group 的活動只出現一次"""
+    order, dot, short = [], {}, {}
+    for a in cfg["activities"]:
+        g = a["group"]
+        if g not in order:
+            order.append(g)
+            dot[g]   = a["emoji"]
+            short[g] = a["name"]
+    return order, dot, short
 
 def detect_changes(curr, prev, cfg):
-    models = list(cfg["activities"].keys())
+    models, MODEL_DOT, MODEL_SHORT = group_maps(cfg)
     shops  = cfg.get("shops", [])
     changes = []
 
@@ -164,7 +176,7 @@ def detect_changes(curr, prev, cfg):
 
 # ── Discord ───────────────────────────────────────────────────────────
 def send_alert(cfg, changes, curr, now_str):
-    models = list(cfg["activities"].keys())
+    models, MODEL_DOT, MODEL_SHORT = group_maps(cfg)
     shops  = cfg.get("shops", [])
 
     # 目前等待池總覽（簡短）
@@ -179,8 +191,8 @@ def send_alert(cfg, changes, curr, now_str):
         )
     model_str = "　".join(
         f"{MODEL_DOT.get(m,'⚪')}{MODEL_SHORT.get(m,m)} {c}"
-        for m, c in by_model.items()
-    )
+        for m, c in by_model.items() if c
+    ) or "（目前無等待中預約）"
 
     desc = "\n\n".join(changes)
     desc += f"\n\n> 目前等待到貨：**{total} 人**　{model_str}"
@@ -190,7 +202,7 @@ def send_alert(cfg, changes, curr, now_str):
         "title":       f"⚡ {region_name} 預約異動通知　{now_str}",
         "description": desc,
         "color":       0xf39c12,
-        "footer":      {"text": f"{region_name} · 每 8 小時偵測一次"},
+        "footer":      {"text": f"{region_name} · 預約異動偵測"},
         "timestamp":   datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
 

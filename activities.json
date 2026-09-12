@@ -1,0 +1,38 @@
+{
+  "activities": [
+    {
+      "id": "3a239cda-ccc5-443d-6642-676f299f05a5",
+      "name": "Apple Watch",
+      "emoji": "⌚",
+      "color": 15105570,
+      "spec_style": "watch",
+      "group": "watch"
+    },
+    {
+      "id": "3a23a05f-d71f-eb80-606a-ff2c23513d83",
+      "name": "AirPods 5",
+      "emoji": "🎧",
+      "color": 1752220,
+      "spec_style": "plain",
+      "group": "airpods"
+    },
+    {
+      "id": "3a239ce0-4214-a56a-3c82-28788bac5906",
+      "name": "iPhone 18 Pro",
+      "emoji": "📱",
+      "color": 15158332,
+      "spec_style": "iphone",
+      "group": "iphone18pro",
+      "scene": "限定場"
+    },
+    {
+      "id": "3a239ce3-1831-cbcc-8661-d9b711d1fa7a",
+      "name": "iPhone 18 Pro",
+      "emoji": "📱",
+      "color": 15158332,
+      "spec_style": "iphone",
+      "group": "iphone18pro",
+      "scene": "全會員"
+    }
+  ]
+}

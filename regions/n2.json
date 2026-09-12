@@ -1,9 +1,26 @@
 {
   "name": "北二區",
-  "shops": ["新西門", "永和", "板橋誠品", "板橋遠百", "新莊宏匯", "新店裕隆城", "花蓮"],
+  "shops": [
+    "新西門",
+    "永和",
+    "板橋誠品",
+    "板橋遠百",
+    "新莊宏匯",
+    "新店裕隆城",
+    "花蓮"
+  ],
   "webhook_env": "DISCORD_WEBHOOK_N2",
   "history_file": "state/history_n2.json",
   "alert_state_file": "state/alert_state_n2.json",
   "html_output": "docs/n2/index.html",
-  "pages_url": "https://harveyzxc15.github.io/studioa-reservation/n2/"
+  "pages_url": "https://harveyzxc15.github.io/studioa-reservation/n2/",
+  "shop_ids": {
+    "新西門": "3a0503e0-e93c-df39-847a-e5748056b30d",
+    "永和": "3a0503e3-4cd5-eed2-336a-51ddd36ced66",
+    "板橋誠品": "3a05035c-c765-941c-0811-22289455e135",
+    "板橋遠百": "3a05035b-7a7c-e735-8d95-75e623694335",
+    "新莊宏匯": "3a0502b0-9a8f-b90b-0612-37f6e772fada",
+    "新店裕隆城": "3a0da58a-de4a-8d3f-0677-ca6b27f14108",
+    "花蓮": "3a0503e4-32be-6611-8bf0-ed40560f1bcc"
+  }
 }

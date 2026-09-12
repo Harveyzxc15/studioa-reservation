@@ -1,8 +1,8 @@
-name: Daily Report N2 (9 AM)
+name: Daily Report N2 (10 AM)
 
 on:
   schedule:
-    - cron: '5 1 * * *'   # 每天 09:05 台灣時間（與北一區錯開5分鐘）
+    - cron: '5 2 * * *'  # 每天 10:05 台灣時間（與北一區錯開 5 分鐘）
   workflow_dispatch:
 
 jobs:
