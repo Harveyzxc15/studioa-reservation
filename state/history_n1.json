@@ -4308,39 +4308,32 @@
   "2026/09/12": {
     "by_group_active": {
       "watch": 50,
-      "airpods": 20,
-      "iphone18pro": 364
+      "iphone18pro": 420
     },
     "by_store_group_active": {
+      "微風": {
+        "watch": 4,
+        "iphone18pro": 70
+      },
       "大葉高島屋": {
         "watch": 5,
-        "airpods": 1,
-        "iphone18pro": 26
+        "iphone18pro": 38
       },
       "阿波羅": {
         "watch": 18,
-        "airpods": 5,
-        "iphone18pro": 100
+        "iphone18pro": 117
       },
       "羅東": {
         "watch": 7,
-        "airpods": 2,
-        "iphone18pro": 15
-      },
-      "微風": {
-        "watch": 3,
-        "airpods": 2,
-        "iphone18pro": 63
+        "iphone18pro": 18
       },
       "士林": {
         "watch": 8,
-        "airpods": 3,
-        "iphone18pro": 82
+        "iphone18pro": 88
       },
       "美麗華": {
-        "watch": 9,
-        "airpods": 7,
-        "iphone18pro": 78
+        "watch": 8,
+        "iphone18pro": 89
       }
     },
     "by_group_alloc": {},
