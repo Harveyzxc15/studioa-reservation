@@ -4900,44 +4900,44 @@
   },
   "2026/09/12": {
     "by_group_active": {
-      "watch": 56,
-      "airpods": 19,
-      "iphone18pro": 363
+      "watch": 57,
+      "airpods": 20,
+      "iphone18pro": 475
     },
     "by_store_group_active": {
+      "新西門": {
+        "watch": 9,
+        "airpods": 3,
+        "iphone18pro": 112
+      },
       "新莊宏匯": {
         "watch": 13,
         "airpods": 1,
-        "iphone18pro": 49
+        "iphone18pro": 60
       },
       "板橋誠品": {
         "watch": 3,
-        "iphone18pro": 40
-      },
-      "新西門": {
-        "watch": 8,
-        "airpods": 2,
-        "iphone18pro": 87
+        "iphone18pro": 57
       },
       "板橋遠百": {
         "watch": 10,
         "airpods": 4,
-        "iphone18pro": 69
+        "iphone18pro": 90
       },
       "永和": {
         "watch": 9,
         "airpods": 4,
-        "iphone18pro": 34
+        "iphone18pro": 44
       },
       "新店裕隆城": {
         "watch": 11,
         "airpods": 7,
-        "iphone18pro": 71
+        "iphone18pro": 93
       },
       "花蓮": {
         "watch": 2,
         "airpods": 1,
-        "iphone18pro": 13
+        "iphone18pro": 19
       }
     },
     "by_group_alloc": {},
