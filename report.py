@@ -326,6 +326,18 @@ def render_table(headers, rows):
     return "```\n" + "\n".join(out) + "\n```"
 
 
+COLOR_ABBR = {"冰川藍": "冰藍", "勃根地紅": "勃紅", "銀色": "銀", "黑色": "黑",
+              "白色": "白", "金色": "金", "原色": "原"}
+
+
+def color_abbr(name):
+    """顏色縮成兩字以內，手機版才排得下"""
+    if name in COLOR_ABBR:
+        return COLOR_ABBR[name]
+    t = name.replace("色", "")
+    return t[:2] if t else name[:2]
+
+
 def short_label(text):
     """把規格/顏色縮短成適合擠在一行的寫法"""
     t = (text
@@ -433,22 +445,17 @@ def build_embeds(cfg, stats, today_str, yesterday):
     )
 
     if phone_groups and stores_sorted:
-        # 表一：各門市 × 機型 × 容量
-        caps = defaultdict(int)
-        for g in phone_groups:
-            for spec, n in stats["by_group_spec_active"].get(g, {}).items():
-                caps[spec] += n
-        cap_order = [c for c, _ in sorted(caps.items(), key=lambda x: -x[1])][:4]
-
-        headers = ["門市"] + [short_label(groups[g]["name"].replace("iPhone 18 ", "").replace("Pro Max", "Max")) for g in phone_groups] \
-                  + [short_label(c) for c in cap_order] + ["合計"]
+        # 表一：各門市 × 機型（容量明細在「各活動」與 HTML，手機版排不下）
+        headers = ["門市"] + [
+            short_label(groups[g]["name"].replace("iPhone 18 ", "").replace("Pro Max", "Max"))
+            for g in phone_groups
+        ] + ["合計"]
         rows = []
         for st in stores_sorted:
             per_model = [stats["by_store_group_active"].get(st, {}).get(g, 0) for g in phone_groups]
             if not sum(per_model):
                 continue
-            per_cap = [stats["by_store_spec_active"].get(st, {}).get(c, 0) for c in cap_order]
-            rows.append([st] + [str(v) for v in per_model] + [str(v) for v in per_cap] + [str(sum(per_model))])
+            rows.append([st] + [str(v) for v in per_model] + [str(sum(per_model))])
         if rows:
             embeds.append({
                 "title": "📱 各門市手機預約",
@@ -463,7 +470,7 @@ def build_embeds(cfg, stats, today_str, yesterday):
                 color_tot[cname] += n
         col_order = [c for c, _ in sorted(color_tot.items(), key=lambda x: -x[1])][:4]
 
-        headers2 = ["門市"] + [short_label(c) for c in col_order]
+        headers2 = ["門市"] + [color_abbr(c) for c in col_order]
         rows2 = []
         for st in stores_sorted:
             cmap  = stats["by_store_color_active"].get(st, {})
