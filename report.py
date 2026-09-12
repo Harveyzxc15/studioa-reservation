@@ -140,6 +140,24 @@ def spec_group(product, style):
         return tail
     return name
 
+def spec_color(product, style):
+    """取出顏色：iPhone 取斜線後的機身色，Watch 取錶殼色，Mac 取機身色"""
+    name = product.replace("預約｜", "").strip()
+
+    if style == "watch":
+        tail = name[name.rfind(")") + 1:].strip().lstrip("/").strip()
+        m = re.match(r"(.*?錶殼)", tail)
+        return m.group(1).strip() if m else (tail.split("/")[0].strip() or "未標示")
+
+    if style in ("iphone", "mac"):
+        tail = name[name.rfind(")") + 1:].strip().lstrip("/").strip()
+        if not tail and "/" in name:
+            tail = name.rsplit("/", 1)[1].strip()
+        tail = tail.replace("四色/", "").replace("雙色/", "")
+        return tail or "未標示"
+
+    return "未標示"
+
 # ── 統計 ──────────────────────────────────────────────────────────────
 def analyse(items, cfg, today_str):
     by_id  = {a["id"]: a for a in cfg["activities"]}
@@ -158,6 +176,7 @@ def analyse(items, cfg, today_str):
     by_scene_active        = defaultdict(lambda: defaultdict(int))
     by_group_arrived       = defaultdict(int)
     by_store_group_arrived = defaultdict(lambda: defaultdict(int))
+    by_group_color_active  = defaultdict(lambda: defaultdict(int))
     today_new              = []
 
     for item in items:
@@ -167,6 +186,7 @@ def analyse(items, cfg, today_str):
         grp    = act["group"]
         store  = item["shopName"]
         spec   = spec_group(item["productName"], act["spec_style"])
+        color  = spec_color(item["productName"], act["spec_style"])
         status = item.get("statusName", "")
 
         by_store[store] += 1
@@ -175,6 +195,7 @@ def analyse(items, cfg, today_str):
             by_store_group_active[store][grp] += 1
             by_group_active[grp] += 1
             by_group_spec_active[grp][spec] += 1
+            by_group_color_active[grp][color] += 1
             if act.get("scene"):
                 by_scene_active[grp][act["scene"]] += 1
             if item.get("reservationTimeValue", "") == today_str:
@@ -201,6 +222,7 @@ def analyse(items, cfg, today_str):
         "by_group_spec_alloc":    {k: dict(v) for k, v in by_group_spec_alloc.items()},
         "by_scene_active":        {k: dict(v) for k, v in by_scene_active.items()},
         "by_group_arrived":       dict(by_group_arrived),
+        "by_group_color_active":  {k: dict(v) for k, v in by_group_color_active.items()},
         "by_store_group_arrived": {k: dict(v) for k, v in by_store_group_arrived.items()},
         "today_new":              today_new,
     }
@@ -314,6 +336,28 @@ def build_embeds(cfg, stats, today_str, yesterday):
             "title": f"{act['emoji']} {act['name']}",
             "description": desc,
             "color": act["color"],
+        })
+
+    # 🎨 顏色分佈：各活動依顏色排序，附佔比
+    color_blocks = []
+    for grp in order:
+        colors = stats["by_group_color_active"].get(grp, {})
+        if not colors:
+            continue
+        total = sum(colors.values())
+        ordered = sorted(colors.items(), key=lambda x: -x[1])
+        head, rest = ordered[:TOP_SPEC_GROUPS], ordered[TOP_SPEC_GROUPS:]
+        lines = [f"　{c}：**{n} 人**（{round(n / total * 100)}%）" for c, n in head]
+        if rest:
+            r = sum(n for _, n in rest)
+            lines.append(f"　⋯其他 {len(rest)} 色：**{r} 人**（{round(r / total * 100)}%）")
+        color_blocks.append(f"{groups[grp]['emoji']} **{groups[grp]['name']}**\n" + "\n".join(lines))
+
+    if color_blocks:
+        embeds.append({
+            "title": "🎨 顏色分佈",
+            "description": "\n\n".join(color_blocks),
+            "color": 0x8e44ad,
         })
 
     store_lines = []
@@ -462,6 +506,18 @@ def generate_html(cfg, stats, today_str, history):
             for spec, cnt in sorted(stats["by_group_spec_alloc"].get(grp, {}).items(), key=lambda x: -x[1])
         )
 
+        colors     = stats["by_group_color_active"].get(grp, {})
+        color_tot  = sum(colors.values())
+        color_rows = ""
+        for name, cnt in sorted(colors.items(), key=lambda x: -x[1]):
+            pct = round(cnt / color_tot * 100) if color_tot else 0
+            color_rows += (f'<tr><td>{name}</td><td class="num">{cnt}</td><td class="num">{pct}%</td>'
+                           f'<td><div class="bar-wrap"><div class="bar" style="width:{pct}%;background:{c}"></div></div></td></tr>')
+        color_section = (
+            f'<div class="section-label">🎨 顏色分佈</div>'
+            f'<table class="spec-table"><tbody>{color_rows}</tbody></table>'
+        ) if color_rows else ""
+
         cards += (
             f'<div class="card" style="border-top:4px solid {c}">'
             f'<div class="card-title">{act["emoji"]} {act["name"]}</div>'
@@ -475,6 +531,7 @@ def generate_html(cfg, stats, today_str, history):
             f'<tbody>{rows or "<tr><td colspan=3 class=muted>無</td></tr>"}</tbody></table>'
             f'<div class="alloc-label">📦 已配貨待取機：{al_tot} 人</div>'
             f'<table class="spec-table"><tbody>{alloc_rows or "<tr><td colspan=3 class=muted>無</td></tr>"}</tbody></table>'
+            f'{color_section}'
             f'</div>'
         )
 
