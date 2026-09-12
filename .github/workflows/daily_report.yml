@@ -35,5 +35,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add state/ docs/
           git diff --cached --quiet || git commit -m "chore: daily report $(date -u +'%Y-%m-%d')"
-          git pull --rebase origin main
-          git push
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && break
+            echo "push 失敗（第 $i 次），另一區可能同時在寫，稍後重試"
+            sleep $((i * 5))
+          done
