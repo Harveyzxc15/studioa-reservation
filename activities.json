@@ -15,7 +15,18 @@
       "color": 15158332,
       "spec_style": "iphone",
       "group": "iphone18pro",
-      "scene": "限定場"
+      "scene": "限定場",
+      "split_by_model": true,
+      "split_styles": {
+        "iPhone 18 Pro": {
+          "emoji": "📱",
+          "color": 15158332
+        },
+        "iPhone 18 Pro Max": {
+          "emoji": "📲",
+          "color": 12597547
+        }
+      }
     },
     {
       "id": "3a239ce3-1831-cbcc-8661-d9b711d1fa7a",
@@ -24,7 +35,18 @@
       "color": 15158332,
       "spec_style": "iphone",
       "group": "iphone18pro",
-      "scene": "全會員"
+      "scene": "全會員",
+      "split_by_model": true,
+      "split_styles": {
+        "iPhone 18 Pro": {
+          "emoji": "📱",
+          "color": 15158332
+        },
+        "iPhone 18 Pro Max": {
+          "emoji": "📲",
+          "color": 12597547
+        }
+      }
     }
   ]
 }

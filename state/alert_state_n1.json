@@ -2,47 +2,47 @@
   "by_store_model_active": {
     "微風": {
       "watch": 4,
-      "iphone18pro": 70
+      "iphone18pro": 71
     },
     "大葉高島屋": {
       "watch": 5,
-      "iphone18pro": 38
+      "iphone18pro": 41
     },
     "阿波羅": {
       "watch": 18,
-      "iphone18pro": 117
+      "iphone18pro": 126
     },
     "羅東": {
       "watch": 7,
-      "iphone18pro": 18
+      "iphone18pro": 20
     },
     "士林": {
       "watch": 8,
-      "iphone18pro": 88
+      "iphone18pro": 89
     },
     "美麗華": {
       "watch": 8,
-      "iphone18pro": 88
+      "iphone18pro": 93
     }
   },
   "by_store_cancel_abandon": {
     "微風": {
-      "cancel": 7
+      "cancel": 8
     },
     "大葉高島屋": {
-      "cancel": 5
+      "cancel": 6
     },
     "士林": {
       "cancel": 6
     },
     "美麗華": {
-      "cancel": 4
+      "cancel": 5
     },
     "羅東": {
-      "cancel": 1
+      "cancel": 2
     },
     "阿波羅": {
-      "cancel": 6
+      "cancel": 7
     }
   }
 }

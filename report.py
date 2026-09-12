@@ -140,6 +140,24 @@ def spec_group(product, style):
         return tail
     return name
 
+def model_of(product):
+    """'iPhone 18 Pro Max (6.9吋/256GB)/冰川藍' → 'iPhone 18 Pro Max'"""
+    name = product.replace("預約｜", "").strip()
+    m = re.match(r"(iPhone[^\(]*)", name)
+    return m.group(1).strip() if m else name
+
+
+def resolve_group(act, product):
+    """回傳 (分組鍵, 顯示名, emoji, 顏色)；設了 split_by_model 的活動會依機型再拆"""
+    if act.get("split_by_model"):
+        model = model_of(product)
+        style = act.get("split_styles", {}).get(model)
+        if style:
+            return f"{act['group']}|{model}", model, style["emoji"], style["color"]
+        return f"{act['group']}|{model}", model, act["emoji"], act["color"]
+    return act["group"], act["name"], act["emoji"], act["color"]
+
+
 def spec_color(product, style):
     """取出顏色：iPhone 取斜線後的機身色，Watch 取錶殼色，Mac 取機身色"""
     name = product.replace("預約｜", "").strip()
@@ -160,11 +178,20 @@ def spec_color(product, style):
 
 # ── 統計 ──────────────────────────────────────────────────────────────
 def analyse(items, cfg, today_str):
-    by_id  = {a["id"]: a for a in cfg["activities"]}
-    groups = []
+    by_id = {a["id"]: a for a in cfg["activities"]}
+    # 分組資訊在掃描資料時建立（split_by_model 的活動要看到實際機型才知道有哪幾組）
+    group_meta  = {}
+    group_order = []
     for a in cfg["activities"]:
-        if a["group"] not in [g["group"] for g in groups]:
-            groups.append(a)
+        if a.get("split_by_model"):
+            for model, st in a.get("split_styles", {}).items():
+                key = f"{a['group']}|{model}"
+                if key not in group_meta:
+                    group_meta[key] = {"name": model, "emoji": st["emoji"], "color": st["color"]}
+                    group_order.append(key)
+        elif a["group"] not in group_meta:
+            group_meta[a["group"]] = {"name": a["name"], "emoji": a["emoji"], "color": a["color"]}
+            group_order.append(a["group"])
 
     by_store               = defaultdict(int)
     by_store_group_active  = defaultdict(lambda: defaultdict(int))
@@ -183,9 +210,15 @@ def analyse(items, cfg, today_str):
         act = by_id.get(item["reservationActivityId"])
         if not act:
             continue
-        grp    = act["group"]
+        grp, gname, gemoji, gcolor = resolve_group(act, item["productName"])
+        if grp not in group_meta:
+            group_meta[grp] = {"name": gname, "emoji": gemoji, "color": gcolor}
+            group_order.append(grp)
         store  = item["shopName"]
         spec   = spec_group(item["productName"], act["spec_style"])
+        if act.get("split_by_model"):
+            # 區塊標題已經是機型，規格只留容量
+            spec = spec.replace(gname, "").strip() or spec
         color  = spec_color(item["productName"], act["spec_style"])
         status = item.get("statusName", "")
 
@@ -211,8 +244,8 @@ def analyse(items, cfg, today_str):
             by_store_group_arrived[store][grp] += 1
 
     return {
-        "groups":                 {g["group"]: g for g in groups},
-        "group_order":            [g["group"] for g in groups],
+        "groups":                 group_meta,
+        "group_order":            group_order,
         "by_store":               dict(by_store),
         "by_store_group_active":  {k: dict(v) for k, v in by_store_group_active.items()},
         "by_group_active":        dict(by_group_active),
