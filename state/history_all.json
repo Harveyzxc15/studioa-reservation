@@ -1,0 +1,79 @@
+{
+  "2026/09/13": {
+    "by_group_active": {
+      "watch": 131,
+      "iphone18pro|iPhone 18 Pro": 670,
+      "iphone18pro|iPhone 18 Pro Max": 963
+    },
+    "by_store_group_active": {
+      "美麗華": {
+        "watch": 10,
+        "iphone18pro|iPhone 18 Pro Max": 68,
+        "iphone18pro|iPhone 18 Pro": 69
+      },
+      "士林": {
+        "watch": 15,
+        "iphone18pro|iPhone 18 Pro": 61,
+        "iphone18pro|iPhone 18 Pro Max": 70
+      },
+      "羅東": {
+        "watch": 10,
+        "iphone18pro|iPhone 18 Pro": 24,
+        "iphone18pro|iPhone 18 Pro Max": 47
+      },
+      "新店裕隆城": {
+        "watch": 14,
+        "iphone18pro|iPhone 18 Pro": 51,
+        "iphone18pro|iPhone 18 Pro Max": 115
+      },
+      "微風": {
+        "watch": 7,
+        "iphone18pro|iPhone 18 Pro Max": 63,
+        "iphone18pro|iPhone 18 Pro": 36
+      },
+      "新西門": {
+        "watch": 10,
+        "iphone18pro|iPhone 18 Pro": 58,
+        "iphone18pro|iPhone 18 Pro Max": 143
+      },
+      "永和": {
+        "watch": 11,
+        "iphone18pro|iPhone 18 Pro": 27,
+        "iphone18pro|iPhone 18 Pro Max": 48
+      },
+      "板橋誠品": {
+        "watch": 4,
+        "iphone18pro|iPhone 18 Pro Max": 60,
+        "iphone18pro|iPhone 18 Pro": 48
+      },
+      "板橋遠百": {
+        "watch": 12,
+        "iphone18pro|iPhone 18 Pro Max": 107,
+        "iphone18pro|iPhone 18 Pro": 111
+      },
+      "大葉高島屋": {
+        "watch": 5,
+        "iphone18pro|iPhone 18 Pro": 25,
+        "iphone18pro|iPhone 18 Pro Max": 30
+      },
+      "新莊宏匯": {
+        "watch": 13,
+        "iphone18pro|iPhone 18 Pro": 44,
+        "iphone18pro|iPhone 18 Pro Max": 71
+      },
+      "阿波羅": {
+        "watch": 18,
+        "iphone18pro|iPhone 18 Pro": 98,
+        "iphone18pro|iPhone 18 Pro Max": 116
+      },
+      "花蓮": {
+        "watch": 2,
+        "iphone18pro|iPhone 18 Pro": 18,
+        "iphone18pro|iPhone 18 Pro Max": 25
+      }
+    },
+    "by_group_alloc": {},
+    "by_group_arrived": {},
+    "by_store_group_alloc": {}
+  }
+}
