@@ -1,55 +1,55 @@
 {
   "by_store_model_active": {
     "新店裕隆城": {
-      "watch": 12,
-      "iphone18pro": 158
+      "watch": 14,
+      "iphone18pro": 166
     },
     "新西門": {
       "watch": 10,
-      "iphone18pro": 196
+      "iphone18pro": 200
     },
     "永和": {
       "watch": 11,
-      "iphone18pro": 69
+      "iphone18pro": 74
     },
     "板橋誠品": {
       "watch": 4,
-      "iphone18pro": 102
+      "iphone18pro": 108
     },
     "板橋遠百": {
       "watch": 12,
-      "iphone18pro": 207
+      "iphone18pro": 213
     },
     "新莊宏匯": {
       "watch": 13,
-      "iphone18pro": 104
+      "iphone18pro": 112
     },
     "花蓮": {
       "watch": 2,
-      "iphone18pro": 42
+      "iphone18pro": 43
     }
   },
   "by_store_cancel_abandon": {
     "新西門": {
-      "cancel": 14
+      "cancel": 16
     },
     "新莊宏匯": {
       "cancel": 15
     },
     "板橋遠百": {
-      "cancel": 22
+      "cancel": 28
     },
     "板橋誠品": {
-      "cancel": 9
-    },
-    "永和": {
-      "cancel": 12
-    },
-    "新店裕隆城": {
-      "cancel": 18
+      "cancel": 17
     },
     "花蓮": {
-      "cancel": 4
+      "cancel": 5
+    },
+    "永和": {
+      "cancel": 14
+    },
+    "新店裕隆城": {
+      "cancel": 19
     }
   }
 }
