@@ -1,0 +1,9 @@
+{
+  "name": "北區",
+  "sub_regions": ["n1", "n2"],
+  "webhook_env": "DISCORD_WEBHOOK",
+  "history_file": "state/history_all.json",
+  "alert_state_file": "state/alert_state_all.json",
+  "html_output": "docs/index.html",
+  "pages_url": "https://harveyzxc15.github.io/studioa-reservation/"
+}

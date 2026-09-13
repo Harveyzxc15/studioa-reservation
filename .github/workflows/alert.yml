@@ -1,4 +1,4 @@
-name: Reservation Alert
+name: Alert 北區合併
 
 on:
   schedule:
@@ -25,14 +25,14 @@ jobs:
         env:
           STUDIOA_TOKEN:    ${{ secrets.STUDIOA_TOKEN }}
           DISCORD_WEBHOOK:  ${{ secrets.DISCORD_WEBHOOK }}
-        run: python alert.py --region n1
+        run: python alert.py --region all
 
       - name: Commit updated alert state
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add state/
-          git diff --cached --quiet || git commit -m "chore: update alert state $(date -u +'%Y-%m-%d %H:%M')"
+          git diff --cached --quiet || git commit -m "chore: 北區 alert state $(date -u +'%Y-%m-%d %H:%M')"
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push && break
             echo "push 失敗（第 $i 次），另一區可能同時在寫，稍後重試"

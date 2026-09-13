@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Studio A 預約即時異動通知
-每 8 小時執行，有異動才推送 Discord（新增預約 / 取消 / 放棄）
+依排程執行，有異動才推送 Discord（新增預約 / 取消 / 放棄）
 """
 
 import argparse
@@ -20,8 +20,23 @@ import requests
 CONFIG_PATH = Path.home() / "studioa_reservation_config.json"
 REPO_DIR    = Path(__file__).parent
 
+def load_region(region):
+    """讀區域設定；有 sub_regions 的（如 all）會把子區的門市合併進來"""
+    cfg = json.loads((REPO_DIR / "regions" / f"{region}.json").read_text())
+    if cfg.get("sub_regions"):
+        subs = [json.loads((REPO_DIR / "regions" / f"{r}.json").read_text()) for r in cfg["sub_regions"]]
+        cfg["shops"]    = [s for sub in subs for s in sub["shops"]]
+        cfg["shop_ids"] = {k: v for sub in subs for k, v in sub["shop_ids"].items()}
+        cfg["regions"]  = [{"name": sub["name"], "shops": sub["shops"],
+                            "alert_state_file": sub["alert_state_file"]} for sub in subs]
+    else:
+        cfg["regions"] = [{"name": cfg["name"], "shops": cfg["shops"],
+                           "alert_state_file": cfg["alert_state_file"]}]
+    return cfg
+
+
 def load_config(region: str = "n1"):
-    region_cfg = json.loads((REPO_DIR / "regions" / f"{region}.json").read_text())
+    region_cfg = load_region(region)
     activities = json.loads((REPO_DIR / "activities.json").read_text())["activities"]
 
     local = json.loads(CONFIG_PATH.read_text()) if CONFIG_PATH.exists() else {}
@@ -41,6 +56,7 @@ def load_config(region: str = "n1"):
         "shop_ids":         region_cfg["shop_ids"],
         "alert_state_file": str(REPO_DIR / region_cfg["alert_state_file"]),
         "region_name":      region_cfg["name"],
+        "regions":          region_cfg["regions"],
         "discord_webhook":  webhook,
     }
 
@@ -106,7 +122,19 @@ def summarise(items, cfg):
 # ── 狀態存取 ──────────────────────────────────────────────────────────
 def load_state(cfg):
     p = Path(cfg.get("alert_state_file", str(REPO_DIR / "state" / "alert_state_n1.json")))
-    return json.loads(p.read_text()) if p.exists() else None
+    if p.exists():
+        return json.loads(p.read_text())
+    if len(cfg["regions"]) < 2:
+        return None
+    merged = {"by_store_model_active": {}, "by_store_cancel_abandon": {}}
+    for r in cfg["regions"]:
+        sp = REPO_DIR / r["alert_state_file"]
+        if not sp.exists():
+            return None   # 任一子區沒有基準就重新建立，避免誤報
+        sub = json.loads(sp.read_text())
+        for key in merged:
+            merged[key].update(sub.get(key, {}))
+    return merged
 
 def save_state(cfg, state):
     p = Path(cfg.get("alert_state_file", str(REPO_DIR / "state" / "alert_state_n1.json")))
@@ -127,50 +155,46 @@ def group_maps(cfg):
 
 def detect_changes(curr, prev, cfg):
     models, MODEL_DOT, MODEL_SHORT = group_maps(cfg)
-    shops  = cfg.get("shops", [])
+    multi   = len(cfg["regions"]) > 1
     changes = []
 
-    # ── 已預約變動 ────────────────────────────────────────────────────
-    new_reservations = []
-    lost_reservations = []
-    for store in shops:
-        for model in models:
-            cur = curr["by_store_model_active"].get(store, {}).get(model, 0)
-            old = prev["by_store_model_active"].get(store, {}).get(model, 0)
-            if cur > old:
-                dot = MODEL_DOT.get(model, "⚪")
-                new_reservations.append(
-                    f"　{dot}{MODEL_SHORT.get(model, model)} {store} +{cur - old}（共 {cur} 人）"
-                )
-            elif cur < old:
-                dot = MODEL_DOT.get(model, "⚪")
-                lost_reservations.append(
-                    f"　{dot}{MODEL_SHORT.get(model, model)} {store} {cur - old}（共 {cur} 人）"
-                )
+    def by_region(line_fn):
+        """對每區的門市產生行；多區時加上區名小標，沒變動的區不印"""
+        blocks = []
+        for r in cfg["regions"]:
+            lines = [ln for store in r["shops"] for ln in line_fn(store)]
+            if not lines:
+                continue
+            blocks.append((f"　**{r['name']}**\n" if multi else "") + "\n".join(lines))
+        return "\n".join(blocks)
 
-    if new_reservations:
-        changes.append("➕ **新增等待：**\n" + "\n".join(new_reservations))
-    if lost_reservations:
-        changes.append("➖ **等待減少：**\n" + "\n".join(lost_reservations))
+    def active_lines(sign):
+        def fn(store):
+            out = []
+            for model in models:
+                cur = curr["by_store_model_active"].get(store, {}).get(model, 0)
+                old = prev["by_store_model_active"].get(store, {}).get(model, 0)
+                if (sign > 0 and cur > old) or (sign < 0 and cur < old):
+                    d = cur - old
+                    out.append(f"　{MODEL_DOT.get(model, '⚪')}{MODEL_SHORT.get(model, model)} "
+                               f"{store} {'+' if d > 0 else ''}{d}（共 {cur} 人）")
+            return out
+        return fn
 
-    # ── 取消 / 放棄變動 ───────────────────────────────────────────────
-    cancel_lines  = []
-    abandon_lines = []
-    for store in shops:
-        cur_c = curr["by_store_cancel_abandon"].get(store, {}).get("cancel", 0)
-        old_c = prev["by_store_cancel_abandon"].get(store, {}).get("cancel", 0)
-        cur_a = curr["by_store_cancel_abandon"].get(store, {}).get("abandon", 0)
-        old_a = prev["by_store_cancel_abandon"].get(store, {}).get("abandon", 0)
+    def ca_lines(kind):
+        def fn(store):
+            cur = curr["by_store_cancel_abandon"].get(store, {}).get(kind, 0)
+            old = prev["by_store_cancel_abandon"].get(store, {}).get(kind, 0)
+            return [f"　{store} +{cur - old}（累計 {cur}）"] if cur > old else []
+        return fn
 
-        if cur_c > old_c:
-            cancel_lines.append(f"　{store} +{cur_c - old_c}（累計 {cur_c}）")
-        if cur_a > old_a:
-            abandon_lines.append(f"　{store} +{cur_a - old_a}（累計 {cur_a}）")
-
-    if cancel_lines:
-        changes.append("❌ **取消：**\n" + "\n".join(cancel_lines))
-    if abandon_lines:
-        changes.append("🚫 **放棄：**\n" + "\n".join(abandon_lines))
+    for title, fn in (("➕ **新增等待：**", active_lines(+1)),
+                      ("➖ **等待減少：**", active_lines(-1)),
+                      ("❌ **取消：**",     ca_lines("cancel")),
+                      ("🚫 **放棄：**",     ca_lines("abandon"))):
+        body = by_region(fn)
+        if body:
+            changes.append(f"{title}\n{body}")
 
     return changes
 
@@ -179,23 +203,24 @@ def send_alert(cfg, changes, curr, now_str):
     models, MODEL_DOT, MODEL_SHORT = group_maps(cfg)
     shops  = cfg.get("shops", [])
 
-    # 目前等待池總覽（簡短）
-    total = sum(
-        curr["by_store_model_active"].get(s, {}).get(m, 0)
-        for s in shops for m in models
-    )
-    by_model = {}
-    for m in models:
-        by_model[m] = sum(
-            curr["by_store_model_active"].get(s, {}).get(m, 0) for s in shops
-        )
+    # 目前等待池總覽：各區總計＋全部合計
+    def region_total(shops):
+        return sum(curr["by_store_model_active"].get(s, {}).get(m, 0) for s in shops for m in models)
+
+    total = region_total(cfg.get("shops", []))
+    by_model = {m: sum(curr["by_store_model_active"].get(s, {}).get(m, 0) for s in cfg.get("shops", []))
+                for m in models}
     model_str = "　".join(
         f"{MODEL_DOT.get(m,'⚪')}{MODEL_SHORT.get(m,m)} {c}"
         for m, c in by_model.items() if c
     ) or "（目前無等待中預約）"
 
     desc = "\n\n".join(changes)
-    desc += f"\n\n> 目前等待到貨：**{total} 人**　{model_str}"
+    if len(cfg["regions"]) > 1:
+        region_str = "・".join(f"{r['name']} {region_total(r['shops'])}" for r in cfg["regions"])
+        desc += f"\n\n> 目前等待到貨：**{total} 人**（{region_str}）\n> {model_str}"
+    else:
+        desc += f"\n\n> 目前等待到貨：**{total} 人**　{model_str}"
 
     region_name = cfg.get("region_name", "")
     embed = {
@@ -215,8 +240,8 @@ def send_alert(cfg, changes, curr, now_str):
 # ── 主程式 ────────────────────────────────────────────────────────────
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--region", default="n1", choices=["n1", "n2"],
-                        help="執行區域：n1=北一區, n2=北二區")
+    parser.add_argument("--region", default="n1", choices=["n1", "n2", "all"],
+                        help="執行區域：n1=北一區, n2=北二區, all=兩區合併")
     args   = parser.parse_args()
     cfg    = load_config(args.region)
     now     = datetime.now()

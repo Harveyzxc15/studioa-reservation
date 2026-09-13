@@ -1,4 +1,4 @@
-name: Daily Report (10 AM)
+name: Daily Report 北區合併 (10 AM)
 
 on:
   schedule:
@@ -27,14 +27,14 @@ jobs:
         env:
           STUDIOA_TOKEN:    ${{ secrets.STUDIOA_TOKEN }}
           DISCORD_WEBHOOK:  ${{ secrets.DISCORD_WEBHOOK }}
-        run: python report.py --region n1
+        run: python report.py --region all
 
       - name: Commit updated state & HTML
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add state/ docs/
-          git diff --cached --quiet || git commit -m "chore: daily report $(date -u +'%Y-%m-%d')"
+          git diff --cached --quiet || git commit -m "chore: 北區 daily report $(date -u +'%Y-%m-%d')"
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push && break
             echo "push 失敗（第 $i 次），另一區可能同時在寫，稍後重試"

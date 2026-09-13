@@ -1,8 +1,8 @@
 name: Alert N2
 
 on:
-  schedule:
-    - cron: '10 2,4,6,8,10,12,14,16 * * *'  # 台灣 10/12/14/16/18/20/22/00，與北一區錯開 10 分鐘
+  # 2026/09/13 起北二區併入 daily_report.yml / alert.yml 的北區合併通知，
+  # 排程已停用，只留手動觸發。要恢復分區通知時把 schedule 加回來即可。
   workflow_dispatch:
 
 jobs:

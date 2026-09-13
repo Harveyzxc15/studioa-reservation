@@ -36,9 +36,24 @@ MAX_BATCH_EMBED = 8
 TOP_SPEC_GROUPS = 8
 
 
+def load_region(region):
+    """讀區域設定；有 sub_regions 的（如 all）會把子區的門市與歷史檔合併進來"""
+    cfg = json.loads((REPO_DIR / "regions" / f"{region}.json").read_text())
+    if cfg.get("sub_regions"):
+        subs = [json.loads((REPO_DIR / "regions" / f"{r}.json").read_text()) for r in cfg["sub_regions"]]
+        cfg["shops"]    = [s for sub in subs for s in sub["shops"]]
+        cfg["shop_ids"] = {k: v for sub in subs for k, v in sub["shop_ids"].items()}
+        cfg["regions"]  = [{"name": sub["name"], "shops": sub["shops"],
+                            "history_file": str(REPO_DIR / sub["history_file"])} for sub in subs]
+    else:
+        cfg["regions"] = [{"name": cfg["name"], "shops": cfg["shops"],
+                           "history_file": str(REPO_DIR / cfg["history_file"])}]
+    return cfg
+
+
 def load_config(region: str = "n1"):
     """token / webhook 取自環境變數，本機沒設時退回 ~/studioa_reservation_config.json"""
-    region_cfg = json.loads((REPO_DIR / "regions" / f"{region}.json").read_text())
+    region_cfg = load_region(region)
     activities = json.loads((REPO_DIR / "activities.json").read_text())["activities"]
 
     local = {}
@@ -63,6 +78,7 @@ def load_config(region: str = "n1"):
         "html_output":     str(REPO_DIR / region_cfg["html_output"]),
         "pages_url":       region_cfg["pages_url"],
         "region_name":     region_cfg["name"],
+        "regions":         region_cfg["regions"],
         "discord_webhook": webhook,
     }
 
@@ -284,9 +300,30 @@ def save_history(cfg, today_str, stats):
     Path(cfg["history_file"]).write_text(json.dumps(history, ensure_ascii=False, indent=2))
     return history
 
-def get_yesterday(history, today_str):
+def get_yesterday(cfg, history, today_str):
     dates = sorted(d for d in history if d != today_str)
-    return history[dates[-1]] if dates else None
+    if dates:
+        return history[dates[-1]]
+    if len(cfg["regions"]) < 2:
+        return None
+
+    # 合併模式第一次跑：把各子區最近一天（且為新格式）的紀錄加總
+    merged = {"by_group_active": defaultdict(int), "by_store_group_active": {},
+              "by_group_alloc": defaultdict(int), "by_group_arrived": defaultdict(int)}
+    for r in cfg["regions"]:
+        p = Path(r["history_file"])
+        if not p.exists():
+            return None
+        sub = json.loads(p.read_text())
+        sub_dates = sorted(d for d in sub if d != today_str and "by_group_active" in sub[d])
+        if not sub_dates:
+            return None
+        day = sub[sub_dates[-1]]
+        for k in ("by_group_active", "by_group_alloc", "by_group_arrived"):
+            for g, n in day.get(k, {}).items():
+                merged[k][g] += n
+        merged["by_store_group_active"].update(day.get("by_store_group_active", {}))
+    return {k: dict(v) for k, v in merged.items()}
 
 # ── Discord ───────────────────────────────────────────────────────────
 def diff_label(cur, prev):
@@ -390,6 +427,22 @@ def build_embeds(cfg, stats, today_str, yesterday):
 
     diff_txt = f"（{diff_label(total_active, prev_active)}）" if prev_active is not None else ""
     head_lines = [f"**等待到貨 {total_active} 人**{diff_txt}・今日新增 {len(stats['today_new'])}"]
+
+    multi = len(cfg["regions"]) > 1
+
+    def region_active(r, day):
+        """某區所有門市的等待到貨合計；day=None 代表沒有前一日資料"""
+        if day is None:
+            return None
+        src = day.get("by_store_group_active", {})
+        return sum(sum(src.get(s, {}).values()) for s in r["shops"])
+
+    if multi:
+        head_lines.append("・".join(
+            f"{r['name']} **{region_active(r, stats)}**"
+            + (f"（{diff_label(region_active(r, stats), region_active(r, yesterday))}）" if yesterday else "")
+            for r in cfg["regions"]
+        ))
     extra = []
     if total_alloc:
         extra.append(f"📦 已配貨待取機 {total_alloc}")
@@ -439,10 +492,12 @@ def build_embeds(cfg, stats, today_str, yesterday):
 
     # 手機活動（有 split_by_model 的）另外用表格呈現各門市狀況
     phone_groups = [g for g in order if "|" in g]
-    stores_sorted = sorted(
-        [s for s in cfg["shops"] if stats["by_store_group_active"].get(s)],
-        key=lambda s: -sum(stats["by_store_group_active"][s].values()),
-    )
+
+    def sorted_shops(shops):
+        return sorted([s for s in shops if stats["by_store_group_active"].get(s)],
+                      key=lambda s: -sum(stats["by_store_group_active"][s].values()))
+
+    stores_sorted = sorted_shops(cfg["shops"])
 
     if phone_groups and stores_sorted:
         # 表一：各門市 × 機型（容量明細在「各活動」與 HTML，手機版排不下）
@@ -451,11 +506,21 @@ def build_embeds(cfg, stats, today_str, yesterday):
             for g in phone_groups
         ] + ["合計"]
         rows = []
-        for st in stores_sorted:
-            per_model = [stats["by_store_group_active"].get(st, {}).get(g, 0) for g in phone_groups]
-            if not sum(per_model):
+        for r in cfg["regions"]:
+            region_rows, sub = [], [0] * len(phone_groups)
+            for st in sorted_shops(r["shops"]):
+                per_model = [stats["by_store_group_active"].get(st, {}).get(g, 0) for g in phone_groups]
+                if not sum(per_model):
+                    continue
+                sub = [a + b for a, b in zip(sub, per_model)]
+                region_rows.append([st] + [str(v) for v in per_model] + [str(sum(per_model))])
+            if not region_rows:
                 continue
-            rows.append([st] + [str(v) for v in per_model] + [str(sum(per_model))])
+            if multi:
+                rows.append([f"【{r['name']}】"] + [""] * (len(headers) - 1))
+            rows.extend(region_rows)
+            if multi:
+                rows.append([f"{r['name']}小計"] + [str(v) for v in sub] + [str(sum(sub))])
         if rows:
             embeds.append({
                 "title": "📱 各門市手機預約",
@@ -470,27 +535,45 @@ def build_embeds(cfg, stats, today_str, yesterday):
                 color_tot[cname] += n
         col_order = [c for c, _ in sorted(color_tot.items(), key=lambda x: -x[1])][:4]
 
+        def pct_row(label, cmap):
+            total = sum(cmap.values())
+            return [label] + [f"{round(cmap.get(c, 0) / total * 100)}%" for c in col_order]
+
         headers2 = ["門市"] + [color_abbr(c) for c in col_order]
         rows2 = []
-        for st in stores_sorted:
-            cmap  = stats["by_store_color_active"].get(st, {})
-            total = sum(cmap.values())
-            if not total:
+        for r in cfg["regions"]:
+            region_rows, sub = [], defaultdict(int)
+            for st in sorted_shops(r["shops"]):
+                cmap = stats["by_store_color_active"].get(st, {})
+                if not sum(cmap.values()):
+                    continue
+                for c, n in cmap.items():
+                    sub[c] += n
+                region_rows.append(pct_row(st, cmap))
+            if not region_rows:
                 continue
-            rows2.append([st] + [f"{round(cmap.get(c, 0) / total * 100)}%" for c in col_order])
+            if multi:
+                rows2.append([f"【{r['name']}】"] + [""] * len(col_order))
+            rows2.extend(region_rows)
+            if multi:
+                rows2.append(pct_row(f"{r['name']}小計", sub))
         if rows2:
-            total_all = sum(color_tot.values())
-            rows2.append(["全區"] + [f"{round(color_tot[c] / total_all * 100)}%" for c in col_order])
+            rows2.append(pct_row("合計" if multi else "全區", color_tot))
             embeds.append({
                 "title": "🎨 各門市顏色佔比",
                 "description": render_table(headers2, rows2),
                 "color": 0x8e44ad,
             })
 
-    # 各門市總計（含 Watch 等非手機活動）
-    store_txt = "・".join(
-        f"{st} {sum(stats['by_store_group_active'][st].values())}" for st in stores_sorted
-    ) or "（尚無資料）"
+    # 各門市總計（含 Watch 等非手機活動），多區時一區一行
+    def shop_line(shops):
+        return "・".join(f"{st} {sum(stats['by_store_group_active'][st].values())}" for st in sorted_shops(shops))
+
+    if multi:
+        store_txt = "\n".join(f"**{r['name']}**　{shop_line(r['shops']) or '（尚無資料）'}"
+                               for r in cfg["regions"])
+    else:
+        store_txt = shop_line(cfg["shops"]) or "（尚無資料）"
 
     embeds.append({
         "title": "🏪 各門市合計",
@@ -744,7 +827,7 @@ new Chart(document.getElementById('trendChart').getContext('2d'), {{
 # ── 主程式 ────────────────────────────────────────────────────────────
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--region", default="n1", choices=["n1", "n2"])
+    parser.add_argument("--region", default="n1", choices=["n1", "n2", "all"])
     parser.add_argument("--dry-run", action="store_true",
                         help="只印訊息，不推送、不寫歷史、不產生 HTML")
     args = parser.parse_args()
@@ -761,7 +844,7 @@ def main():
     print(f"  ✅ 取得 {len(items)} 筆資料（我方門市）")
 
     stats     = analyse(items, cfg, today_str)
-    yesterday = get_yesterday(load_history(cfg), today_str)
+    yesterday = get_yesterday(cfg, load_history(cfg), today_str)
     embeds    = build_embeds(cfg, stats, today_str, yesterday)
 
     if args.dry_run:
