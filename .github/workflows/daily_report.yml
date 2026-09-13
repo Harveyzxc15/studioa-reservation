@@ -2,7 +2,7 @@ name: Daily Report 北區合併 (10 AM)
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # 每天 10:00 台灣時間（UTC+8 → UTC 02:00）
+    - cron: '17 2 * * *'  # 每天 10:17 台灣時間。刻意避開整點：GitHub 整點排程常延遲數小時甚至被丟掉
   workflow_dispatch:
 
 jobs:
