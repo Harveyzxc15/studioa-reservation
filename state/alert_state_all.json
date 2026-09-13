@@ -1,0 +1,97 @@
+{
+  "by_store_model_active": {
+    "新店裕隆城": {
+      "watch": 16,
+      "iphone18pro": 169
+    },
+    "大葉高島屋": {
+      "watch": 5,
+      "iphone18pro": 55
+    },
+    "板橋誠品": {
+      "watch": 4,
+      "iphone18pro": 115
+    },
+    "美麗華": {
+      "watch": 10,
+      "iphone18pro": 139
+    },
+    "阿波羅": {
+      "watch": 19,
+      "iphone18pro": 215
+    },
+    "士林": {
+      "watch": 15,
+      "iphone18pro": 131
+    },
+    "羅東": {
+      "watch": 10,
+      "iphone18pro": 71
+    },
+    "微風": {
+      "watch": 7,
+      "iphone18pro": 102
+    },
+    "新西門": {
+      "watch": 10,
+      "iphone18pro": 201
+    },
+    "永和": {
+      "watch": 11,
+      "iphone18pro": 75
+    },
+    "板橋遠百": {
+      "watch": 12,
+      "iphone18pro": 221
+    },
+    "新莊宏匯": {
+      "watch": 13,
+      "iphone18pro": 120
+    },
+    "花蓮": {
+      "watch": 2,
+      "iphone18pro": 43
+    }
+  },
+  "by_store_cancel_abandon": {
+    "新店裕隆城": {
+      "cancel": 23
+    },
+    "微風": {
+      "cancel": 23
+    },
+    "大葉高島屋": {
+      "cancel": 14
+    },
+    "板橋誠品": {
+      "cancel": 19
+    },
+    "美麗華": {
+      "cancel": 11
+    },
+    "新西門": {
+      "cancel": 17
+    },
+    "士林": {
+      "cancel": 16
+    },
+    "新莊宏匯": {
+      "cancel": 16
+    },
+    "板橋遠百": {
+      "cancel": 30
+    },
+    "羅東": {
+      "cancel": 2
+    },
+    "阿波羅": {
+      "cancel": 29
+    },
+    "花蓮": {
+      "cancel": 5
+    },
+    "永和": {
+      "cancel": 14
+    }
+  }
+}
