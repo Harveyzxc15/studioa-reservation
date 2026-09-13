@@ -4346,5 +4346,47 @@
     "by_group_alloc": {},
     "by_group_arrived": {},
     "by_store_group_alloc": {}
+  },
+  "2026/09/13": {
+    "by_group_active": {
+      "watch": 57,
+      "iphone18pro|iPhone 18 Pro Max": 382,
+      "iphone18pro|iPhone 18 Pro": 300
+    },
+    "by_store_group_active": {
+      "微風": {
+        "watch": 6,
+        "iphone18pro|iPhone 18 Pro Max": 63,
+        "iphone18pro|iPhone 18 Pro": 37
+      },
+      "士林": {
+        "watch": 11,
+        "iphone18pro|iPhone 18 Pro": 58,
+        "iphone18pro|iPhone 18 Pro Max": 68
+      },
+      "美麗華": {
+        "watch": 9,
+        "iphone18pro|iPhone 18 Pro Max": 63,
+        "iphone18pro|iPhone 18 Pro": 63
+      },
+      "羅東": {
+        "watch": 8,
+        "iphone18pro|iPhone 18 Pro Max": 45,
+        "iphone18pro|iPhone 18 Pro": 22
+      },
+      "大葉高島屋": {
+        "watch": 5,
+        "iphone18pro|iPhone 18 Pro Max": 28,
+        "iphone18pro|iPhone 18 Pro": 25
+      },
+      "阿波羅": {
+        "watch": 18,
+        "iphone18pro|iPhone 18 Pro Max": 115,
+        "iphone18pro|iPhone 18 Pro": 95
+      }
+    },
+    "by_group_alloc": {},
+    "by_group_arrived": {},
+    "by_store_group_alloc": {}
   }
 }
