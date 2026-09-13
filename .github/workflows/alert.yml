@@ -1,9 +1,9 @@
 name: Alert 北區合併
 
 on:
-  schedule:
-    - cron: '17 2,4,6,8,10,12,14,16 * * *'  # 台灣 10/12/14/16/18/20/22/00 的第 17 分。避開整點以免被 GitHub 延遲或丟掉
-  workflow_dispatch:         # 允許手動觸發
+  # 2026/09/13 起每個時段改發完整日報（daily_report.yml），異動通知排程停用，只留手動觸發。
+  # 要恢復時把 schedule 加回來，並把 daily_report.yml 的時段改回一天一次，避免同時段重複發送。
+  workflow_dispatch:
 
 jobs:
   alert:
