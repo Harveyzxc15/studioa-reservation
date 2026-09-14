@@ -78,11 +78,21 @@
   },
   "2026/09/14": {
     "by_group_active": {
-      "watch": 137,
-      "iphone18pro|iPhone 18 Pro": 718,
-      "iphone18pro|iPhone 18 Pro Max": 1012
+      "watch": 139,
+      "iphone18pro|iPhone 18 Pro Max": 1016,
+      "iphone18pro|iPhone 18 Pro": 719
     },
     "by_store_group_active": {
+      "板橋誠品": {
+        "watch": 5,
+        "iphone18pro|iPhone 18 Pro Max": 67,
+        "iphone18pro|iPhone 18 Pro": 52
+      },
+      "士林": {
+        "watch": 16,
+        "iphone18pro|iPhone 18 Pro Max": 71,
+        "iphone18pro|iPhone 18 Pro": 63
+      },
       "新莊宏匯": {
         "watch": 16,
         "iphone18pro|iPhone 18 Pro": 48,
@@ -95,8 +105,8 @@
       },
       "阿波羅": {
         "watch": 20,
-        "iphone18pro|iPhone 18 Pro": 109,
-        "iphone18pro|iPhone 18 Pro Max": 126
+        "iphone18pro|iPhone 18 Pro Max": 127,
+        "iphone18pro|iPhone 18 Pro": 109
       },
       "永和": {
         "watch": 12,
@@ -113,20 +123,10 @@
         "iphone18pro|iPhone 18 Pro": 25,
         "iphone18pro|iPhone 18 Pro Max": 33
       },
-      "板橋誠品": {
-        "watch": 4,
-        "iphone18pro|iPhone 18 Pro Max": 67,
-        "iphone18pro|iPhone 18 Pro": 52
-      },
       "美麗華": {
         "watch": 8,
         "iphone18pro|iPhone 18 Pro Max": 75,
         "iphone18pro|iPhone 18 Pro": 74
-      },
-      "士林": {
-        "watch": 15,
-        "iphone18pro|iPhone 18 Pro Max": 69,
-        "iphone18pro|iPhone 18 Pro": 63
       },
       "羅東": {
         "watch": 10,
@@ -135,8 +135,8 @@
       },
       "微風": {
         "watch": 6,
-        "iphone18pro|iPhone 18 Pro Max": 67,
-        "iphone18pro|iPhone 18 Pro": 44
+        "iphone18pro|iPhone 18 Pro": 45,
+        "iphone18pro|iPhone 18 Pro Max": 67
       },
       "新西門": {
         "watch": 10,
@@ -145,8 +145,8 @@
       },
       "板橋遠百": {
         "watch": 12,
-        "iphone18pro|iPhone 18 Pro": 114,
-        "iphone18pro|iPhone 18 Pro Max": 114
+        "iphone18pro|iPhone 18 Pro Max": 115,
+        "iphone18pro|iPhone 18 Pro": 114
       }
     },
     "by_group_alloc": {
