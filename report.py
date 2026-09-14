@@ -18,7 +18,7 @@ import sys
 import warnings
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 
@@ -824,16 +824,49 @@ new Chart(document.getElementById('trendChart').getContext('2d'), {{
     print(f"  ✅ HTML 報表已產生：{out_path}")
     return out_path
 
+
+# ── 防重複：同一時段只發一次（多個觸發來源同時開著時用）─────────────────
+SLOT_HOURS = [0, 10, 12, 14, 16, 18, 20, 22]
+SENT_FILE  = REPO_DIR / "state" / "sent_slots.json"
+
+def taiwan_now():
+    """GitHub runner 是 UTC，一律換算成台灣時間"""
+    return datetime.utcnow() + timedelta(hours=8)
+
+def current_slot(now=None):
+    """台灣時間所屬時段，例如 '2026/09/14 12'；10:00 前算當天 00 時段"""
+    now = now or taiwan_now()
+    hour = max(h for h in SLOT_HOURS if h <= now.hour)
+    return f"{now.strftime('%Y/%m/%d')} {hour:02d}"
+
+def slot_already_sent(slot):
+    if not SENT_FILE.exists():
+        return False
+    return slot in json.loads(SENT_FILE.read_text())
+
+def mark_slot_sent(slot):
+    sent = json.loads(SENT_FILE.read_text()) if SENT_FILE.exists() else []
+    sent = [x for x in sent if x != slot] + [slot]
+    SENT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    SENT_FILE.write_text(json.dumps(sent[-100:], ensure_ascii=False, indent=2))
+
 # ── 主程式 ────────────────────────────────────────────────────────────
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--region", default="n1", choices=["n1", "n2", "all"])
+    parser.add_argument("--force", action="store_true",
+                        help="忽略防重複檢查，同時段已發過也照發（手動補發用）")
     parser.add_argument("--dry-run", action="store_true",
                         help="只印訊息，不推送、不寫歷史、不產生 HTML")
     args = parser.parse_args()
 
     cfg       = load_config(args.region)
-    today_str = datetime.now().strftime("%Y/%m/%d")
+    today_str = taiwan_now().strftime("%Y/%m/%d")   # runner 是 UTC，00:17 那次要算台灣當天
+
+    slot = current_slot()
+    if not args.dry_run and not args.force and slot_already_sent(slot):
+        print(f"⏭️  {slot} 時段已發送過，略過（其他觸發來源已先跑）")
+        return
 
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {cfg['region_name']} 開始抓取預約資料...")
     try:
@@ -866,6 +899,8 @@ def main():
     except Exception as e:
         print(f"❌ Discord 發送失敗：{e}")
         sys.exit(1)
+    mark_slot_sent(slot)
+    print(f"  📝 已記錄 {slot} 時段")
 
 if __name__ == "__main__":
     main()
