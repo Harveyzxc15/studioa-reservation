@@ -6,6 +6,11 @@ on:
   schedule:
     - cron: '17 2,4,6,8,10,12,14,16 * * *'  # 台灣 10/12/14/16/18/20/22/00 第 17 分；GitHub 常延遲，只當備援
   workflow_dispatch:
+    inputs:
+      force:
+        description: '忽略防重複，同時段已發過也照發'
+        type: boolean
+        default: false
 
 # 同時到的觸發排隊依序執行，後到的會讀到先到者寫入的 sent_slots.json 而略過
 concurrency:
@@ -38,7 +43,7 @@ jobs:
         env:
           STUDIOA_TOKEN:    ${{ secrets.STUDIOA_TOKEN }}
           DISCORD_WEBHOOK:  ${{ secrets.DISCORD_WEBHOOK }}
-        run: python report.py --region all
+        run: python report.py --region all ${{ inputs.force && '--force' || '' }}
 
       - name: Commit updated state & HTML
         run: |
