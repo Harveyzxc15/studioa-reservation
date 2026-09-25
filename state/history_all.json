@@ -1341,24 +1341,24 @@
   },
   "2026/09/25": {
     "by_group_active": {
-      "iphone18pro|iPhone 18 Pro Max": 948,
-      "iphone18pro|iPhone 18 Pro": 636
+      "iphone18pro|iPhone 18 Pro Max": 953,
+      "iphone18pro|iPhone 18 Pro": 641
     },
     "by_store_group_active": {
       "板橋誠品": {
-        "iphone18pro|iPhone 18 Pro Max": 73,
-        "iphone18pro|iPhone 18 Pro": 93
+        "iphone18pro|iPhone 18 Pro Max": 74,
+        "iphone18pro|iPhone 18 Pro": 96
       },
       "板橋遠百": {
-        "iphone18pro|iPhone 18 Pro Max": 152,
+        "iphone18pro|iPhone 18 Pro Max": 153,
         "iphone18pro|iPhone 18 Pro": 90
       },
       "花蓮": {
-        "iphone18pro|iPhone 18 Pro Max": 23,
+        "iphone18pro|iPhone 18 Pro Max": 24,
         "iphone18pro|iPhone 18 Pro": 22
       },
       "士林": {
-        "iphone18pro|iPhone 18 Pro Max": 57,
+        "iphone18pro|iPhone 18 Pro Max": 58,
         "iphone18pro|iPhone 18 Pro": 42
       },
       "新店裕隆城": {
@@ -1375,14 +1375,14 @@
       },
       "新西門": {
         "iphone18pro|iPhone 18 Pro Max": 98,
-        "iphone18pro|iPhone 18 Pro": 68
+        "iphone18pro|iPhone 18 Pro": 70
       },
       "永和": {
         "iphone18pro|iPhone 18 Pro Max": 52,
         "iphone18pro|iPhone 18 Pro": 44
       },
       "阿波羅": {
-        "iphone18pro|iPhone 18 Pro Max": 88,
+        "iphone18pro|iPhone 18 Pro Max": 89,
         "iphone18pro|iPhone 18 Pro": 69
       },
       "美麗華": {
@@ -1399,19 +1399,16 @@
       }
     },
     "by_group_alloc": {
-      "iphone18pro|iPhone 18 Pro Max": 5
+      "iphone18pro|iPhone 18 Pro Max": 4
     },
     "by_group_arrived": {
       "watch": 13,
-      "iphone18pro|iPhone 18 Pro Max": 122,
-      "iphone18pro|iPhone 18 Pro": 29
+      "iphone18pro|iPhone 18 Pro Max": 116,
+      "iphone18pro|iPhone 18 Pro": 24
     },
     "by_store_group_alloc": {
       "新店裕隆城": {
         "iphone18pro|iPhone 18 Pro Max": 3
-      },
-      "花蓮": {
-        "iphone18pro|iPhone 18 Pro Max": 1
       },
       "阿波羅": {
         "iphone18pro|iPhone 18 Pro Max": 1
