@@ -1414,5 +1414,81 @@
         "iphone18pro|iPhone 18 Pro Max": 1
       }
     }
+  },
+  "2026/09/26": {
+    "by_group_active": {
+      "iphone18pro|iPhone 18 Pro Max": 952,
+      "iphone18pro|iPhone 18 Pro": 640
+    },
+    "by_store_group_active": {
+      "板橋誠品": {
+        "iphone18pro|iPhone 18 Pro Max": 74,
+        "iphone18pro|iPhone 18 Pro": 97
+      },
+      "板橋遠百": {
+        "iphone18pro|iPhone 18 Pro Max": 154,
+        "iphone18pro|iPhone 18 Pro": 89
+      },
+      "花蓮": {
+        "iphone18pro|iPhone 18 Pro Max": 24,
+        "iphone18pro|iPhone 18 Pro": 21
+      },
+      "士林": {
+        "iphone18pro|iPhone 18 Pro Max": 56,
+        "iphone18pro|iPhone 18 Pro": 40
+      },
+      "新店裕隆城": {
+        "iphone18pro|iPhone 18 Pro Max": 127,
+        "iphone18pro|iPhone 18 Pro": 67
+      },
+      "大葉高島屋": {
+        "iphone18pro|iPhone 18 Pro Max": 34,
+        "iphone18pro|iPhone 18 Pro": 25
+      },
+      "微風": {
+        "iphone18pro|iPhone 18 Pro Max": 67,
+        "iphone18pro|iPhone 18 Pro": 28
+      },
+      "新西門": {
+        "iphone18pro|iPhone 18 Pro Max": 95,
+        "iphone18pro|iPhone 18 Pro": 71
+      },
+      "永和": {
+        "iphone18pro|iPhone 18 Pro Max": 52,
+        "iphone18pro|iPhone 18 Pro": 44
+      },
+      "阿波羅": {
+        "iphone18pro|iPhone 18 Pro Max": 88,
+        "iphone18pro|iPhone 18 Pro": 71
+      },
+      "美麗華": {
+        "iphone18pro|iPhone 18 Pro Max": 66,
+        "iphone18pro|iPhone 18 Pro": 24
+      },
+      "新莊宏匯": {
+        "iphone18pro|iPhone 18 Pro Max": 73,
+        "iphone18pro|iPhone 18 Pro": 46
+      },
+      "羅東": {
+        "iphone18pro|iPhone 18 Pro Max": 42,
+        "iphone18pro|iPhone 18 Pro": 17
+      }
+    },
+    "by_group_alloc": {
+      "iphone18pro|iPhone 18 Pro Max": 4
+    },
+    "by_group_arrived": {
+      "watch": 13,
+      "iphone18pro|iPhone 18 Pro Max": 100,
+      "iphone18pro|iPhone 18 Pro": 21
+    },
+    "by_store_group_alloc": {
+      "新店裕隆城": {
+        "iphone18pro|iPhone 18 Pro Max": 3
+      },
+      "阿波羅": {
+        "iphone18pro|iPhone 18 Pro Max": 1
+      }
+    }
   }
 }
