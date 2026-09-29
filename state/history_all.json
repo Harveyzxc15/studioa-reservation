@@ -1678,17 +1678,17 @@
   },
   "2026/09/29": {
     "by_group_active": {
-      "iphone18pro|iPhone 18 Pro Max": 1051,
-      "iphone18pro|iPhone 18 Pro": 752
+      "iphone18pro|iPhone 18 Pro Max": 1054,
+      "iphone18pro|iPhone 18 Pro": 757
     },
     "by_store_group_active": {
       "板橋誠品": {
         "iphone18pro|iPhone 18 Pro Max": 96,
-        "iphone18pro|iPhone 18 Pro": 103
+        "iphone18pro|iPhone 18 Pro": 102
       },
       "板橋遠百": {
-        "iphone18pro|iPhone 18 Pro Max": 193,
-        "iphone18pro|iPhone 18 Pro": 89
+        "iphone18pro|iPhone 18 Pro Max": 196,
+        "iphone18pro|iPhone 18 Pro": 92
       },
       "花蓮": {
         "iphone18pro|iPhone 18 Pro Max": 22,
@@ -1699,7 +1699,7 @@
         "iphone18pro|iPhone 18 Pro": 51
       },
       "新店裕隆城": {
-        "iphone18pro|iPhone 18 Pro Max": 135,
+        "iphone18pro|iPhone 18 Pro Max": 134,
         "iphone18pro|iPhone 18 Pro": 77
       },
       "大葉高島屋": {
@@ -1711,15 +1711,15 @@
         "iphone18pro|iPhone 18 Pro": 31
       },
       "新西門": {
-        "iphone18pro|iPhone 18 Pro Max": 99,
+        "iphone18pro|iPhone 18 Pro Max": 100,
         "iphone18pro|iPhone 18 Pro": 88
       },
       "永和": {
         "iphone18pro|iPhone 18 Pro Max": 53,
-        "iphone18pro|iPhone 18 Pro": 55
+        "iphone18pro|iPhone 18 Pro": 56
       },
       "阿波羅": {
-        "iphone18pro|iPhone 18 Pro Max": 88,
+        "iphone18pro|iPhone 18 Pro Max": 89,
         "iphone18pro|iPhone 18 Pro": 90
       },
       "美麗華": {
@@ -1727,8 +1727,8 @@
         "iphone18pro|iPhone 18 Pro": 31
       },
       "新莊宏匯": {
-        "iphone18pro|iPhone 18 Pro Max": 84,
-        "iphone18pro|iPhone 18 Pro": 56
+        "iphone18pro|iPhone 18 Pro Max": 83,
+        "iphone18pro|iPhone 18 Pro": 58
       },
       "羅東": {
         "iphone18pro|iPhone 18 Pro Max": 44,
@@ -1740,7 +1740,7 @@
       "iphone18pro|iPhone 18 Pro": 1
     },
     "by_group_arrived": {
-      "iphone18pro|iPhone 18 Pro Max": 18,
+      "iphone18pro|iPhone 18 Pro Max": 17,
       "iphone18pro|iPhone 18 Pro": 2
     },
     "by_store_group_alloc": {
