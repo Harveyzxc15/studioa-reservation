@@ -2179,5 +2179,80 @@
         "iphone18pro|iPhone 18 Pro Max": 1
       }
     }
+  },
+  "2026/10/05": {
+    "by_group_active": {
+      "iphone18pro|iPhone 18 Pro Max": 1139,
+      "iphone18pro|iPhone 18 Pro": 864
+    },
+    "by_store_group_active": {
+      "板橋誠品": {
+        "iphone18pro|iPhone 18 Pro Max": 104,
+        "iphone18pro|iPhone 18 Pro": 108
+      },
+      "花蓮": {
+        "iphone18pro|iPhone 18 Pro Max": 29,
+        "iphone18pro|iPhone 18 Pro": 29
+      },
+      "板橋遠百": {
+        "iphone18pro|iPhone 18 Pro Max": 190,
+        "iphone18pro|iPhone 18 Pro": 120
+      },
+      "士林": {
+        "iphone18pro|iPhone 18 Pro Max": 67,
+        "iphone18pro|iPhone 18 Pro": 65
+      },
+      "新店裕隆城": {
+        "iphone18pro|iPhone 18 Pro Max": 155,
+        "iphone18pro|iPhone 18 Pro": 80
+      },
+      "新西門": {
+        "iphone18pro|iPhone 18 Pro Max": 112,
+        "iphone18pro|iPhone 18 Pro": 94
+      },
+      "大葉高島屋": {
+        "iphone18pro|iPhone 18 Pro Max": 47,
+        "iphone18pro|iPhone 18 Pro": 40
+      },
+      "阿波羅": {
+        "iphone18pro|iPhone 18 Pro Max": 94,
+        "iphone18pro|iPhone 18 Pro": 104
+      },
+      "美麗華": {
+        "iphone18pro|iPhone 18 Pro Max": 78,
+        "iphone18pro|iPhone 18 Pro": 39
+      },
+      "新莊宏匯": {
+        "iphone18pro|iPhone 18 Pro Max": 89,
+        "iphone18pro|iPhone 18 Pro": 67
+      },
+      "微風": {
+        "iphone18pro|iPhone 18 Pro": 33,
+        "iphone18pro|iPhone 18 Pro Max": 72
+      },
+      "永和": {
+        "iphone18pro|iPhone 18 Pro": 63,
+        "iphone18pro|iPhone 18 Pro Max": 60
+      },
+      "羅東": {
+        "iphone18pro|iPhone 18 Pro Max": 42,
+        "iphone18pro|iPhone 18 Pro": 22
+      }
+    },
+    "by_group_alloc": {
+      "iphone18pro|iPhone 18 Pro Max": 2
+    },
+    "by_group_arrived": {
+      "iphone18pro|iPhone 18 Pro Max": 12,
+      "iphone18pro|iPhone 18 Pro": 18
+    },
+    "by_store_group_alloc": {
+      "新店裕隆城": {
+        "iphone18pro|iPhone 18 Pro Max": 1
+      },
+      "大葉高島屋": {
+        "iphone18pro|iPhone 18 Pro Max": 1
+      }
+    }
   }
 }
