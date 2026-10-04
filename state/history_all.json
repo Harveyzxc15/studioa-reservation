@@ -2107,8 +2107,8 @@
   },
   "2026/10/04": {
     "by_group_active": {
-      "iphone18pro|iPhone 18 Pro Max": 1121,
-      "iphone18pro|iPhone 18 Pro": 850
+      "iphone18pro|iPhone 18 Pro Max": 1124,
+      "iphone18pro|iPhone 18 Pro": 855
     },
     "by_store_group_active": {
       "板橋誠品": {
@@ -2116,12 +2116,12 @@
         "iphone18pro|iPhone 18 Pro": 107
       },
       "花蓮": {
-        "iphone18pro|iPhone 18 Pro Max": 26,
-        "iphone18pro|iPhone 18 Pro": 26
+        "iphone18pro|iPhone 18 Pro Max": 27,
+        "iphone18pro|iPhone 18 Pro": 28
       },
       "板橋遠百": {
         "iphone18pro|iPhone 18 Pro Max": 192,
-        "iphone18pro|iPhone 18 Pro": 118
+        "iphone18pro|iPhone 18 Pro": 119
       },
       "士林": {
         "iphone18pro|iPhone 18 Pro Max": 65,
@@ -2132,7 +2132,7 @@
         "iphone18pro|iPhone 18 Pro": 79
       },
       "新西門": {
-        "iphone18pro|iPhone 18 Pro Max": 112,
+        "iphone18pro|iPhone 18 Pro Max": 113,
         "iphone18pro|iPhone 18 Pro": 95
       },
       "大葉高島屋": {
@@ -2144,11 +2144,11 @@
         "iphone18pro|iPhone 18 Pro": 101
       },
       "美麗華": {
-        "iphone18pro|iPhone 18 Pro Max": 76,
-        "iphone18pro|iPhone 18 Pro": 37
+        "iphone18pro|iPhone 18 Pro Max": 77,
+        "iphone18pro|iPhone 18 Pro": 38
       },
       "新莊宏匯": {
-        "iphone18pro|iPhone 18 Pro Max": 85,
+        "iphone18pro|iPhone 18 Pro Max": 86,
         "iphone18pro|iPhone 18 Pro": 67
       },
       "微風": {
@@ -2160,16 +2160,16 @@
         "iphone18pro|iPhone 18 Pro Max": 53
       },
       "羅東": {
-        "iphone18pro|iPhone 18 Pro Max": 44,
-        "iphone18pro|iPhone 18 Pro": 22
+        "iphone18pro|iPhone 18 Pro Max": 43,
+        "iphone18pro|iPhone 18 Pro": 23
       }
     },
     "by_group_alloc": {
       "iphone18pro|iPhone 18 Pro Max": 2
     },
     "by_group_arrived": {
-      "iphone18pro|iPhone 18 Pro Max": 21,
-      "iphone18pro|iPhone 18 Pro": 29
+      "iphone18pro|iPhone 18 Pro Max": 20,
+      "iphone18pro|iPhone 18 Pro": 28
     },
     "by_store_group_alloc": {
       "新店裕隆城": {
