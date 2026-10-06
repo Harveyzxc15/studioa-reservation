@@ -2303,21 +2303,21 @@
   },
   "2026/10/06": {
     "by_group_active": {
-      "iphone18pro|iPhone 18 Pro Max": 1081,
-      "iphone18pro|iPhone 18 Pro": 747
+      "iphone18pro|iPhone 18 Pro Max": 1083,
+      "iphone18pro|iPhone 18 Pro": 752
     },
     "by_store_group_active": {
       "板橋誠品": {
-        "iphone18pro|iPhone 18 Pro Max": 97,
-        "iphone18pro|iPhone 18 Pro": 98
+        "iphone18pro|iPhone 18 Pro Max": 98,
+        "iphone18pro|iPhone 18 Pro": 99
       },
       "板橋遠百": {
         "iphone18pro|iPhone 18 Pro Max": 175,
-        "iphone18pro|iPhone 18 Pro": 92
+        "iphone18pro|iPhone 18 Pro": 93
       },
       "士林": {
         "iphone18pro|iPhone 18 Pro Max": 73,
-        "iphone18pro|iPhone 18 Pro": 56
+        "iphone18pro|iPhone 18 Pro": 57
       },
       "新店裕隆城": {
         "iphone18pro|iPhone 18 Pro Max": 151,
@@ -2328,7 +2328,7 @@
         "iphone18pro|iPhone 18 Pro": 81
       },
       "大葉高島屋": {
-        "iphone18pro|iPhone 18 Pro Max": 46,
+        "iphone18pro|iPhone 18 Pro Max": 45,
         "iphone18pro|iPhone 18 Pro": 29
       },
       "美麗華": {
@@ -2341,11 +2341,11 @@
       },
       "永和": {
         "iphone18pro|iPhone 18 Pro": 55,
-        "iphone18pro|iPhone 18 Pro Max": 56
+        "iphone18pro|iPhone 18 Pro Max": 55
       },
       "阿波羅": {
-        "iphone18pro|iPhone 18 Pro Max": 91,
-        "iphone18pro|iPhone 18 Pro": 92
+        "iphone18pro|iPhone 18 Pro Max": 92,
+        "iphone18pro|iPhone 18 Pro": 94
       },
       "羅東": {
         "iphone18pro|iPhone 18 Pro Max": 33,
@@ -2353,7 +2353,7 @@
       },
       "新莊宏匯": {
         "iphone18pro|iPhone 18 Pro": 58,
-        "iphone18pro|iPhone 18 Pro Max": 86
+        "iphone18pro|iPhone 18 Pro Max": 88
       },
       "花蓮": {
         "iphone18pro|iPhone 18 Pro Max": 23,
@@ -2362,11 +2362,11 @@
     },
     "by_group_alloc": {
       "iphone18pro|iPhone 18 Pro Max": 67,
-      "iphone18pro|iPhone 18 Pro": 138
+      "iphone18pro|iPhone 18 Pro": 135
     },
     "by_group_arrived": {
       "iphone18pro|iPhone 18 Pro Max": 5,
-      "iphone18pro|iPhone 18 Pro": 6
+      "iphone18pro|iPhone 18 Pro": 8
     },
     "by_store_group_alloc": {
       "花蓮": {
@@ -2379,11 +2379,11 @@
       },
       "阿波羅": {
         "iphone18pro|iPhone 18 Pro Max": 5,
-        "iphone18pro|iPhone 18 Pro": 18
+        "iphone18pro|iPhone 18 Pro": 16
       },
       "新莊宏匯": {
         "iphone18pro|iPhone 18 Pro Max": 4,
-        "iphone18pro|iPhone 18 Pro": 7
+        "iphone18pro|iPhone 18 Pro": 6
       },
       "羅東": {
         "iphone18pro|iPhone 18 Pro": 4,
