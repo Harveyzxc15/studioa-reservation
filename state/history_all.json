@@ -2798,7 +2798,7 @@
   "2026/10/11": {
     "by_group_active": {
       "iphone18pro|iPhone 18 Pro Max": 1003,
-      "iphone18pro|iPhone 18 Pro": 227
+      "iphone18pro|iPhone 18 Pro": 228
     },
     "by_store_group_active": {
       "阿波羅": {
@@ -2806,11 +2806,11 @@
         "iphone18pro|iPhone 18 Pro": 40
       },
       "微風": {
-        "iphone18pro|iPhone 18 Pro Max": 57,
+        "iphone18pro|iPhone 18 Pro Max": 56,
         "iphone18pro|iPhone 18 Pro": 4
       },
       "新西門": {
-        "iphone18pro|iPhone 18 Pro Max": 97,
+        "iphone18pro|iPhone 18 Pro Max": 95,
         "iphone18pro|iPhone 18 Pro": 26
       },
       "新店裕隆城": {
@@ -2818,19 +2818,23 @@
         "iphone18pro|iPhone 18 Pro": 19
       },
       "板橋遠百": {
-        "iphone18pro|iPhone 18 Pro Max": 161,
-        "iphone18pro|iPhone 18 Pro": 31
+        "iphone18pro|iPhone 18 Pro Max": 165,
+        "iphone18pro|iPhone 18 Pro": 32
       },
       "板橋誠品": {
-        "iphone18pro|iPhone 18 Pro Max": 89,
+        "iphone18pro|iPhone 18 Pro Max": 88,
         "iphone18pro|iPhone 18 Pro": 16
       },
       "永和": {
-        "iphone18pro|iPhone 18 Pro Max": 56,
+        "iphone18pro|iPhone 18 Pro Max": 55,
         "iphone18pro|iPhone 18 Pro": 14
       },
+      "士林": {
+        "iphone18pro|iPhone 18 Pro Max": 62,
+        "iphone18pro|iPhone 18 Pro": 17
+      },
       "美麗華": {
-        "iphone18pro|iPhone 18 Pro Max": 72,
+        "iphone18pro|iPhone 18 Pro Max": 73,
         "iphone18pro|iPhone 18 Pro": 21
       },
       "新莊宏匯": {
@@ -2848,10 +2852,6 @@
       "羅東": {
         "iphone18pro|iPhone 18 Pro": 9,
         "iphone18pro|iPhone 18 Pro Max": 23
-      },
-      "士林": {
-        "iphone18pro|iPhone 18 Pro": 17,
-        "iphone18pro|iPhone 18 Pro Max": 62
       }
     },
     "by_group_alloc": {
@@ -2859,8 +2859,8 @@
       "iphone18pro|iPhone 18 Pro Max": 4
     },
     "by_group_arrived": {
-      "iphone18pro|iPhone 18 Pro Max": 39,
-      "iphone18pro|iPhone 18 Pro": 68
+      "iphone18pro|iPhone 18 Pro Max": 40,
+      "iphone18pro|iPhone 18 Pro": 77
     },
     "by_store_group_alloc": {
       "新莊宏匯": {
