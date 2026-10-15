@@ -3247,17 +3247,21 @@
   },
   "2026/10/15": {
     "by_group_active": {
-      "iphone18pro|iPhone 18 Pro Max": 548,
-      "iphone18pro|iPhone 18 Pro": 107
+      "iphone18pro|iPhone 18 Pro Max": 551,
+      "iphone18pro|iPhone 18 Pro": 111
     },
     "by_store_group_active": {
       "板橋遠百": {
-        "iphone18pro|iPhone 18 Pro Max": 115,
-        "iphone18pro|iPhone 18 Pro": 21
+        "iphone18pro|iPhone 18 Pro Max": 117,
+        "iphone18pro|iPhone 18 Pro": 24
       },
       "新店裕隆城": {
-        "iphone18pro|iPhone 18 Pro Max": 75,
+        "iphone18pro|iPhone 18 Pro Max": 77,
         "iphone18pro|iPhone 18 Pro": 10
+      },
+      "阿波羅": {
+        "iphone18pro|iPhone 18 Pro": 18,
+        "iphone18pro|iPhone 18 Pro Max": 40
       },
       "永和": {
         "iphone18pro|iPhone 18 Pro Max": 30,
@@ -3283,13 +3287,9 @@
         "iphone18pro|iPhone 18 Pro Max": 21,
         "iphone18pro|iPhone 18 Pro": 2
       },
-      "阿波羅": {
-        "iphone18pro|iPhone 18 Pro Max": 40,
-        "iphone18pro|iPhone 18 Pro": 17
-      },
       "新莊宏匯": {
         "iphone18pro|iPhone 18 Pro": 8,
-        "iphone18pro|iPhone 18 Pro Max": 41
+        "iphone18pro|iPhone 18 Pro Max": 40
       },
       "美麗華": {
         "iphone18pro|iPhone 18 Pro Max": 33,
@@ -3305,12 +3305,12 @@
       }
     },
     "by_group_alloc": {
-      "iphone18pro|iPhone 18 Pro Max": 163,
-      "iphone18pro|iPhone 18 Pro": 9
+      "iphone18pro|iPhone 18 Pro Max": 154,
+      "iphone18pro|iPhone 18 Pro": 6
     },
     "by_group_arrived": {
-      "iphone18pro|iPhone 18 Pro Max": 252,
-      "iphone18pro|iPhone 18 Pro": 97
+      "iphone18pro|iPhone 18 Pro Max": 198,
+      "iphone18pro|iPhone 18 Pro": 78
     },
     "by_store_group_alloc": {
       "士林": {
@@ -3328,8 +3328,7 @@
         "iphone18pro|iPhone 18 Pro Max": 4
       },
       "大葉高島屋": {
-        "iphone18pro|iPhone 18 Pro Max": 13,
-        "iphone18pro|iPhone 18 Pro": 3
+        "iphone18pro|iPhone 18 Pro Max": 4
       },
       "阿波羅": {
         "iphone18pro|iPhone 18 Pro Max": 14
