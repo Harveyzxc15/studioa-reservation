@@ -4028,13 +4028,17 @@
   },
   "2026/10/23": {
     "by_group_active": {
-      "iphone18pro|iPhone 18 Pro Max": 400,
+      "iphone18pro|iPhone 18 Pro Max": 399,
       "iphone18pro|iPhone 18 Pro": 99
     },
     "by_store_group_active": {
       "板橋遠百": {
         "iphone18pro|iPhone 18 Pro Max": 128,
         "iphone18pro|iPhone 18 Pro": 18
+      },
+      "新店裕隆城": {
+        "iphone18pro|iPhone 18 Pro Max": 51,
+        "iphone18pro|iPhone 18 Pro": 9
       },
       "阿波羅": {
         "iphone18pro|iPhone 18 Pro": 14,
@@ -4077,10 +4081,6 @@
       "大葉高島屋": {
         "iphone18pro|iPhone 18 Pro Max": 26,
         "iphone18pro|iPhone 18 Pro": 4
-      },
-      "新店裕隆城": {
-        "iphone18pro|iPhone 18 Pro Max": 52,
-        "iphone18pro|iPhone 18 Pro": 9
       }
     },
     "by_group_alloc": {
