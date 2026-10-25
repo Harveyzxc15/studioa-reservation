@@ -4245,12 +4245,20 @@
   "2026/10/25": {
     "by_group_active": {
       "iphone18pro|iPhone 18 Pro Max": 408,
-      "iphone18pro|iPhone 18 Pro": 116
+      "iphone18pro|iPhone 18 Pro": 119
     },
     "by_store_group_active": {
       "板橋遠百": {
         "iphone18pro|iPhone 18 Pro Max": 133,
-        "iphone18pro|iPhone 18 Pro": 21
+        "iphone18pro|iPhone 18 Pro": 22
+      },
+      "阿波羅": {
+        "iphone18pro|iPhone 18 Pro Max": 26,
+        "iphone18pro|iPhone 18 Pro": 16
+      },
+      "士林": {
+        "iphone18pro|iPhone 18 Pro": 12,
+        "iphone18pro|iPhone 18 Pro Max": 23
       },
       "微風": {
         "iphone18pro|iPhone 18 Pro": 3,
@@ -4268,14 +4276,6 @@
         "iphone18pro|iPhone 18 Pro": 10,
         "iphone18pro|iPhone 18 Pro Max": 26
       },
-      "士林": {
-        "iphone18pro|iPhone 18 Pro": 10,
-        "iphone18pro|iPhone 18 Pro Max": 23
-      },
-      "阿波羅": {
-        "iphone18pro|iPhone 18 Pro": 16,
-        "iphone18pro|iPhone 18 Pro Max": 25
-      },
       "美麗華": {
         "iphone18pro|iPhone 18 Pro Max": 32,
         "iphone18pro|iPhone 18 Pro": 3
@@ -4285,7 +4285,7 @@
         "iphone18pro|iPhone 18 Pro Max": 46
       },
       "新西門": {
-        "iphone18pro|iPhone 18 Pro Max": 39,
+        "iphone18pro|iPhone 18 Pro Max": 38,
         "iphone18pro|iPhone 18 Pro": 21
       },
       "大葉高島屋": {
