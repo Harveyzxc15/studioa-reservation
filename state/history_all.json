@@ -4678,25 +4678,36 @@
   },
   "2026/10/29": {
     "by_group_active": {
-      "iphone18pro|iPhone 18 Pro Max": 392,
-      "iphone18pro|iPhone 18 Pro": 134
+      "iphone18pro|iPhone 18 Pro Max": 395,
+      "iphone18pro|iPhone 18 Pro": 136
     },
     "by_store_group_active": {
       "板橋遠百": {
         "iphone18pro|iPhone 18 Pro Max": 138,
         "iphone18pro|iPhone 18 Pro": 35
       },
+      "新店裕隆城": {
+        "iphone18pro|iPhone 18 Pro Max": 45,
+        "iphone18pro|iPhone 18 Pro": 9
+      },
+      "阿波羅": {
+        "iphone18pro|iPhone 18 Pro": 22,
+        "iphone18pro|iPhone 18 Pro Max": 31
+      },
+      "永和": {
+        "iphone18pro|iPhone 18 Pro Max": 26,
+        "iphone18pro|iPhone 18 Pro": 7
+      },
+      "士林": {
+        "iphone18pro|iPhone 18 Pro": 11,
+        "iphone18pro|iPhone 18 Pro Max": 20
+      },
+      "花蓮": {
+        "iphone18pro|iPhone 18 Pro Max": 9
+      },
       "微風": {
         "iphone18pro|iPhone 18 Pro Max": 5,
         "iphone18pro|iPhone 18 Pro": 2
-      },
-      "阿波羅": {
-        "iphone18pro|iPhone 18 Pro Max": 31,
-        "iphone18pro|iPhone 18 Pro": 21
-      },
-      "士林": {
-        "iphone18pro|iPhone 18 Pro": 10,
-        "iphone18pro|iPhone 18 Pro Max": 20
       },
       "板橋誠品": {
         "iphone18pro|iPhone 18 Pro Max": 9,
@@ -4718,20 +4729,9 @@
         "iphone18pro|iPhone 18 Pro Max": 29,
         "iphone18pro|iPhone 18 Pro": 4
       },
-      "新店裕隆城": {
-        "iphone18pro|iPhone 18 Pro Max": 44,
-        "iphone18pro|iPhone 18 Pro": 9
-      },
-      "永和": {
-        "iphone18pro|iPhone 18 Pro Max": 25,
-        "iphone18pro|iPhone 18 Pro": 7
-      },
       "羅東": {
         "iphone18pro|iPhone 18 Pro": 1,
         "iphone18pro|iPhone 18 Pro Max": 10
-      },
-      "花蓮": {
-        "iphone18pro|iPhone 18 Pro Max": 8
       }
     },
     "by_group_alloc": {
@@ -4740,7 +4740,7 @@
     },
     "by_group_arrived": {
       "iphone18pro|iPhone 18 Pro": 14,
-      "iphone18pro|iPhone 18 Pro Max": 52
+      "iphone18pro|iPhone 18 Pro Max": 48
     },
     "by_store_group_alloc": {
       "新西門": {
