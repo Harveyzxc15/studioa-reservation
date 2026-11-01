@@ -4968,6 +4968,10 @@
         "iphone18pro|iPhone 18 Pro Max": 137,
         "iphone18pro|iPhone 18 Pro": 25
       },
+      "羅東": {
+        "iphone18pro|iPhone 18 Pro Max": 10,
+        "iphone18pro|iPhone 18 Pro": 1
+      },
       "永和": {
         "iphone18pro|iPhone 18 Pro": 7,
         "iphone18pro|iPhone 18 Pro Max": 22
@@ -5002,7 +5006,7 @@
       },
       "大葉高島屋": {
         "iphone18pro|iPhone 18 Pro": 7,
-        "iphone18pro|iPhone 18 Pro Max": 8
+        "iphone18pro|iPhone 18 Pro Max": 7
       },
       "花蓮": {
         "iphone18pro|iPhone 18 Pro Max": 7
@@ -5010,10 +5014,6 @@
       "微風": {
         "iphone18pro|iPhone 18 Pro Max": 3,
         "iphone18pro|iPhone 18 Pro": 1
-      },
-      "羅東": {
-        "iphone18pro|iPhone 18 Pro": 1,
-        "iphone18pro|iPhone 18 Pro Max": 9
       }
     },
     "by_group_alloc": {
@@ -5021,7 +5021,7 @@
       "iphone18pro|iPhone 18 Pro": 1
     },
     "by_group_arrived": {
-      "iphone18pro|iPhone 18 Pro Max": 37,
+      "iphone18pro|iPhone 18 Pro Max": 35,
       "iphone18pro|iPhone 18 Pro": 19
     },
     "by_store_group_alloc": {
