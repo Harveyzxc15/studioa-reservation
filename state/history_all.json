@@ -4960,13 +4960,13 @@
   },
   "2026/11/01": {
     "by_group_active": {
-      "iphone18pro|iPhone 18 Pro Max": 338,
-      "iphone18pro|iPhone 18 Pro": 117
+      "iphone18pro|iPhone 18 Pro Max": 336,
+      "iphone18pro|iPhone 18 Pro": 118
     },
     "by_store_group_active": {
       "板橋遠百": {
         "iphone18pro|iPhone 18 Pro Max": 137,
-        "iphone18pro|iPhone 18 Pro": 25
+        "iphone18pro|iPhone 18 Pro": 26
       },
       "新西門": {
         "iphone18pro|iPhone 18 Pro": 22,
@@ -4993,7 +4993,7 @@
         "iphone18pro|iPhone 18 Pro Max": 22
       },
       "阿波羅": {
-        "iphone18pro|iPhone 18 Pro Max": 24,
+        "iphone18pro|iPhone 18 Pro Max": 23,
         "iphone18pro|iPhone 18 Pro": 21
       },
       "新店裕隆城": {
@@ -5006,7 +5006,7 @@
       },
       "士林": {
         "iphone18pro|iPhone 18 Pro": 12,
-        "iphone18pro|iPhone 18 Pro Max": 18
+        "iphone18pro|iPhone 18 Pro Max": 17
       },
       "大葉高島屋": {
         "iphone18pro|iPhone 18 Pro": 7,
@@ -5017,18 +5017,13 @@
       }
     },
     "by_group_alloc": {
-      "iphone18pro|iPhone 18 Pro Max": 11,
-      "iphone18pro|iPhone 18 Pro": 1
+      "iphone18pro|iPhone 18 Pro Max": 8
     },
     "by_group_arrived": {
-      "iphone18pro|iPhone 18 Pro Max": 30,
+      "iphone18pro|iPhone 18 Pro Max": 33,
       "iphone18pro|iPhone 18 Pro": 16
     },
     "by_store_group_alloc": {
-      "阿波羅": {
-        "iphone18pro|iPhone 18 Pro Max": 5,
-        "iphone18pro|iPhone 18 Pro": 1
-      },
       "板橋遠百": {
         "iphone18pro|iPhone 18 Pro Max": 2
       },
@@ -5038,7 +5033,13 @@
       "新西門": {
         "iphone18pro|iPhone 18 Pro Max": 2
       },
+      "阿波羅": {
+        "iphone18pro|iPhone 18 Pro Max": 1
+      },
       "永和": {
+        "iphone18pro|iPhone 18 Pro Max": 1
+      },
+      "士林": {
         "iphone18pro|iPhone 18 Pro Max": 1
       }
     }
